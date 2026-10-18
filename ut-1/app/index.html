@@ -351,7 +351,26 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .phone nav.tab{border-radius:var(--ds-radius-card)!important}
 .phone nav.tab button,.phone nav.tab button.plus{border-radius:var(--ds-radius-control)!important;gap:var(--ds-space-2);font-size:var(--ds-text-body)}
 #eventStart,#eventEnd{font-size:var(--ds-text-body)}
-</style></head>
+</style><style id="share-password-styles">
+/* The third share section follows the existing R12 surfaces and R8 controls. */
+#s-share .share-password-section{margin:0}
+.share-password-card{display:flex;align-items:center;gap:12px;border:1px solid #e1e3e7;border-radius:12px;padding:16px;background:#fff}
+.share-password-card>div{flex:1;min-width:0}
+.phone #s-share .share-password-card h2{font-size:16px!important;line-height:1.5;margin:0}
+.share-password-card p{font-size:12px;color:#707070;line-height:1.6;margin:6px 0 0}
+.share-password-card .sw{flex:none}
+#sharePasswordFields[hidden]{display:none!important}
+.share-password-digits{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.phone #s-share .share-password-digit{width:48px;height:48px;border:1px solid #e1e3e7;border-radius:8px;background:#fff;color:#111;padding:0;text-align:center;font:inherit;font-size:24px;font-weight:700;caret-color:#111}
+.share-password-digit:focus{outline:2px solid #111;outline-offset:1px}
+.share-password-error{font-size:12px;line-height:1.6;color:#b3261e;margin:6px 0 0;text-align:center;min-height:0}
+.share-password-error:empty{display:none}
+#s-share button:disabled{opacity:.45;cursor:default}
+@media(min-height:761px){#s-share #qr{width:152px!important;height:152px!important}#s-share #qr canvas,#s-share #qr img{width:128px!important;height:128px!important}}
+.share-password-card{padding:12px}
+
+</style>
+</head>
 <body>
 
 <div class="state">사진 불러오기 상태
@@ -1196,6 +1215,32 @@ function toggleOriginalPhotoPrompt(){skipOriginalPrompt=!skipOriginalPrompt;save
 
 // Review-only draft: sample photo person 0 is the current user.
 function albumPeopleEntries(){var n=Math.max(1,Math.min(4,parseInt(cur.people,10)||1)),others=homeParticipants(cur).filter(name=>name!==profileState.name);return [{id:0,name:'나'}].concat(Array.from({length:n-1},(_,i)=>({id:i+1,name:others[i]||'참여자 '+(i+2)})));}
+
+// Share-screen password controls use the same album/create settings as the entry form.
+var sharePasswordState=null;
+var sharePasswordSection=document.createElement('section');
+sharePasswordSection.id='sharePasswordSettings';sharePasswordSection.className='share-password-section';sharePasswordSection.setAttribute('aria-labelledby','sharePasswordTitle');
+sharePasswordSection.innerHTML='<div class="share-password-card"><div><h2 id="sharePasswordTitle">비밀번호 설정하기</h2><p>비밀번호를 입력해야 공유앨범에 들어올 수 있어요.</p></div><button type="button" id="sharePasswordToggle" class="sw" role="switch" aria-label="공유앨범 비밀번호 설정" aria-checked="false" aria-controls="sharePasswordFields" onclick="toggleSharePassword()"><span></span></button></div><div id="sharePasswordFields" hidden><div class="share-password-digits" role="group" aria-label="입장 비밀번호 숫자 4자리">'+[0,1,2,3].map(i=>'<input type="text" class="share-password-digit" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="입장 비밀번호 '+(i+1)+'번째 숫자" aria-describedby="sharePasswordError" data-share-digit="'+i+'">').join('')+'</div><p class="share-password-error" id="sharePasswordError" aria-live="polite"></p></div>';
+var shareScroll=$('s-share').querySelector('.scroll'),shareOptions=shareScroll.querySelector('.share-inline-options');
+shareScroll.insertBefore(shareScroll.querySelector('.qr-share-heading'),shareOptions);
+shareScroll.insertBefore(shareScroll.querySelector('.ticket'),shareOptions);
+shareScroll.appendChild(sharePasswordSection);
+function sharePasswordCode(){return sharePasswordState.digits.join('');}
+function sharePasswordReady(report){var valid=!sharePasswordState||!sharePasswordState.enabled||sharePasswordState.digits.every(d=>/^[0-9]$/.test(d));if(!valid&&report){$('sharePasswordError').textContent='숫자 4자리를 모두 입력해 주세요.';var input=sharePasswordSection.querySelector('input[value=""]')||Array.from(sharePasswordSection.querySelectorAll('input')).find(e=>!e.value);if(input){input.focus();input.scrollIntoView({block:'center'});}}return valid;}
+function updateSharePasswordControls(){var state=sharePasswordState,valid=sharePasswordReady(false);$('sharePasswordToggle').classList.toggle('on',state.enabled);$('sharePasswordToggle').setAttribute('aria-checked',String(state.enabled));$('sharePasswordFields').hidden=!state.enabled;sharePasswordSection.querySelectorAll('[data-share-digit]').forEach((input,i)=>{if(document.activeElement!==input)input.value=state.digits[i];input.setAttribute('aria-invalid',String(state.enabled&&!/^[0-9]$/.test(state.digits[i])));});$('sharePasswordError').textContent=valid?'':'숫자 4자리를 모두 입력해 주세요.';var expired=Date.now()>=currentInvitation().expiresAt;$('inviteLinkRow').querySelector('button').disabled=expired||!valid;shareOptions.querySelectorAll('button').forEach(b=>b.disabled=expired||!valid);$('s-share').querySelector('.bottom .main').disabled=!valid;}
+function persistSharePassword(){if(!sharePasswordReady(false))return;var state=sharePasswordState,code=sharePasswordCode();if(state.owner){state.owner.entryPasswordEnabled=state.enabled;state.owner.entryPassword=state.enabled?code:null;saveLocalAlbums();}else{$('entryPasswordToggle').classList.toggle('on',state.enabled);$('entryPasswordToggle').setAttribute('aria-checked',String(state.enabled));$('entryPasswordFields').hidden=!state.enabled;$('entryPassword').value=code;updName();}}
+function renderSharePasswordSettings(){var owner=invitationOwner();if(!sharePasswordState||sharePasswordState.owner!==owner){var enabled=owner?!!owner.entryPasswordEnabled:entryPasswordEnabled(),code=owner?owner.entryPassword:$('entryPassword').value;sharePasswordState={owner:owner,enabled:enabled,digits:(/^[0-9]{4}$/.test(code||'')?code:'0000').split('')};}updateSharePasswordControls();$('inviteEntryPassword').hidden=true;$('inviteEntryPassword').textContent='';['invitePrototypeNote','inviteLifecycleNote'].forEach(id=>{if($(id))shareScroll.appendChild($(id));});}
+function toggleSharePassword(){sharePasswordState.enabled=!sharePasswordState.enabled;if(sharePasswordState.enabled&&!sharePasswordState.digits.every(d=>/^[0-9]$/.test(d)))sharePasswordState.digits=['0','0','0','0'];persistSharePassword();updateSharePasswordControls();}
+sharePasswordSection.addEventListener('input',function(e){var input=e.target;if(!input.matches('[data-share-digit]'))return;var i=Number(input.dataset.shareDigit),digit=input.value.replace(/[^0-9]/g,'').slice(-1);input.value=digit;sharePasswordState.digits[i]=digit;persistSharePassword();updateSharePasswordControls();if(digit&&i<3)sharePasswordSection.querySelector('[data-share-digit="'+(i+1)+'"]').focus();});
+sharePasswordSection.addEventListener('paste',function(e){var input=e.target;if(!input.matches('[data-share-digit]'))return;e.preventDefault();var digits=e.clipboardData.getData('text').replace(/[^0-9]/g,'').slice(0,4);if(!digits)return;var start=digits.length===4?0:Number(input.dataset.shareDigit);for(var i=0;i<digits.length&&start+i<4;i++)sharePasswordState.digits[start+i]=digits[i];sharePasswordSection.querySelectorAll('[data-share-digit]').forEach((el,i)=>el.value=sharePasswordState.digits[i]);persistSharePassword();updateSharePasswordControls();sharePasswordSection.querySelector('[data-share-digit="'+Math.min(3,start+digits.length)+'"]').focus();});
+sharePasswordSection.addEventListener('keydown',function(e){var input=e.target;if(!input.matches('[data-share-digit]'))return;var i=Number(input.dataset.shareDigit);if(e.key==='Backspace'&&!input.value&&i>0){e.preventDefault();sharePasswordSection.querySelector('[data-share-digit="'+(i-1)+'"]').focus();}else if(e.key==='ArrowLeft'&&i>0){e.preventDefault();sharePasswordSection.querySelector('[data-share-digit="'+(i-1)+'"]').focus();}else if(e.key==='ArrowRight'&&i<3){e.preventDefault();sharePasswordSection.querySelector('[data-share-digit="'+(i+1)+'"]').focus();}});
+var passwordSettingsInvitation=renderInvitation;renderInvitation=function(){passwordSettingsInvitation();renderSharePasswordSettings();};
+var passwordSettingsGo=go;go=function(name){if(name==='create'||(name==='share'&&document.querySelector('.screen.on')?.id!=='s-share'))sharePasswordState=null;passwordSettingsGo(name);};
+var passwordSettingsCopy=copyLink;copyLink=function(){if(sharePasswordReady(true))return passwordSettingsCopy();};
+var passwordSettingsShare=shareInvitation;shareInvitation=function(channel){if(sharePasswordReady(true))return passwordSettingsShare(channel);};
+var passwordSettingsFriends=openInviteFriends;openInviteFriends=function(){if(sharePasswordReady(true))return passwordSettingsFriends();};
+var passwordSettingsFinish=finish;finish=function(){if(document.querySelector('.screen.on')?.id==='s-share'&&!sharePasswordReady(true))return;return passwordSettingsFinish();};
+
 
 renderHome();renderOpts();renderPhotos();renderQR();
 var scs=document.querySelectorAll('.scroll');for(var j=0;j<scs.length;j++){(function(el){el.addEventListener('scroll',function(){var h=el.querySelector('.hdr');if(h)h.className='hdr'+(el.scrollTop>4?' lift':'');});})(scs[j]);}
