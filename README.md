@@ -20,6 +20,7 @@
 ### 1차 UT 후 수정된 시안
 
 - [1차 UT 후 수정된 웹 시안](https://smpkjh3-d4ng.github.io/wk5-photoshare/ut-1/web/)
+- [1차 UT 후 수정된 앱 시안](https://smpkjh3-d4ng.github.io/wk5-photoshare/ut-1/app/)
 
 ## 휴대폰에서 열기 (로컬 서버)
 
