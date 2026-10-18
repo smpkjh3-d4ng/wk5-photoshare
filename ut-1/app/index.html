@@ -528,7 +528,6 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 <button class="tile" type="button" onclick="shareInvitation('더보기')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 12h.01M12 12h.01M18 12h.01"/></svg><span>더보기</span></button>
 </div>
 </section>
-<h2 class="qr-share-heading">QR · 링크로 공유하기</h2>
 <div class="ticket">
 <div id="tcover" hidden></div>
 <div class="inviteinfo"><b id="qname">동아리 MT</b><span><span id="qdate">2026.11.12 – 11.13</span> · 사진 <span id="qcount" style="display:inline;margin:0">74</span>장</span></div>
@@ -1222,7 +1221,6 @@ var sharePasswordSection=document.createElement('section');
 sharePasswordSection.id='sharePasswordSettings';sharePasswordSection.className='share-password-section';sharePasswordSection.setAttribute('aria-labelledby','sharePasswordTitle');
 sharePasswordSection.innerHTML='<div class="share-password-card"><div><h2 id="sharePasswordTitle">비밀번호 설정하기</h2><p>비밀번호를 입력해야 공유앨범에 들어올 수 있어요.</p></div><button type="button" id="sharePasswordToggle" class="sw" role="switch" aria-label="공유앨범 비밀번호 설정" aria-checked="false" aria-controls="sharePasswordFields" onclick="toggleSharePassword()"><span></span></button></div><div id="sharePasswordFields" hidden><div class="share-password-digits" role="group" aria-label="입장 비밀번호 숫자 4자리">'+[0,1,2,3].map(i=>'<input type="text" class="share-password-digit" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="입장 비밀번호 '+(i+1)+'번째 숫자" aria-describedby="sharePasswordError" data-share-digit="'+i+'">').join('')+'</div><p class="share-password-error" id="sharePasswordError" aria-live="polite"></p></div>';
 var shareScroll=$('s-share').querySelector('.scroll'),shareOptions=shareScroll.querySelector('.share-inline-options');
-shareScroll.insertBefore(shareScroll.querySelector('.qr-share-heading'),shareOptions);
 shareScroll.insertBefore(shareScroll.querySelector('.ticket'),shareOptions);
 shareScroll.appendChild(sharePasswordSection);
 function sharePasswordCode(){return sharePasswordState.digits.join('');}
