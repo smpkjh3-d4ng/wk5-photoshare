@@ -17,6 +17,10 @@
 - 앱: https://smpkjh3-d4ng.github.io/wk5-photoshare/phou/
 - 초대 링크 웹: https://smpkjh3-d4ng.github.io/wk5-photoshare/web/
 
+### 1차 UT 후 수정된 시안
+
+- [1차 UT 후 수정된 웹 시안](https://smpkjh3-d4ng.github.io/wk5-photoshare/ut-1/web/)
+
 ## 휴대폰에서 열기 (로컬 서버)
 
 Mac에서 서버를 켜요 (macOS 기본 Ruby 사용).
