@@ -351,23 +351,24 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 .phone nav.tab{border-radius:var(--ds-radius-card)!important}
 .phone nav.tab button,.phone nav.tab button.plus{border-radius:var(--ds-radius-control)!important;gap:var(--ds-space-2);font-size:var(--ds-text-body)}
 #eventStart,#eventEnd{font-size:var(--ds-text-body)}
-</style><style id="share-password-styles">
-/* The third share section follows the existing R12 surfaces and R8 controls. */
-#s-share .share-password-section{margin:0}
-.share-password-card{display:flex;align-items:center;gap:12px;border:1px solid #e1e3e7;border-radius:12px;padding:16px;background:#fff}
-.share-password-card>div{flex:1;min-width:0}
-.phone #s-share .share-password-card h2{font-size:16px!important;line-height:1.5;margin:0}
-.share-password-card p{font-size:12px;color:#707070;line-height:1.6;margin:6px 0 0}
-.share-password-card .sw{flex:none}
-#sharePasswordFields[hidden]{display:none!important}
-.share-password-digits{display:flex;justify-content:center;gap:8px;margin-top:12px}
-.phone #s-share .share-password-digit{width:48px;height:48px;border:1px solid #e1e3e7;border-radius:8px;background:#fff;color:#111;padding:0;text-align:center;font:inherit;font-size:24px;font-weight:700;caret-color:#111}
-.share-password-digit:focus{outline:2px solid #111;outline-offset:1px}
-.share-password-error{font-size:12px;line-height:1.6;color:#b3261e;margin:6px 0 0;text-align:center;min-height:0}
-.share-password-error:empty{display:none}
-#s-share button:disabled{opacity:.45;cursor:default}
-@media(min-height:761px){#s-share #qr{width:152px!important;height:152px!important}#s-share #qr canvas,#s-share #qr img{width:128px!important;height:128px!important}}
-.share-password-card{padding:12px}
+</style><style id="album-settings-styles">
+.album-password-setting{margin-top:16px;border:1px solid #e1e3e7;border-radius:12px;padding:12px}
+.album-password-row{display:flex;align-items:center;gap:12px}
+.album-password-copy{flex:1;min-width:0}
+.album-password-copy b{display:block;font-size:14px;line-height:1.5}
+.album-password-copy small{display:block;margin-top:6px;font-size:12px;line-height:1.6;color:#707070}
+.album-password-row .sw{flex:0 0 46px}
+#editAlbumPasswordFields[hidden]{display:none!important}
+.phone .dialog-content #editAlbumPassword{font-size:16px;letter-spacing:4px}
+.album-password-error{font-size:12px;color:#b3261e;line-height:1.6;margin:4px 0 0}
+.album-password-error:empty{display:none}
+.album-criteria-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.phone .album-criteria-row{display:flex;align-items:center;gap:8px;padding:12px;min-height:64px;background:#f3f4f6;border-radius:12px}
+.album-criteria-icon{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;border-radius:50%;background:#fff}
+.album-criteria-icon svg{display:block;width:19px;height:19px}
+.album-criteria-label{display:block;flex:1;min-width:0;font-size:14px;font-weight:600;line-height:1.5;word-break:keep-all;overflow-wrap:normal}
+.album-criteria-row .sw{flex:0 0 46px;margin:0}
+#s-share #inviteEntryPassword{margin:0;font-size:14px;font-weight:600;line-height:1.5}
 
 </style>
 </head>
@@ -1058,15 +1059,11 @@ albums.forEach(a=>{if(a.trash)a.trash=a.trash.filter(t=>Date.now()-t.deletedAt<3
 // Refinements: accessible exclusions, actual album settings, invitation lifecycle.
 $('photos').parentNode.insertBefore($('excludedSection'),$('photos'));
 function albumMoreMenu(){basicDialog('앨범 설정',
- '<button class="basic-row" onclick="editAlbumInfo()">앨범 이름·사진 수집 기간 <small>›</small></button>'+
+ '<button class="basic-row" onclick="editAlbumInfo()">앨범 정보·비밀번호 수정 <small>›</small></button>'+
  '<button class="basic-row" onclick="albumMembersSettings()">참여자 관리 <small>'+esc(cur.people)+' ›</small></button>'+
  '<button class="basic-row" onclick="editAlbumSharing()">사진 공유 기준 <small>›</small></button>'+
  '<button class="basic-row" onclick="closeBasicDialog();go(\'share\')">초대 링크·유효기간 <small>›</small></button>');}
-function editAlbumInfo(){basicDialog('앨범 정보 수정','<label>앨범 이름<input id="editAlbumName" maxlength="40" value="'+esc(cur.name)+'"></label><label>사진 수집 시작<input id="editAlbumStart" type="datetime-local" value="'+esc(cur.eventStart||'2026-10-03T09:00')+'"></label><label>사진 수집 종료<input id="editAlbumEnd" type="datetime-local" value="'+esc(cur.eventEnd||'2026-10-05T23:59')+'"></label><p class="album-settings-note">이 기간에 찍은 사진을 자동으로 모아요. 기간이 끝나도 앨범과 기존 사진은 유지돼요. 초대 링크의 유효기간은 별도로 설정해요.</p><button class="basic-action" onclick="saveAlbumInfo()">저장</button>');}
-function saveAlbumInfo(){var name=$('editAlbumName').value.trim(),start=$('editAlbumStart').value,end=$('editAlbumEnd').value;if(!name||!start||!end||new Date(start)>=new Date(end)){toast('이름과 올바른 수집 기간을 입력해 주세요');return;}cur.name=name;cur.eventStart=start;cur.eventEnd=end;cur.date=start.slice(0,10).replaceAll('-','.')+' – '+end.slice(0,10).replaceAll('-','.');albumState().model=null;saveLocalAlbums();renderHome();renderAlbum();closeBasicDialog();toast('앨범 정보를 저장했어요');}
 function albumMembersSettings(){var names=homeParticipants(cur);basicDialog('참여자 관리','<div>'+names.map(n=>'<div class="basic-row"><span>'+esc(n)+'</span><small>'+(n===profileState.name?'나':'참여자')+'</small></div>').join('')+'</div><button class="basic-action" onclick="closeBasicDialog();go(\'share\')">친구 초대하기</button>');}
-function editAlbumSharing(){var values=cur.shareOptions||opts.map(o=>o[2]);basicDialog('사진 공유 기준','<p class="album-settings-note">이 앨범에 사진을 추가할 때 사용할 기준이에요. 이미 추가한 사진은 바뀌지 않아요.</p>'+opts.map((o,i)=>'<div class="setting-row"><span class="row-copy"><b>'+esc(o[1])+'</b></span><input type="checkbox" class="album-share-choice" '+(values[i]?'checked':'')+' aria-label="'+esc(o[1])+'"></div>').join('')+'<button class="basic-action" onclick="saveAlbumSharing()">저장</button>');}
-function saveAlbumSharing(){cur.shareOptions=Array.from(document.querySelectorAll('.album-share-choice'),e=>e.checked);saveLocalAlbums();closeBasicDialog();toast('공유 기준을 저장했어요');}
 var refinedAddPhotos=addPhotosLater;addPhotosLater=function(){refinedAddPhotos();if(cur.shareOptions){opts.forEach((o,i)=>o[2]=cur.shareOptions[i]);setMode(false);renderOpts();}};
 var pendingInvitation=null;
 function invitationOwner(){return inviteReturn?inviteReturn.album:null;}
@@ -1213,29 +1210,30 @@ function toggleOriginalPhotoPrompt(){skipOriginalPrompt=!skipOriginalPrompt;save
 // Review-only draft: sample photo person 0 is the current user.
 function albumPeopleEntries(){var n=Math.max(1,Math.min(4,parseInt(cur.people,10)||1)),others=homeParticipants(cur).filter(name=>name!==profileState.name);return [{id:0,name:'나'}].concat(Array.from({length:n-1},(_,i)=>({id:i+1,name:others[i]||'참여자 '+(i+2)})));}
 
-// Share-screen password controls use the same album/create settings as the entry form.
-var sharePasswordState=null;
-var sharePasswordSection=document.createElement('section');
-sharePasswordSection.id='sharePasswordSettings';sharePasswordSection.className='share-password-section';sharePasswordSection.setAttribute('aria-labelledby','sharePasswordTitle');
-sharePasswordSection.innerHTML='<div class="share-password-card"><div><h2 id="sharePasswordTitle">비밀번호 설정하기</h2><p>비밀번호를 입력해야 공유앨범에 들어올 수 있어요.</p></div><button type="button" id="sharePasswordToggle" class="sw" role="switch" aria-label="공유앨범 비밀번호 설정" aria-checked="false" aria-controls="sharePasswordFields" onclick="toggleSharePassword()"><span></span></button></div><div id="sharePasswordFields" hidden><div class="share-password-digits" role="group" aria-label="입장 비밀번호 숫자 4자리">'+[0,1,2,3].map(i=>'<input type="text" class="share-password-digit" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="입장 비밀번호 '+(i+1)+'번째 숫자" aria-describedby="sharePasswordError" data-share-digit="'+i+'">').join('')+'</div><p class="share-password-error" id="sharePasswordError" aria-live="polite"></p></div>';
+// The share screen displays an existing entry code; album settings own all edits.
 var shareScroll=$('s-share').querySelector('.scroll'),shareOptions=shareScroll.querySelector('.share-inline-options');
 shareScroll.insertBefore(shareScroll.querySelector('.ticket'),shareOptions);
-shareScroll.appendChild(sharePasswordSection);
-function sharePasswordCode(){return sharePasswordState.digits.join('');}
-function sharePasswordReady(report){var valid=!sharePasswordState||!sharePasswordState.enabled||sharePasswordState.digits.every(d=>/^[0-9]$/.test(d));if(!valid&&report){$('sharePasswordError').textContent='숫자 4자리를 모두 입력해 주세요.';var input=sharePasswordSection.querySelector('input[value=""]')||Array.from(sharePasswordSection.querySelectorAll('input')).find(e=>!e.value);if(input){input.focus();input.scrollIntoView({block:'center'});}}return valid;}
-function updateSharePasswordControls(){var state=sharePasswordState,valid=sharePasswordReady(false);$('sharePasswordToggle').classList.toggle('on',state.enabled);$('sharePasswordToggle').setAttribute('aria-checked',String(state.enabled));$('sharePasswordFields').hidden=!state.enabled;sharePasswordSection.querySelectorAll('[data-share-digit]').forEach((input,i)=>{if(document.activeElement!==input)input.value=state.digits[i];input.setAttribute('aria-invalid',String(state.enabled&&!/^[0-9]$/.test(state.digits[i])));});$('sharePasswordError').textContent=valid?'':'숫자 4자리를 모두 입력해 주세요.';var expired=Date.now()>=currentInvitation().expiresAt;$('inviteLinkRow').querySelector('button').disabled=expired||!valid;shareOptions.querySelectorAll('button').forEach(b=>b.disabled=expired||!valid);$('s-share').querySelector('.bottom .main').disabled=!valid;}
-function persistSharePassword(){if(!sharePasswordReady(false))return;var state=sharePasswordState,code=sharePasswordCode();if(state.owner){state.owner.entryPasswordEnabled=state.enabled;state.owner.entryPassword=state.enabled?code:null;saveLocalAlbums();}else{$('entryPasswordToggle').classList.toggle('on',state.enabled);$('entryPasswordToggle').setAttribute('aria-checked',String(state.enabled));$('entryPasswordFields').hidden=!state.enabled;$('entryPassword').value=code;updName();}}
-function renderSharePasswordSettings(){var owner=invitationOwner();if(!sharePasswordState||sharePasswordState.owner!==owner){var enabled=owner?!!owner.entryPasswordEnabled:entryPasswordEnabled(),code=owner?owner.entryPassword:$('entryPassword').value;sharePasswordState={owner:owner,enabled:enabled,digits:(/^[0-9]{4}$/.test(code||'')?code:'0000').split('')};}['invitePrototypeNote','inviteLifecycleNote'].forEach(id=>$(id)?.remove());updateSharePasswordControls();$('inviteEntryPassword').hidden=true;$('inviteEntryPassword').textContent='';}
-function toggleSharePassword(){sharePasswordState.enabled=!sharePasswordState.enabled;if(sharePasswordState.enabled&&!sharePasswordState.digits.every(d=>/^[0-9]$/.test(d)))sharePasswordState.digits=['0','0','0','0'];persistSharePassword();updateSharePasswordControls();}
-sharePasswordSection.addEventListener('input',function(e){var input=e.target;if(!input.matches('[data-share-digit]'))return;var i=Number(input.dataset.shareDigit),digit=input.value.replace(/[^0-9]/g,'').slice(-1);input.value=digit;sharePasswordState.digits[i]=digit;persistSharePassword();updateSharePasswordControls();if(digit&&i<3)sharePasswordSection.querySelector('[data-share-digit="'+(i+1)+'"]').focus();});
-sharePasswordSection.addEventListener('paste',function(e){var input=e.target;if(!input.matches('[data-share-digit]'))return;e.preventDefault();var digits=e.clipboardData.getData('text').replace(/[^0-9]/g,'').slice(0,4);if(!digits)return;var start=digits.length===4?0:Number(input.dataset.shareDigit);for(var i=0;i<digits.length&&start+i<4;i++)sharePasswordState.digits[start+i]=digits[i];sharePasswordSection.querySelectorAll('[data-share-digit]').forEach((el,i)=>el.value=sharePasswordState.digits[i]);persistSharePassword();updateSharePasswordControls();sharePasswordSection.querySelector('[data-share-digit="'+Math.min(3,start+digits.length)+'"]').focus();});
-sharePasswordSection.addEventListener('keydown',function(e){var input=e.target;if(!input.matches('[data-share-digit]'))return;var i=Number(input.dataset.shareDigit);if(e.key==='Backspace'&&!input.value&&i>0){e.preventDefault();sharePasswordSection.querySelector('[data-share-digit="'+(i-1)+'"]').focus();}else if(e.key==='ArrowLeft'&&i>0){e.preventDefault();sharePasswordSection.querySelector('[data-share-digit="'+(i-1)+'"]').focus();}else if(e.key==='ArrowRight'&&i<3){e.preventDefault();sharePasswordSection.querySelector('[data-share-digit="'+(i+1)+'"]').focus();}});
-var passwordSettingsInvitation=renderInvitation;renderInvitation=function(){passwordSettingsInvitation();renderSharePasswordSettings();};
-var passwordSettingsGo=go;go=function(name){if(name==='create'||(name==='share'&&document.querySelector('.screen.on')?.id!=='s-share'))sharePasswordState=null;passwordSettingsGo(name);};
-var passwordSettingsCopy=copyLink;copyLink=function(){if(sharePasswordReady(true))return passwordSettingsCopy();};
-var passwordSettingsShare=shareInvitation;shareInvitation=function(channel){if(sharePasswordReady(true))return passwordSettingsShare(channel);};
-var passwordSettingsFriends=openInviteFriends;openInviteFriends=function(){if(sharePasswordReady(true))return passwordSettingsFriends();};
-var passwordSettingsFinish=finish;finish=function(){if(document.querySelector('.screen.on')?.id==='s-share'&&!sharePasswordReady(true))return;return passwordSettingsFinish();};
+var readonlyPasswordInvitation=renderInvitation;
+renderInvitation=function(){readonlyPasswordInvitation();['invitePrototypeNote','inviteLifecycleNote'].forEach(id=>$(id)?.remove());};
+function editAlbumInfo(){
+ var enabled=!!cur.entryPasswordEnabled,code=/^[0-9]{4}$/.test(cur.entryPassword||'')?cur.entryPassword:'0000';
+ basicDialog('앨범 정보·비밀번호 수정','<div class="album-info-form"><label>앨범 이름<input id="editAlbumName" maxlength="40" value="'+esc(cur.name)+'"></label><label>사진 수집 시작<input id="editAlbumStart" type="datetime-local" value="'+esc(cur.eventStart||'2026-10-03T09:00')+'"></label><label>사진 수집 종료<input id="editAlbumEnd" type="datetime-local" value="'+esc(cur.eventEnd||'2026-10-05T23:59')+'"></label><p class="album-settings-note">이 기간에 찍은 사진을 자동으로 모아요. 기간이 끝나도 앨범과 기존 사진은 유지돼요. 초대 링크의 유효기간은 별도로 설정해요.</p><div class="album-password-setting"><div class="album-password-row"><span class="album-password-copy"><b>비밀번호 설정하기</b><small>비밀번호를 입력해야 공유앨범에 들어올 수 있어요.</small></span><button type="button" class="sw'+(enabled?' on':'')+'" id="editAlbumPasswordToggle" role="switch" aria-label="입장 비밀번호 사용" aria-checked="'+enabled+'" aria-controls="editAlbumPasswordFields" onclick="toggleAlbumPassword()"><span></span></button></div><div id="editAlbumPasswordFields" '+(enabled?'':'hidden')+'><label for="editAlbumPassword">입장 비밀번호<input type="text" id="editAlbumPassword" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" value="'+code+'" aria-describedby="editAlbumPasswordError" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,4);validateAlbumPassword(false)"></label><p id="editAlbumPasswordError" class="album-password-error" aria-live="polite"></p></div></div><button class="basic-action" onclick="saveAlbumInfo()">저장</button></div>');
+}
+function toggleAlbumPassword(){var button=$('editAlbumPasswordToggle'),enabled=button.getAttribute('aria-checked')!=='true';button.classList.toggle('on',enabled);button.setAttribute('aria-checked',String(enabled));$('editAlbumPasswordFields').hidden=!enabled;validateAlbumPassword(false);}
+function validateAlbumPassword(focus){var enabled=$('editAlbumPasswordToggle').getAttribute('aria-checked')==='true',valid=!enabled||/^[0-9]{4}$/.test($('editAlbumPassword').value);$('editAlbumPassword').setAttribute('aria-invalid',String(!valid));$('editAlbumPasswordError').textContent=valid?'':'숫자 4자리를 입력해 주세요.';if(!valid&&focus)$('editAlbumPassword').focus();return valid;}
+function saveAlbumInfo(){
+ var name=$('editAlbumName').value.trim(),start=$('editAlbumStart').value,end=$('editAlbumEnd').value;
+ if(!name||!start||!end||!Number.isFinite(new Date(start).getTime())||!Number.isFinite(new Date(end).getTime())||new Date(start)>=new Date(end)){toast('이름과 올바른 수집 기간을 입력해 주세요');return;}
+ if(!validateAlbumPassword(true))return;
+ cur.name=name;cur.eventStart=start;cur.eventEnd=end;cur.date=start.slice(0,10).replaceAll('-','.')+' – '+end.slice(0,10).replaceAll('-','.');cur.entryPasswordEnabled=$('editAlbumPasswordToggle').getAttribute('aria-checked')==='true';cur.entryPassword=cur.entryPasswordEnabled?$('editAlbumPassword').value:null;
+ albumState().model=null;saveLocalAlbums();renderHome();renderAlbum();closeBasicDialog();toast('앨범 정보를 저장했어요');
+}
+function editAlbumSharing(){
+ var values=cur.shareOptions||opts.map(o=>o[2]);
+ basicDialog('사진 공유 기준','<p class="album-settings-note">이 앨범에 사진을 추가할 때 사용할 기준이에요. 이미 추가한 사진은 바뀌지 않아요.</p><div class="album-criteria-list">'+opts.map((o,i)=>'<div class="album-criteria-row"><span class="album-criteria-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="'+o[3]+'"/></svg></span><span class="album-criteria-label">'+esc(o[1])+'</span><button type="button" class="sw album-share-choice'+(values[i]?' on':'')+'" role="switch" aria-label="'+esc(o[1])+'" aria-checked="'+!!values[i]+'" onclick="toggleAlbumShareChoice(this)"><span></span></button></div>').join('')+'</div><button class="basic-action" onclick="saveAlbumSharing()">저장</button>');
+}
+function toggleAlbumShareChoice(button){var enabled=button.getAttribute('aria-checked')!=='true';button.classList.toggle('on',enabled);button.setAttribute('aria-checked',String(enabled));}
+function saveAlbumSharing(){cur.shareOptions=Array.from(document.querySelectorAll('.album-share-choice'),e=>e.getAttribute('aria-checked')==='true');saveLocalAlbums();closeBasicDialog();toast('공유 기준을 저장했어요');}
 
 
 renderHome();renderOpts();renderPhotos();renderQR();
