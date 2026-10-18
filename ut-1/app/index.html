@@ -883,7 +883,11 @@ refreshPeriodLabels();
 var homeQuery='',albumStorageKey='ut-draft-01-photo-share-albums-v1';
 var sampleAlbums=albums.slice();sampleAlbums.forEach(function(a,i){a.memberNames=i===0?['지수','민지','준호','하은']:i===1?['지수','민지','참여자 3']:['지수','가족'];});
 try{var storedAlbums=JSON.parse(localStorage.getItem(albumStorageKey)||'null');albums=Array.isArray(storedAlbums)?storedAlbums.filter(a=>a&&typeof a.name==='string'&&typeof a.count==='string'):[];}catch(e){albums=[];}
-if(!albums.length)albums=sampleAlbums;
+// Fresh browsers see the empty home once; later page loads seed samples only if no albums are saved.
+var homeVisitKey=albumStorageKey+'-visited-v1',hasVisitedHome=false;
+try{hasVisitedHome=localStorage.getItem(homeVisitKey)==='true';}catch(e){}
+if(!albums.length&&hasVisitedHome)albums=sampleAlbums;
+try{localStorage.setItem(homeVisitKey,'true');}catch(e){}
 cur=null;
 function saveLocalAlbums(){try{localStorage.setItem(albumStorageKey,JSON.stringify(albums));}catch(e){}}
 function homeParticipants(a){var names=(a.memberNames||[]).slice();if(!names.length)names.push(profileState.name);var n=parseInt(a.people,10)||a.members||1;for(var i=names.length;i<n;i++)names.push('참여자 '+(i+1));return names;}
