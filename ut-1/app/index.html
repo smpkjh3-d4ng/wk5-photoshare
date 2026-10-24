@@ -214,6 +214,46 @@ nav.tab .plus{width:52px;height:52px;border-radius:999px;background:#111111;colo
 #s-share .tbody>.exp{width:100%;margin:0;padding:0}#s-share .share-inline-options h2{margin:0}#s-share .share-inline-options .tile{margin-left:0}
 
 .capacity-notice{border:1px solid #dedfe3;border-radius:9px;background:#f3f4f6;padding:12px 14px;text-align:left}.capacity-notice strong{font-size:13px;line-height:1.5;display:block}.capacity-notice p{font-size:12px;line-height:1.6;color:#666;margin:5px 0 0}.capacity-notice[hidden]{display:none!important}
+/* Layout additions reuse the existing type, colors and control radii. */
+#s-home .scroll{padding-bottom:32px!important}
+.collection-period-form{padding:16px;display:grid;gap:12px}
+.collection-period-form label{display:grid;gap:8px;font-size:14px;min-width:0}
+.collection-period-form input,.collection-period-form select{width:100%;min-width:0;height:44px;padding:8px 10px;border:1px solid #e1e3e7;border-radius:var(--ds-radius-control,10px);background:#fff;font:inherit}
+.collection-period-form [hidden]{display:none!important}
+.collection-period-form .basic-hint{margin:0;line-height:1.6}
+#s-create .collection-period-form{background:#f2f3f5}
+#albumFilterArea{margin:12px 0 18px}
+#albumFilterArea[hidden],#photoCategoryFilters[hidden]{display:none!important}
+#albumFilterArea .album-search{margin:10px 0}
+.photo-filter-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.photo-filter-controls .chip{margin:0;padding:0 12px;font-size:13px;height:40px}
+.photo-filter-controls [aria-pressed=true]{background:#111;color:#fff}
+.photo-filter-controls select{min-width:0;max-width:150px;height:40px;padding:0 8px;border:1px solid #e1e3e7;border-radius:var(--ds-radius-control,10px);font:inherit;font-size:13px;background:#fff}
+#photoCategoryFilters{margin-top:12px}
+#s-album .album-members .member-copy{flex:1;min-width:0}
+#addAlbumFriend{flex:none}
+.detail-actions{grid-template-columns:repeat(5,minmax(0,1fr))}
+.photo-like-count{position:absolute;bottom:6px;right:6px;display:block;background:#fffe;color:#111;padding:3px 6px;border-radius:6px;font-size:11px;pointer-events:none}
+#photoCommentsPanel{position:absolute;left:0;right:0;bottom:0;z-index:55;background:#fff;color:#111;border-radius:var(--ds-radius-card,16px) var(--ds-radius-card,16px) 0 0;box-shadow:0 -10px 40px #0005;padding:16px 20px max(16px,env(safe-area-inset-bottom));display:flex;flex-direction:column;max-height:min(88%,calc(var(--comment-viewport,100vh) - 16px));min-height:min(320px,calc(var(--comment-viewport,100vh) - 16px))}
+#photoCommentsPanel[hidden]{display:none!important}
+.comments-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
+.comments-heading h2{font-size:18px;margin:0}
+#photoCommentsList{overflow:auto;min-height:70px;flex:1;padding:12px 0;overscroll-behavior:contain}
+.photo-comment{padding:12px 0;border-bottom:1px solid #e6e7ea;overflow-wrap:anywhere}
+.photo-comment b{font-size:14px}.photo-comment p{font-size:14px;line-height:1.6;margin:6px 0;white-space:pre-wrap}.photo-comment time{font-size:12px;color:#777}
+#photoCommentForm{display:flex;align-items:flex-end;gap:8px;flex:none;padding-top:12px}
+#photoCommentInput{min-width:0;flex:1;resize:none;font:inherit;font-size:14px;line-height:1.5;max-height:120px;border:1px solid #e1e3e7;background:#f2f3f5;border-radius:var(--ds-radius-control,10px);padding:10px}
+#postPhotoComment{width:64px;height:44px;flex:none}
+#commentError:empty{display:none}
+#photoViewer:has(#photoCommentsPanel:not([hidden])) .viewer-panel{pointer-events:none}
+
+
+#photoCategoryFilters{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:8px;padding:4px 0 10px;margin-top:12px}
+#photoCategoryFilters::-webkit-scrollbar{display:none}
+#photoCategoryFilters .chip{flex:0 0 auto;white-space:nowrap}
+#uploaderPeople[hidden]{display:none!important}
+#uploaderPeople .album-people-strip{overflow-x:auto;flex-wrap:nowrap}
+#uploaderPeople .album-person-btn{flex-shrink:0}
 </style>
 <style>
 .phone{border-radius:18px;box-shadow:0 8px 28px #00000012}.card,.ph,.best,.qrbox,.samplemap,.personpick,.cat,.sheet,.browsepeople button{border-radius:10px!important}.btn,.chip,.pill,.tab,.iconbtn,.glass,.count,.field,input,.opt,.findcard{border-radius:8px!important}.card{box-shadow:none!important}.glass{background:#fff!important;color:#222!important;border:1px solid #dedfe3;backdrop-filter:none!important}.glass span{color:#73777d!important}.portraitvariant img{transform:none!important;filter:none!important;object-position:center!important}.av img,.personpick img{border-radius:6px!important}.sw{border-radius:18px!important}.sw::after{border-radius:50%!important}nav.tab{left:0;right:0;bottom:0;height:74px;border-radius:0!important;box-shadow:none;border-top:1px solid #ddd;background:#fff}nav.tab .plus{border-radius:8px}.hdr{padding-top:28px}.basic-content{padding:28px 20px 110px}.basic-content h1{font-size:24px;margin-bottom:24px}.basic-section{margin-top:28px}.basic-section h2{margin-bottom:12px}.basic-box{border:1px solid #dddfe4;border-radius:10px;background:#fff;overflow:hidden}.basic-row{width:100%;min-height:52px;padding:14px 16px;border:0;border-bottom:1px solid #e6e7eb;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;font:inherit;cursor:pointer}.basic-row:last-child{border-bottom:0}.basic-row small{color:#777}.profile-block{display:flex;gap:16px;align-items:center;padding:20px}.avatar-letter{width:52px;height:52px;display:grid;place-items:center;background:#eef0f3;border-radius:8px;font-size:24px;font-weight:700}.basic-hint{font-size:13px;color:#777;line-height:1.6;margin:10px 0}.global-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.global-photo{position:relative;padding:0;border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#eee;aspect-ratio:1;cursor:pointer}.global-photo img{width:100%;height:100%;object-fit:cover}.global-photo.chosen{outline:2px solid #222;outline-offset:-2px}.global-photo.chosen:after{content:'✓';position:absolute;right:5px;top:5px;background:#222;color:white;border-radius:50%;width:22px;height:22px}.basic-action{width:100%;padding:15px;border:0;background:#222;color:white;font:inherit;border-radius:8px;margin-top:20px;cursor:pointer}.basic-action:disabled{background:#c9ccd1}.basic-dialog{position:absolute;inset:0;background:#0006;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}.basic-dialog[hidden]{display:none}.dialog-content{background:white;border-radius:12px;padding:22px;width:100%;max-height:85%;overflow:auto}.dialog-content h2{margin-bottom:15px}.dialog-content input{width:100%;padding:12px;border:1px solid #ccc;margin:8px 0;font:inherit}.dialog-close{background:#f0f1f3;color:#222}.global-count{margin:12px 0;color:#666;font-size:14px}
@@ -371,7 +411,67 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 #s-share #inviteEntryPassword{margin:0;font-size:14px;font-weight:600;line-height:1.5}
 
 </style>
-</head>
+<style>
+/* Reference layout: date rows, avatar invite action and QR sharing. */
+.collection-period-form{padding:0!important;background:transparent!important;border:0!important;gap:12px}
+.period-card{background:#f2f3f5;border-radius:var(--ds-radius-card,16px);padding:0 20px}
+.period-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:62px}
+.period-row+.period-row{border-top:1px solid #e1e3e7}
+.period-row>label:first-child{display:block;color:#6e6e73;flex:none;font-size:14px}
+.period-row input{max-width:none!important;height:48px!important;padding:0!important;border:0!important;background:transparent!important;text-align:right;font-size:13px!important;min-width:0;color:#111}
+.period-row>input{flex:1;width:0}
+.period-row input::-webkit-calendar-picker-indicator{width:14px;margin-left:2px}
+.period-row>label[id$=EndField]{display:block;flex:1;min-width:0;margin:0}
+.period-row>label[id$=EndField] input{width:100%}
+.period-end-row>select{position:absolute;left:0;top:0;width:48px;height:100%;opacity:0;cursor:pointer;z-index:1}
+.period-end-row[data-has-end=false]>select{width:100%}
+.period-end-row>span{font-size:14px;color:#111;pointer-events:none}
+.period-end-row:focus-within{outline:1px solid #999;outline-offset:2px;border-radius:4px}
+.period-row [hidden]{display:none!important}
+#s-album #avs{display:flex;align-items:center;flex:none}
+#s-album #avs #addAlbumFriend{border-radius:50%!important;width:30px!important;height:30px!important;min-width:30px;margin-left:-7px;border:2px solid #fff;background:#eff0f2;padding:0!important;z-index:1}
+#s-album #avs #addAlbumFriend svg{width:19px;height:19px}
+#s-share .hdr .row{flex-wrap:wrap;gap:12px}
+#s-share .hdr .row>div{order:2;width:100%}
+#s-share .hdr .row>.iconbtn{order:1;margin-left:auto}
+#s-share .ticket{border:1px solid #e1e3e7;border-radius:var(--ds-radius-card,16px)}
+#s-share .inviteinfo{padding:16px 16px 0}
+#s-share .tbody{padding:12px 16px 16px;gap:12px}
+#s-share .exp{display:flex;flex-wrap:wrap;justify-content:center;gap:8px!important;width:100%}
+#s-share .exp>span{flex-basis:100%;text-align:center}
+#s-share .exp button{border:1px solid #e1e3e7;min-height:40px;background:#fff;text-decoration:none;padding:8px 12px!important}
+#s-share .share-inline-options .tile{height:auto!important;aspect-ratio:1;border-radius:var(--ds-radius-control,10px)!important;gap:5px}
+#s-share .share-inline-options h2{margin-bottom:4px}
+</style><style>
+.period-end-row[data-has-end=false]>select{width:48px}
+.period-row .end-date-button{position:relative;z-index:2;display:flex;align-items:center;justify-content:flex-end;gap:8px;height:48px;padding:0;border:0;background:transparent;font:inherit;font-size:14px;color:#111;cursor:pointer}
+.period-row .end-date-button[hidden]{display:none!important}
+.period-row .end-date-button svg{flex:none;margin-left:2px}
+</style><style>
+#photoViewer .detail-actions{grid-template-columns:repeat(4,minmax(0,1fr))}
+#photoViewer .detail-top{gap:8px}
+#photoViewer .detail-top .detail-info-small{width:32px;height:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;font-size:10px;color:#ccc;flex:none;padding:0}
+#photoViewer .detail-info-small svg{width:15px;height:15px}
+</style><style>
+.menu-page-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+#s-menu .menu-page-header h1{margin:0!important}
+nav.tab{display:none!important}
+</style><style>
+.period-row>label[id$=EndField]{position:relative;display:flex;align-items:center;height:48px}
+.period-no-end{position:absolute;right:22px;top:0;height:48px;display:flex;align-items:center;font-size:13px;color:#111;pointer-events:none;white-space:nowrap}
+.period-end-row[data-has-end=false] input::-webkit-datetime-edit{visibility:hidden}
+.period-end-row[data-has-end=false] input{color:transparent!important}
+.period-end-row input::-webkit-calendar-picker-indicator{opacity:1}
+</style><style>
+#albumDownloadContent .download-exclude-own{display:flex;align-items:center;gap:10px;font-size:13px;line-height:1.6;margin:20px 0;cursor:pointer}
+#albumDownloadContent .download-exclude-own input{width:18px;height:18px;flex:none;margin:0;accent-color:#111}
+#albumDownloadContent .download-option:has(input:checked){border-color:#111;background:#f6f7f8}
+#confirmAlbumDownload:disabled{background:#c7c7cc;cursor:default}
+</style><style>
+#foundSub:empty{display:none!important}
+#uploaderPeople .album-people-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;overflow:visible}
+#uploaderPeople .album-person-btn{min-width:0;width:100%;padding:13px 5px}
+</style></head>
 <body>
 
 <div class="state">사진 불러오기 상태
@@ -447,14 +547,14 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 <div class="scroll stack g24" style="padding-bottom:150px">
 <div class="hdr">
 <button class="iconbtn" aria-label="뒤로 가기" onclick="go('create')">BACK</button>
-<div><h1>어떤 사진을 공유할까요?</h1><p class="sub">자동으로 불러올 때 제외할 사진을 골라요</p></div>
+<div><h1>어떤 사진을 공유할까요?</h1></div>
 </div>
 
 <div class="stack g12" role="radiogroup" aria-label="사진을 빼는 방식">
 <div class="mode-ai-wrap"><button class="mode" id="mode-ai" role="radio" onclick="setMode(true)">
 <span class="dot"></span>
 <span class="txt"><b>AI에게 맡기기<em>추천</em></b><span>추천 제외 기준으로 후보를 정리해요.</span>
-<span class="tags" id="ai-tags"><i>흐릿한 사진</i><i>비슷한 사진은 1장만</i><i>스크린샷 제외</i><i>나만 나온 사진 제외</i></span>
+<span class="tags" id="ai-tags"><i>흐릿한 사진</i><i>비슷한 사진은 대표 사진만</i><i>스크린샷 제외</i><i>나만 나온 사진 제외</i></span>
 </span>
 </button><button type="button" class="criteria-link" id="editSharingCriteria" onclick="openSharingCriteria()">기준 직접 설정하기 &gt;</button></div>
 <button class="mode" id="mode-me" role="radio" onclick="setMode(false)">
@@ -474,9 +574,9 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 <svg width="168" height="168" viewBox="0 0 168 168" aria-hidden="true"><circle cx="84" cy="84" r="76" fill="none" stroke="#F2F3F5" stroke-width="8"/><circle id="ringbar" cx="84" cy="84" r="76" fill="none" stroke="#111111" stroke-width="8" stroke-linecap="round" stroke-dasharray="477.5" stroke-dashoffset="477.5" transform="rotate(-90 84 84)"/></svg>
 <div class="ringtxt"><b id="ringnum">0</b><span>장 찾았어요</span></div>
 </div>
-<h2 style="margin-top:28px">이벤트 기간 사진을 모으고 있어요</h2>
+<h2 style="margin-top:28px">기간 내 사진을 모으고 있어요</h2>
 <p class="sub">11.12 오후 2:00 – 11.13 오전 11:00</p>
-<ul class="steps" id="steps"><li>기간 안에 찍은 사진 찾기</li><li>흐릿한 사진·스크린샷 빼기</li><li>비슷한 사진 묶기</li></ul>
+<ul class="steps" id="steps"><li>기간 내 사진 찾기</li><li>흐릿한 사진·스크린샷 빼기</li></ul>
 </div>
 <div id="imp-result" style="display:none">
 <div class="scroll stack g16" style="padding-bottom:170px">
@@ -543,7 +643,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 <span style="flex-grow:1;font-size:15px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">phou.app/a/mt-2026</span>
 <button onclick="copyLink()" style="height:44px;padding:0 20px;border-radius:999px;border:none;background:#111;color:#fff;font-size:14px;font-weight:600;cursor:pointer">복사</button>
 </div>
-<div class="exp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>링크는 2026.12.01까지 유효해요<button>변경</button></div>
+<div class="exp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>링크는 3일 동안 유효해요.<button>변경</button></div>
 </div>
 <div class="bottom"><button class="main" onclick="finish()">완료</button></div>
 </section>
@@ -602,7 +702,7 @@ var albums=[
  {name:'동아리 MT',date:'2026.11.12 – 11.13',people:'11명',count:'206장',st:'live',p:PAL[1],img:ALBUM_PHOTOS.mt},
  {name:'강릉 가족여행',date:'2026.09.14',people:'5명',count:'64장',st:'past',p:PAL[2],img:ALBUM_PHOTOS.gangneung}];
 var filter='all',ai=true,off={};
-var opts=[['solo','나만 나온 사진 제외',true,'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M5 20c1.2-3.5 3.8-5.5 7-5.5s5.8 2 7 5.5'],['blur','흐릿한 사진 제외',true,'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M8 12h8 M9 8.5h6 M9 15.5h6'],['similar','비슷한 사진은 대표사진만',true,'M8 4h10a2 2 0 0 1 2 2v10 M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z'],['shot','스크린샷 제외',true,'M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M11 18h2'],['video','영상 제외',false,'M5 6h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z M16 10.5 21 8v8l-5-2.5']];
+var opts=[['solo','나만 나온 사진 제외',true,'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M5 20c1.2-3.5 3.8-5.5 7-5.5s5.8 2 7 5.5'],['blur','흐릿한 사진 제외',true,'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M8 12h8 M9 8.5h6 M9 15.5h6'],['similar','비슷한 사진은 대표 사진만',true,'M8 4h10a2 2 0 0 1 2 2v10 M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z'],['shot','스크린샷 제외',true,'M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M11 18h2'],['video','동영상 제외',false,'M5 6h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z M16 10.5 21 8v8l-5-2.5']];
 
 /* 이동 */
 var timer,loadRun=0;
@@ -670,7 +770,7 @@ function startImport(){
  var t0=null,D=2600,C=477.5,lis=$('steps').getElementsByTagName('li'),run=++loadRun;
  function step(ts){if(run!==loadRun)return;if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/D),e=1-Math.pow(1-p,3);
   $('ringbar').setAttribute('stroke-dashoffset',C*(1-e));$('ringnum').textContent=Math.round(86*e);
-  for(var i=0;i<lis.length;i++){lis[i].className=p>=(i+1)/3?'done':(p>=i/3?'on':'');}
+  for(var i=0;i<lis.length;i++){lis[i].className=p>=(i+1)/lis.length?'done':(p>=i/lis.length?'on':'');}
   if(p<1)requestAnimationFrame(step);else timer=setTimeout(function(){showImp('result');},450);}
  requestAnimationFrame(step);
 }
@@ -819,7 +919,7 @@ albumBack=function(){if($('sheet').classList.contains('on')){closeSheet();return
 var navigationGo=go;go=function(n){var active=document.querySelector('.screen.on');if(active){var current=active.id.replace('s-',''),sc=active.querySelector('.scroll');if(sc)screenScroll[current]=sc.scrollTop;if(current==='album')rememberAlbumScroll();if(n==='share'&&current==='album')inviteReturn={album:cur,tab:albTab};else if(n==='share')inviteReturn=null;}var targetKey=n==='album'?albumViewKey():null,targetTop=targetKey?(viewScroll[targetKey]||0):0;navigationGo(n);if(targetKey)viewScroll[targetKey]=targetTop;if(n==='share'&&inviteReturn){$('qname').textContent=inviteReturn.album.name;$('qdate').textContent=inviteReturn.album.date;$('qcount').textContent=inviteReturn.album.total||parseInt(inviteReturn.album.count,10);}if(n==='album'){$('s-album').querySelector('.scroll').scrollTop=viewScroll[albumViewKey()]||0;}else if(n==='home'){$('s-home').querySelector('.scroll').scrollTop=screenScroll.home||0;}};
 openAlbum=function(i){rememberAlbumScroll();cur=albums[i];albTab='ai';detailParent='ai';albumTrail=[];lastAlbumContext='';go('album');};
 var finishCreation=finish;finish=function(){if(inviteReturn){cur=inviteReturn.album;albTab=inviteReturn.tab;inviteReturn=null;go('album');return;}finishCreation();};
-document.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('sheet').classList.contains('on'))closeSheet();});
+document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden&&e.target.closest('#photoCommentsPanel')===null)return;if(e.key==='Escape'&&$('sheet').classList.contains('on'))closeSheet();});
 
 var profileState={name:'지수',email:'jisu@example.com',face:false,notification:true,quality:'원본'},globalSelected={library:{},myphotos:{}},albumOrigin='home';
 function basicDialog(title,body){$('dialogContent').innerHTML='<h2>'+title+'</h2>'+body+'<button class="basic-action dialog-close" onclick="closeBasicDialog()">닫기</button>';$('basicDialog').hidden=false;$('dialogContent').querySelector('button,input')?.focus();}
@@ -838,7 +938,7 @@ var basicOpenAlbum=openAlbum;openAlbum=function(i){albumOrigin='home';basicOpenA
 function openFromGlobal(i,kind){basicOpenAlbum(i);albumOrigin=kind;albumView(kind==='myphotos'?'me':'all');}
 var basicAlbumBack=albumBack;albumBack=function(){if(['ai','all','me'].includes(albTab)&&!$('sheet').classList.contains('on'))go(albumOrigin);else basicAlbumBack();};
 var nav=document.querySelector('#s-home nav.tab'),pages=['home','library','create','myphotos','settings'];Array.from(nav.querySelectorAll('button')).forEach(function(b,i){b.dataset.page=pages[i];b.onclick=null;});['library','myphotos','profile','settings'].forEach(function(n){$('s-'+n).appendChild(nav.cloneNode(true));});document.addEventListener('click',function(e){var b=e.target.closest('nav.tab button[data-page]');if(b)go(b.dataset.page);});
-document.querySelector('[aria-label="내 프로필"]').onclick=function(){go('profile');};document.querySelector('[aria-label="알림"]').onclick=function(){basicDialog('알림','<p class="basic-hint">새 알림이 없어요.</p>');};document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBasicDialog();});
+document.querySelector('[aria-label="내 프로필"]').onclick=function(){go('profile');};document.querySelector('[aria-label="알림"]').onclick=function(){basicDialog('알림','<p class="basic-hint">새 알림이 없어요.</p>');};document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden&&e.target.closest('#photoCommentsPanel')===null)return;if(e.key==='Escape')closeBasicDialog();});
 // 사진 대신 중립적인 자리 표시를 사용한다. 로컬로 추가한 사진도 동일하게 표시한다.
 var placeholderObserver=new MutationObserver(function(){document.querySelectorAll('img').forEach(function(im){if(!im.src.startsWith('data:image/')&&!im.src.startsWith('blob:'))im.src=pic(1,200,200);});});placeholderObserver.observe(document.querySelector('.phone'),{childList:true,subtree:true});
 
@@ -880,7 +980,7 @@ refreshPeriodLabels();
 
 
 /* 홈: 첫 이용 안내 / 생성한 앨범 목록. 같은 기기에서 만든 앨범은 유지한다. */
-var homeQuery='',albumStorageKey='ut-draft-01-photo-share-albums-v1';
+var homeQuery='',albumStorageKey='ut-draft-02-photo-share-albums-v1';
 var sampleAlbums=albums.slice();sampleAlbums.forEach(function(a,i){a.memberNames=i===0?['지수','민지','준호','하은']:i===1?['지수','민지','참여자 3']:['지수','가족'];});
 try{var storedAlbums=JSON.parse(localStorage.getItem(albumStorageKey)||'null');albums=Array.isArray(storedAlbums)?storedAlbums.filter(a=>a&&typeof a.name==='string'&&typeof a.count==='string'):[];}catch(e){albums=[];}
 // Fresh browsers see the empty home once; later page loads seed samples only if no albums are saved.
@@ -918,19 +1018,20 @@ function albumPhotoTile(item){var st=albumState(),p=representative(item),isGroup
 function albumDateHeading(at){var d=new Date(at);return(d.getMonth()+1)+'월 '+d.getDate()+'일 '+(d.getHours()<12?'오전':'오후');}
 function albumTilesHtml(items,groupDates){var selecting=albumState().selecting,cls='album-photo-grid'+(selecting?' is-selecting':'');if(!items.length)return '<div class="album-empty-state"><h2>이 조건에 맞는 사진이 없어요</h2><p>다른 범위나 분류를 선택해 보세요.</p></div>';if(!groupDates)return '<div class="'+cls+'">'+items.map(albumPhotoTile).join('')+'</div>';var sections=[];items.forEach(item=>{var key=albumDateHeading(representative(item).at),section=sections.find(s=>s.key===key);if(!section){section={key,items:[]};sections.push(section);}section.items.push(item);});return sections.map(s=>'<h3 class="album-group-date">'+s.key+' <small>· '+s.items.reduce((n,item)=>n+item.members.length,0)+'장</small></h3><div class="'+cls+'">'+s.items.map(albumPhotoTile).join('')+'</div>').join('');}
 function albumViewHeading(title){var st=albumState();return '<div class="album-view-heading"><h2>'+title+'</h2><div class="album-select-controls">'+(st.selecting?'<button class="album-text-btn" onclick="selectVisibleAlbumPhotos()">'+(albumGalleryItems.length&&albumGalleryItems.every(i=>st.selected.has(i.id))?'선택 해제':'전체 선택')+'</button>':'')+'<button class="album-text-btn" id="albumSelectionToggle" onclick="toggleAlbumSelection()">'+(st.selecting?'취소':'선택')+'</button></div></div>';}
-function albumBrowseLinks(){return '<section class="album-browse-links"><div class="album-view-heading"><h2>사진 찾아보기</h2></div><p class="album-hint">사람·장소·시간을 기준으로 찾아요.</p><div class="browse-links-grid">'+[['people','사람별','people','함께 나온 사람으로 찾기'],['places','장소별','place','촬영한 장소로 찾기'],['time','시간대별','time','촬영 시간 범위로 찾기'],['scenery','음식 · 풍경','landscape','사람 없는 사진 모아 보기']].map(a=>'<button onclick="albumView(\''+a[0]+'\')">'+albumIcon(a[2],23)+'<span>'+a[1]+'</span><small>'+a[3]+'</small></button>').join('')+'</div></section>';}
+function albumBrowseLinks(){return '<section class="album-browse-links"><div class="album-view-heading"><h2>사진 찾아보기</h2></div><p class="album-hint">사람·장소·시간을 기준으로 찾아요.</p><div class="browse-links-grid">'+[['people','사람별','people','함께 나온 사람으로 찾기'],['places','장소별','place','촬영한 장소로 찾기'],['time','시간대별','time','촬영 시간 범위로 찾기'],['scenery','음식 · 풍경','landscape','']].map(a=>'<button onclick="albumView(\''+a[0]+'\')">'+albumIcon(a[2],23)+'<span>'+a[1]+'</span><small>'+a[3]+'</small></button>').join('')+'</div></section>';}
 function openAlbumFaceFromBrowse(){albumView('face');albumState().faceBack='browse';}
 function faceRegistrationEmpty(){return '<div class="album-empty-state"><h2>내 얼굴을 먼저 등록해 주세요</h2><p>얼굴을 등록하면 다른 사람이 올린 사진에서도<br>내가 나온 사진을 모아 볼 수 있어요.</p><button onclick="faceDialog()">얼굴 등록하기</button></div>';}
 function renderUnifiedAlbumBody(){var st=albumState(),m=albumPhotoModel();albumGalleryItems=albumCurrentItems();var items=albumGalleryItems,h='';if(!m.total){h='<div class="album-empty-state"><h2>아직 사진이 없어요</h2><p>사진을 추가하고 친구들과 함께 모아보세요.</p><button onclick="addPhotosLater()">사진 추가하기</button></div>';}
 else if(st.view==='face'&&(!profileState.face||!menuPrefs.permissions.face))h=faceRegistrationEmpty();
-else if(st.view==='ai'||st.view==='best'){h=albumViewHeading('베스트컷')+'<p class="album-hint">좋아요가 가장 많은 사진을 먼저, 선명도와 밝기 등을 기준으로 고른 사진을 함께 보여줘요.</p><div class="ai-recommendations">'+items.map((item,i)=>'<div>'+albumTilesHtml([item],false)+'<p class="recommendation-note">'+(i===0?'좋아요가 가장 많은 사진 · '+photoLikeCount(representative(item))+'개':['흔들림이 적은 사진 추천','인물 표현 기준 추천','밝기와 구도 기준 추천','선명도·밝기 기준 추천'][(i-1)%4])+'</p></div>').join('')+'</div><p class="album-small-note">추천과 분류는 사용성 테스트용 샘플이에요.</p>';}
+else if(st.view==='ai'||st.view==='best'){h=albumViewHeading('베스트컷')+'<p class="album-hint">좋아요가 많은 사진, 선명도와 밝기 등을 기준으로 고른 사진을 보여줘요.</p><div class="ai-recommendations">'+items.map((item,i)=>'<div>'+albumTilesHtml([item],false)+'<p class="recommendation-note">'+(i===0?'좋아요가 가장 많은 사진 · '+photoLikeCount(representative(item))+'개':['흔들림이 적은 사진 추천','인물 표현 기준 추천','밝기와 구도 기준 추천','선명도·밝기 기준 추천'][(i-1)%4])+'</p></div>').join('')+'</div><p class="album-small-note">추천과 분류는 사용성 테스트용 샘플이에요.</p>';}
 else if(st.view==='browse'){h=albumBrowseLinks();}
-else if(st.view==='scenery'){var category=st.sceneryCategory||'food',categories=[['food','음식'],['landscape','풍경'],['other','기타']];h=albumViewHeading('음식 · 풍경')+'<p class="album-hint">사람 없는 사진 모아 보기</p><div class="album-category-controls" role="group" aria-label="사진 분류 선택">'+categories.map(c=>'<button class="album-text-btn" type="button" aria-pressed="'+(category===c[0])+'" data-scene-category="'+c[0]+'" onclick="chooseSceneryCategory(\''+c[0]+'\')">'+c[1]+'</button>').join('')+'</div><p class="album-hint">'+categories.find(c=>c[0]===category)[1]+' 사진 · '+items.length+'장</p>'+albumTilesHtml(items,false)+'<p class="album-small-note">사용성 확인을 위한 샘플 분류예요.</p>';}
-else if(st.view==='time'){h='<div class="album-view-heading"><h2>시간대별 사진</h2></div><p class="album-hint">양쪽 손잡이로 시간을 조절하면 해당 사진만 보여요.</p>'+albumTimeChartHtml()+albumViewHeading('선택한 시간의 사진 <span class="time-photo-count" id="timePhotoCount">'+albumRawScope(items).length+'장</span>')+'<div id="albumTimePhotos">'+albumTilesHtml(items,false)+'</div>';}
-else if(st.view==='people'){var persons=albumPeopleEntries();h='<div class="album-view-heading"><h2>사람별 사진</h2></div><p class="album-hint">사람을 선택하면 함께 나온 사진을 볼 수 있어요.</p><div class="album-people-strip">'+persons.map(person=>'<button class="album-person-btn '+(st.person===person.id?'active':'')+'" aria-pressed="'+(st.person===person.id)+'" onclick="chooseAlbumPerson('+person.id+')"><span class="member-initial">'+esc(person.id===0?'나':person.name.slice(0,1))+'</span><b>'+esc(person.name)+'</b><small>'+m.photos.filter(p=>p.person===person.id).length+'장</small></button>').join('')+'</div>'+albumViewHeading(st.person===0?'내가 나온 사진':esc((persons.find(p=>p.id===st.person)||persons[0]).name)+'님이 나온 사진')+albumTilesHtml(items,true);}
+else if(st.view==='scenery'){var category=st.sceneryCategory||'food',categories=[['food','음식'],['landscape','풍경'],['other','기타']];h=albumViewHeading('음식 · 풍경')+'<div class="album-category-controls" role="group" aria-label="사진 분류 선택">'+categories.map(c=>'<button class="album-text-btn" type="button" aria-pressed="'+(category===c[0])+'" data-scene-category="'+c[0]+'" onclick="chooseSceneryCategory(\''+c[0]+'\')">'+c[1]+'</button>').join('')+'</div><p class="album-hint">'+categories.find(c=>c[0]===category)[1]+' 사진 · '+items.length+'장</p>'+albumTilesHtml(items,false)+'<p class="album-small-note">사용성 확인을 위한 샘플 분류예요.</p>';}
+else if(st.view==='time'){h='<div class="album-view-heading"><h2>시간대별 사진</h2></div>'+albumTimeChartHtml()+albumViewHeading('선택한 시간의 사진 <span class="time-photo-count" id="timePhotoCount">'+albumRawScope(items).length+'장</span>')+'<div id="albumTimePhotos">'+albumTilesHtml(items,false)+'</div>';}
+else if(st.view==='people'){var persons=albumPeopleEntries();h='<div class="album-view-heading"><h2>사람별 사진</h2></div><div class="album-people-strip">'+persons.map(person=>'<button class="album-person-btn '+(st.person===person.id?'active':'')+'" aria-pressed="'+(st.person===person.id)+'" onclick="chooseAlbumPerson('+person.id+')"><span class="member-initial">'+esc(person.id===0?'나':person.name.slice(0,1))+'</span><b>'+esc(person.name)+'</b><small>'+m.photos.filter(p=>p.person===person.id).length+'장</small></button>').join('')+'</div>'+albumViewHeading(st.person===0?'내가 나온 사진':esc((persons.find(p=>p.id===st.person)||persons[0]).name)+'님이 나온 사진')+albumTilesHtml(items,true);}
 
-else if(st.view==='places'){h='<div class="album-view-heading"><h2>장소별 사진</h2></div><p class="album-hint">촬영 장소를 눌러 사진을 찾아보세요.</p><div class="album-mini-map"><svg viewBox="0 0 350 180" aria-hidden="true"><path d="M0 140Q90 90 170 150T350 130V180H0Z" fill="#e2e4e7"/><path d="M20 0L160 180M0 70L350 30M110 180L300 0" stroke="white" stroke-width="10" fill="none"/></svg>'+['해변','숙소','전망대'].map((name,i)=>{var n=m.photos.filter(p=>p.place===i).length,size=Math.max(36,Math.round(Math.sqrt(n/Math.max(1,...[0,1,2].map(k=>m.photos.filter(p=>p.place===k).length)))*106));return '<button class="album-place-marker '+(st.place===i?'active':'')+'" style="width:'+size+'px;height:'+size+'px;left:'+([25,64,77][i])+'%;top:'+([55,28,65][i])+'%" onclick="chooseAlbumPlace('+i+')">'+name+'<br>'+n+'장</button>';}).join('')+'</div>'+albumViewHeading(['해변','숙소','전망대'][st.place])+albumTilesHtml(items,true);}
-else h=albumViewHeading(st.view==='face'?'내가 나온 사진':st.view==='me'?'내가 올린 사진':'전체 사진')+(st.view==='all'?'<p class="album-hint">비슷한 사진은 대표 1장으로 모았어요. 묶음을 눌러 대표를 바꿀 수 있어요.</p>':'')+albumTilesHtml(items,true);
+else if(st.view==='places'){h='<div class="album-view-heading"><h2>장소별 사진</h2></div><div class="album-mini-map"><svg viewBox="0 0 350 180" aria-hidden="true"><path d="M0 140Q90 90 170 150T350 130V180H0Z" fill="#e2e4e7"/><path d="M20 0L160 180M0 70L350 30M110 180L300 0" stroke="white" stroke-width="10" fill="none"/></svg>'+['해변','숙소','전망대'].map((name,i)=>{var n=m.photos.filter(p=>p.place===i).length,size=Math.max(36,Math.round(Math.sqrt(n/Math.max(1,...[0,1,2].map(k=>m.photos.filter(p=>p.place===k).length)))*106));return '<button class="album-place-marker '+(st.place===i?'active':'')+'" style="width:'+size+'px;height:'+size+'px;left:'+([25,64,77][i])+'%;top:'+([55,28,65][i])+'%" onclick="chooseAlbumPlace('+i+')">'+name+'<br>'+n+'장</button>';}).join('')+'</div>'+albumViewHeading(['해변','숙소','전망대'][st.place])+albumTilesHtml(items,true);}
+else if(st.view==='liked')h=albumViewHeading('좋아요한 사진')+albumTilesHtml(items,true);
+else h=albumViewHeading(st.view==='face'?'내가 나온 사진':st.view==='me'?'내가 올린 사진':'전체 사진')+(st.view==='all'?'':'')+albumTilesHtml(items,true);
 $('albBody').innerHTML=h;var faceLink=$('albBody').querySelector('.browse-links-grid button[data-view="face"]');if(faceLink)faceLink.onclick=openAlbumFaceFromBrowse;updateUnifiedSelection();}
 renderAlbum=function(){if(!cur)return;var st=albumState(),sc=$('s-album').querySelector('.scroll'),top=sc.scrollTop,m=albumPhotoModel();albTab=st.view;$('albTitle').textContent=cur.name;$('albSub').textContent=compactAlbumDate(cur)+' · 사진 '+m.total+'장';var names=homeParticipants(cur),mem=parseInt(cur.people,10)||1;$('avs').className='member-initials';$('avs').innerHTML=names.slice(0,4).map(name=>'<span class="member-initial">'+esc(name.slice(0,1))+'</span>').join('');$('memText').textContent=mem+'명이 함께하고 있어요';$('memSub').textContent='앨범에 추가한 사진을 함께 볼 수 있어요';updateAlbumDownloadButton();var main=['browse','people','places','time','face','scenery'].includes(st.view)?'browse':['ai','best'].includes(st.view)?'ai':'all';$('albChips').innerHTML=[['ai','베스트컷'],['all','전체'],['browse','사진 찾아보기']].map(a=>'<button role="tab" aria-selected="'+(main===a[0])+'" onclick="albumView(\''+a[0]+'\')">'+a[1]+'</button>').join('');renderUnifiedAlbumBody();sc.scrollTop=top;};
 function updateUnifiedSelection(){if(!cur)return;var st=albumState(),n=st.selected.size;var selectAll=$('albBody').querySelector('.album-select-controls button');if(st.selecting&&selectAll)selectAll.textContent=albumGalleryItems.length&&albumGalleryItems.every(item=>st.selected.has(item.id))?'선택 해제':'전체 선택';$('albumSelectionBar').hidden=!st.selecting;$('albumAddFab').hidden=st.selecting;$('albSave').disabled=!n;$('albSave').textContent=n?'선택한 '+n+'장 저장하기':'사진을 선택해 주세요';$('s-album').querySelector('.scroll').style.paddingBottom=st.selecting?'116px':'96px';document.querySelectorAll('#albBody [data-album-item]').forEach(el=>{var checked=st.selected.has(el.dataset.albumItem);el.classList.toggle('is-selected',checked);el.querySelector('.photo-select-mark').textContent=checked?'✓':'';if(st.selecting)el.setAttribute('aria-pressed',checked);else el.removeAttribute('aria-pressed');});}
@@ -969,26 +1070,26 @@ var unifiedRender=renderAlbum;renderAlbum=function(){unifiedRender();if(cur&&alb
 var unifiedGo=go;go=function(n){unifiedGo(n);if(n==='album'&&cur){albTab=albumState().view;renderAlbum();}document.querySelectorAll('.iconbtn[aria-label="홈으로 돌아가기"],.iconbtn[aria-label="앨범으로 돌아가기"]').forEach(b=>{b.innerHTML=BACK;b.setAttribute('aria-label','뒤로가기');});};
 var unifiedSubmit=submitPhotoBatch;submitPhotoBatch=function(){if(cur&&albumPanels.has(cur)){var st=albumState();st.view='all';st.selecting=false;st.selected.clear();st.model=null;}unifiedSubmit();};$('sharebtn').onclick=submitPhotoBatch;
 // A registered face unlocks the sample face view; no biometric data is collected.
-try{profileState.face=localStorage.getItem('ut-draft-01-photo-share-face-registered')==='true';}catch(e){}
+try{profileState.face=localStorage.getItem('ut-draft-02-photo-share-face-registered')==='true';}catch(e){}
 faceDialog=function(){basicDialog(profileState.face?'얼굴 등록 관리':'얼굴 등록','<p class="basic-hint">얼굴을 등록하면 내가 나온 사진을 모아 볼 수 있어요. 이 프로토타입에서는 등록 단계만 확인하며 실제 얼굴 사진은 수집하지 않아요.</p><div style="height:120px;background:#eff0f2;border-radius:9px;display:grid;place-items:center">'+albumIcon('person',40)+'</div><button class="basic-action" onclick="setAlbumFaceRegistration('+(!profileState.face)+')">'+(profileState.face?'등록 해제':'얼굴 등록하기')+'</button>');};
-function setAlbumFaceRegistration(value){profileState.face=value;try{localStorage.setItem('ut-draft-01-photo-share-face-registered',String(value));}catch(e){}updateProfile();closeBasicDialog();if(document.querySelector('.screen.on').id==='s-album')renderAlbum();toast(value?'얼굴을 등록했어요':'얼굴 등록을 해제했어요');}
+function setAlbumFaceRegistration(value){profileState.face=value;try{localStorage.setItem('ut-draft-02-photo-share-face-registered',String(value));}catch(e){}updateProfile();closeBasicDialog();if(document.querySelector('.screen.on').id==='s-album')renderAlbum();toast(value?'얼굴을 등록했어요':'얼굴 등록을 해제했어요');}
 // Icon and keyboard behavior is shared across screens.
 document.querySelectorAll('nav.tab button[data-page="menu"]').forEach(b=>b.insertAdjacentHTML('afterbegin',albumIcon('menu',19)));
-document.addEventListener('keydown',function(e){if(!$('basicDialog').hidden)return;if(!$('albumBundleDialog').hidden&&$('albumBundleDialog').style.zIndex==='48'&&e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeAlbumOverlay('albumBundleDialog');return;}var viewer=!$('photoViewer').hidden,bundle=!$('albumBundleDialog').hidden,download=!$('albumDownloadDialog').hidden;if(e.key==='Escape'&&(viewer||bundle||download)){e.preventDefault();e.stopImmediatePropagation();if(viewer)closePhotoViewer();else closeAlbumOverlay(bundle?'albumBundleDialog':'albumDownloadDialog');return;}if(viewer&&!(bundle&&$('albumBundleDialog').style.zIndex==='48')&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){e.preventDefault();movePhotoViewer(e.key==='ArrowRight'?1:-1);}var modal=bundle&&$('albumBundleDialog').style.zIndex==='48'?$('albumBundleDialog'):viewer?$('photoViewer'):bundle?$('albumBundleDialog'):download?$('albumDownloadDialog'):null;if(modal&&e.key==='Tab'){var nodes=Array.from(modal.querySelectorAll('button:not(:disabled),input'));var first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}},true);
+document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden&&e.target.closest('#photoCommentsPanel')===null)return;if(!$('basicDialog').hidden)return;if(!$('albumBundleDialog').hidden&&$('albumBundleDialog').style.zIndex==='48'&&e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeAlbumOverlay('albumBundleDialog');return;}if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden)return;var viewer=!$('photoViewer').hidden,bundle=!$('albumBundleDialog').hidden,download=!$('albumDownloadDialog').hidden;if(e.key==='Escape'&&(viewer||bundle||download)){e.preventDefault();e.stopImmediatePropagation();if(viewer)closePhotoViewer();else closeAlbumOverlay(bundle?'albumBundleDialog':'albumDownloadDialog');return;}if(viewer&&!(bundle&&$('albumBundleDialog').style.zIndex==='48')&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){e.preventDefault();movePhotoViewer(e.key==='ArrowRight'?1:-1);}var modal=bundle&&$('albumBundleDialog').style.zIndex==='48'?$('albumBundleDialog'):viewer?$('photoViewer'):bundle?$('albumBundleDialog'):download?$('albumDownloadDialog'):null;if(modal&&e.key==='Tab'){var nodes=Array.from(modal.querySelectorAll('button:not(:disabled),input'));var first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}},true);
 
 
 // Exclusion reasons belong inside the excluded-photos disclosure, not above shared candidates.
 function importPhotoTile(item,index,excluded){return '<button class="ph'+(item.selected?'':' off')+(excluded&&item.selected?' restored-photo':'')+'" aria-label="사진 '+(index+1)+(excluded?', '+item.reason:'')+'" aria-pressed="'+item.selected+'" onclick="toggleImportCandidate('+index+')"><img class="scene" src="'+item.src+'" alt="사진 '+(index+1)+' 자리 표시"><span class="ck">'+CHECK+'</span>'+(excluded?'<span class="importreason">'+(item.selected?'다시 선택됨':esc(item.reason))+'</span>':'')+'</button>';}
 function toggleImportCandidate(index){importItems[index].selected=!importItems[index].selected;renderPhotos();}
-renderPhotos=function(){if(!importItems.length)return;var included=[],excluded=[],reasons={};importItems.forEach(function(item,i){if(item.reason){excluded.push([item,i]);reasons[item.reason]=(reasons[item.reason]||0)+1;}else included.push([item,i]);});$('photos').innerHTML=included.map(pair=>importPhotoTile(pair[0],pair[1],false)).join('');var n=countSel();$('sel').textContent=n;$('qcount').textContent=n;$('sharebtn').textContent=photoAddTarget?(n?'선택한 '+n+'장 앨범에 추가하기':'사진을 1장 이상 골라주세요'):'사진 '+n+'장으로 앨범 만들기';$('sharebtn').disabled=!n;$('foundTitle').textContent='사진 '+importItems.length+'장을 찾았어요';$('foundSub').textContent='공유할 사진을 확인해 주세요. 선택은 언제든 바꿀 수 있어요.';$('excludedSection').hidden=!excluded.length;var restored=excluded.filter(pair=>pair[0].selected).length;$('excludedSummary').textContent='제외된 사진 '+excluded.length+'장'+(restored?' · '+restored+'장 다시 선택':'');$('excludedToggle').setAttribute('aria-expanded',String(showExcluded));$('excludedDetails').hidden=!showExcluded;$('excludeTags').innerHTML=showExcluded?Object.keys(reasons).map(reason=>'<span class="tag">'+esc(reason)+' '+reasons[reason]+'장</span>').join(''):'';$('excludedPhotos').innerHTML=showExcluded?excluded.map(pair=>importPhotoTile(pair[0],pair[1],true)).join(''):'';};
+renderPhotos=function(){if(!importItems.length)return;var included=[],excluded=[],reasons={};importItems.forEach(function(item,i){if(item.reason){excluded.push([item,i]);reasons[item.reason]=(reasons[item.reason]||0)+1;}else included.push([item,i]);});$('photos').innerHTML=included.map(pair=>importPhotoTile(pair[0],pair[1],false)).join('');var n=countSel();$('sel').textContent=n;$('qcount').textContent=n;$('sharebtn').textContent=photoAddTarget?(n?'선택한 '+n+'장 앨범에 추가하기':'사진을 1장 이상 골라주세요'):'사진 '+n+'장으로 앨범 만들기';$('sharebtn').disabled=!n;$('foundTitle').textContent='사진 '+importItems.length+'장을 찾았어요';$('foundSub').textContent='';$('excludedSection').hidden=!excluded.length;var restored=excluded.filter(pair=>pair[0].selected).length;$('excludedSummary').textContent='제외된 사진 '+excluded.length+'장'+(restored?' · '+restored+'장 다시 선택':'');$('excludedToggle').setAttribute('aria-expanded',String(showExcluded));$('excludedDetails').hidden=!showExcluded;$('excludeTags').innerHTML=showExcluded?Object.keys(reasons).map(reason=>'<span class="tag">'+esc(reason)+' '+reasons[reason]+'장</span>').join(''):'';$('excludedPhotos').innerHTML=showExcluded?excluded.map(pair=>importPhotoTile(pair[0],pair[1],true)).join(''):'';};
 toggleExcluded=function(){showExcluded=!showExcluded;renderPhotos();};
 var spacedMode=setMode;setMode=function(v){spacedMode(v);$('ai-tags').style.setProperty('display',v?'flex':'none','important');};
 var spacedChooseLater=chooseLater;chooseLater=function(){spacedChooseLater();$('ai-tags').style.setProperty('display','none','important');};
 
 /* Menu preferences and sample-only photo actions are stored on this browser. */
 var menuPrefs={phone:'010-1234-5678',discoverable:true,wifiOnly:true,sharing:opts.map(o=>o[2]),customSharing:false,events:{collection:true,friend:true,ai:true},permissions:{photos:'all',notifications:true,face:true}};
-try{var savedPrefs=JSON.parse(localStorage.getItem('ut-draft-01-photo-share-menu-prefs')||'null');if(savedPrefs){menuPrefs={...menuPrefs,...savedPrefs,events:{...menuPrefs.events,...savedPrefs.events},permissions:{...menuPrefs.permissions,...savedPrefs.permissions}};}var savedProfile=JSON.parse(localStorage.getItem('ut-draft-01-photo-share-profile')||'null');if(savedProfile)profileState={...profileState,...savedProfile,face:profileState.face};}catch(e){}
-function saveMenuPrefs(){try{localStorage.setItem('ut-draft-01-photo-share-menu-prefs',JSON.stringify(menuPrefs));localStorage.setItem('ut-draft-01-photo-share-profile',JSON.stringify(profileState));}catch(e){}}
+try{var savedPrefs=JSON.parse(localStorage.getItem('ut-draft-02-photo-share-menu-prefs')||'null');if(savedPrefs){menuPrefs={...menuPrefs,...savedPrefs,events:{...menuPrefs.events,...savedPrefs.events},permissions:{...menuPrefs.permissions,...savedPrefs.permissions}};}var savedProfile=JSON.parse(localStorage.getItem('ut-draft-02-photo-share-profile')||'null');if(savedProfile)profileState={...profileState,...savedProfile,face:profileState.face};}catch(e){}
+function saveMenuPrefs(){try{localStorage.setItem('ut-draft-02-photo-share-menu-prefs',JSON.stringify(menuPrefs));localStorage.setItem('ut-draft-02-photo-share-profile',JSON.stringify(profileState));}catch(e){}}
 var menuRowIcons={upload:'<path d="M12 17V3m-5 5 5-5 5 5M4 18v3h16v-3"/>',bell:'<path d="M6 9a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8m7 12h-2"/>',shield:'<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Zm-4 9 3 3 5-5"/>',trash:'<path d="M3 6h18M8 6V3h8v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/>',cloud:'<path d="M7 18a5 5 0 1 1 1-10 6 6 0 0 1 11 3 4 4 0 0 1-1 8H7Z"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 1 1 5 2c-1 1-2 1-2 3m0 3v.1"/>',document:'<path d="M6 3h8l4 4v14H6Zm8 0v5h4M9 12h6m-6 4h6"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/>'};
 function menuIcon(name){return menuRowIcons[name]?'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+menuRowIcons[name]+'</svg>':albumIcon(name,22);}
 function prefSwitch(on,action,label){return '<button class="sw '+(on?'on':'')+'" role="switch" aria-checked="'+on+'" aria-label="'+label+'" onclick="'+action+'"><span></span></button>';}
@@ -998,12 +1099,12 @@ function allTrash(){return albums.flatMap((a,ai)=>(a.trash||[]).map(item=>({...i
 function sampleStorage(){var photos=albums.reduce((n,a)=>n+(parseInt(a.count,10)||0),0);return {used:photos*3/1024,total:15};}
 function renderMenuPage(){var c=sampleStorage(),friends=sharedFriends(),events=Object.values(menuPrefs.events).filter(Boolean).length;$('menuPageContent').innerHTML='<h1>메뉴</h1><section class="menu-section"><h2>내 정보</h2><div class="menu-card"><div class="menu-profile"><span class="avatar-letter">'+esc(profileState.name.slice(0,1))+'</span><div><b>'+esc(profileState.name)+'</b><small>'+esc(profileState.email)+'</small></div><button onclick="accountDialog()">프로필 수정</button></div></div></section><section class="menu-section"><div class="menu-card">'+settingRow('친구 목록','앨범을 함께 쓴 사람이 모여요.',"go('friends')",'people',friends.length+'명')+settingRow('내 얼굴 등록',profileState.face?'얼굴 등록됨 · 내가 나온 사진 모아보기':'얼굴을 등록하고 내 사진을 찾아보세요.',"faceDialog()",'person')+'</div></section><section class="menu-section"><h2>설정</h2><div class="menu-card">'+settingRow('업로드 설정','Wi-Fi 업로드 · 공유 기본 옵션',"go('upload-settings')",'upload')+settingRow('알림 설정','',"go('notification-settings')",'bell',events+'개 켜짐')+settingRow('이 앱이 사용하는 권한','사진 접근 · 알림 · 얼굴 등록',"go('app-permissions')",'shield')+settingRow('저장 화질','',"qualityDialog()",'download',esc(profileState.quality))+'</div></section><section class="menu-section"><h2>사진과 저장 공간</h2><div class="menu-card">'+settingRow('전체 사진','모든 앨범의 사진 모아보기',"go('library')",'stack')+settingRow('내가 올린 사진','내가 공유한 사진 모아보기',"go('myphotos')",'person')+settingRow('휴지통','삭제한 사진은 30일 동안 보관해요.',"go('trash')",'trash',allTrash().length+'장')+settingRow('드라이브 용량',c.total+'GB 중 '+c.used.toFixed(2)+'GB 사용 <div class="storage-track"><span style="width:'+Math.min(100,c.used/c.total*100)+'%"></span></div>',"go('storage')",'cloud')+'</div></section><section class="menu-section"><h2>도움말과 약관</h2><div class="menu-card">'+settingRow('고객센터','',"openHelpPage('help')",'help')+settingRow('개인정보 처리 안내','',"openHelpPage('privacy')",'document')+settingRow('서비스 이용 안내','',"openHelpPage('terms')",'document')+'</div></section><p class="menu-version">버전 0.1.0 · 프로토타입</p>';}
 function toggleDiscoverable(){menuPrefs.discoverable=!menuPrefs.discoverable;saveMenuPrefs();renderMenuPage();}
-function renderUploadSettings(){var labels=['나만 나온 사진 제외','흐릿한 사진 제외','비슷한 사진은 대표 사진만 추가','스크린샷 제외','동영상 제외'],h='<div class="menu-card">'+toggleRow('Wi-Fi에서만 업로드','Wi-Fi에 연결됐을 때 사진을 올려요.',menuPrefs.wifiOnly,'toggleUploadWifi()')+'</div><h2>새 앨범의 공유 기본 옵션</h2><p class="settings-caption">새 앨범을 만들 때 적용할 기준이에요. 앨범마다 바꿀 수 있어요.</p><div class="menu-card">';labels.forEach((label,i)=>{h+=toggleRow(label,i===0?'나 혼자 나온 사진을 공유 후보에서 제외해요.':i===2?'비슷한 사진 중 대표만 공유 후보로 골라요.':'',menuPrefs.sharing[i],'toggleUploadDefault('+i+')');});$('uploadSettingsBody').innerHTML=h+'</div><p class="settings-caption">사진 수집과 업로드는 테스트용 시연이에요.</p>';}
+function renderUploadSettings(){var labels=['나만 나온 사진 제외','흐릿한 사진 제외','비슷한 사진은 대표 사진만','스크린샷 제외','동영상 제외'],h='<div class="menu-card">'+toggleRow('Wi-Fi에서만 업로드','Wi-Fi에 연결됐을 때 사진을 올려요.',menuPrefs.wifiOnly,'toggleUploadWifi()')+'</div><h2>새 앨범의 공유 기본 옵션</h2><p class="settings-caption">새 앨범을 만들 때 적용할 기준이에요. 앨범마다 바꿀 수 있어요.</p><div class="menu-card">';labels.forEach((label,i)=>{h+=toggleRow(label,i===0?'나 혼자 나온 사진을 공유 후보에서 제외해요.':i===2?'비슷한 사진 중 대표만 공유 후보로 골라요.':'',menuPrefs.sharing[i],'toggleUploadDefault('+i+')');});$('uploadSettingsBody').innerHTML=h+'</div><p class="settings-caption">사진 불러오기와 업로드는 테스트용 시연이에요.</p>';}
 function toggleUploadWifi(){menuPrefs.wifiOnly=!menuPrefs.wifiOnly;saveMenuPrefs();renderUploadSettings();}
 function toggleUploadDefault(i){menuPrefs.sharing[i]=!menuPrefs.sharing[i];menuPrefs.customSharing=true;saveMenuPrefs();renderUploadSettings();}
-function renderNotificationSettings(){var defs=[['collection','사진 수집 시작·종료','앨범의 사진 수집이 시작되거나 끝나면 알려줘요.'],['friend','친구가 사진을 올렸을 때',''],['ai','AI 추천이 끝났을 때','추천 사진을 확인할 수 있게 알려줘요.']];$('notificationSettingsBody').innerHTML=(!menuPrefs.permissions.notifications?'<p class="settings-caption">알림 권한이 꺼져 있어요. 앱 권한에서 상태를 변경할 수 있어요.</p>':'')+'<div class="menu-card">'+defs.map(d=>toggleRow(d[1],d[2],menuPrefs.events[d[0]],"toggleNotificationEvent('"+d[0]+"')")).join('')+'</div><p class="settings-caption">실제 기기 알림은 보내지 않는 테스트 화면이에요.</p>';}
+function renderNotificationSettings(){var defs=[['collection','사진 불러오기 시작·종료','앨범의 사진 불러오기가 시작되거나 끝나면 알려줘요.'],['friend','친구가 사진을 올렸을 때',''],['ai','AI 추천이 끝났을 때','추천 사진을 확인할 수 있게 알려줘요.']];$('notificationSettingsBody').innerHTML=(!menuPrefs.permissions.notifications?'<p class="settings-caption">알림 권한이 꺼져 있어요. 앱 권한에서 상태를 변경할 수 있어요.</p>':'')+'<div class="menu-card">'+defs.map(d=>toggleRow(d[1],d[2],menuPrefs.events[d[0]],"toggleNotificationEvent('"+d[0]+"')")).join('')+'</div><p class="settings-caption">실제 기기 알림은 보내지 않는 테스트 화면이에요.</p>';}
 function toggleNotificationEvent(key){menuPrefs.events[key]=!menuPrefs.events[key];profileState.notification=Object.values(menuPrefs.events).some(Boolean);saveMenuPrefs();updateProfile();renderNotificationSettings();}
-function renderAppPermissions(){$('appPermissionsBody').innerHTML='<div class="menu-card">'+settingRow('사진','선택한 기간에 찍은 사진을 찾고 앨범에 추가할 때 사용해요.',"editPermission('photos')",'stack','<span class="permission-status">'+({all:'전체 허용',selected:'일부 허용',none:'허용 안 함'}[menuPrefs.permissions.photos])+'</span>')+settingRow('알림','사진 수집과 새 사진, AI 추천 결과를 알려줄 때 사용해요.',"editPermission('notifications')",'bell','<span class="permission-status">'+(menuPrefs.permissions.notifications?'허용됨':'허용 안 함')+'</span>')+toggleRow('얼굴 등록 사용','등록한 얼굴을 기준으로 내가 나온 사진을 모아볼 때 사용해요.',menuPrefs.permissions.face,'toggleFacePermission()')+'</div><p class="settings-caption">프로토타입에서 권한 설정 흐름을 확인하는 화면이에요. 실제 휴대폰 권한은 변경하지 않아요.</p>';}
+function renderAppPermissions(){$('appPermissionsBody').innerHTML='<div class="menu-card">'+settingRow('사진','선택한 기간에 찍은 사진을 찾고 앨범에 추가할 때 사용해요.',"editPermission('photos')",'stack','<span class="permission-status">'+({all:'전체 허용',selected:'일부 허용',none:'허용 안 함'}[menuPrefs.permissions.photos])+'</span>')+settingRow('알림','사진 불러오기와 새 사진, AI 추천 결과를 알려줄 때 사용해요.',"editPermission('notifications')",'bell','<span class="permission-status">'+(menuPrefs.permissions.notifications?'허용됨':'허용 안 함')+'</span>')+toggleRow('얼굴 등록 사용','등록한 얼굴을 기준으로 내가 나온 사진을 모아볼 때 사용해요.',menuPrefs.permissions.face,'toggleFacePermission()')+'</div><p class="settings-caption">프로토타입에서 권한 설정 흐름을 확인하는 화면이에요. 실제 휴대폰 권한은 변경하지 않아요.</p>';}
 function editPermission(kind){var defs=kind==='photos'?[['all','전체 허용'],['selected','선택한 사진만 허용'],['none','허용 안 함']]:[[true,'허용'],[false,'허용 안 함']];basicDialog(kind==='photos'?'사진 접근 권한':'알림 권한',defs.map(d=>'<button class="basic-row" onclick="setSamplePermission(\''+kind+'\','+(typeof d[0]==='boolean'?d[0]:'\''+d[0]+'\'')+')">'+d[1]+'</button>').join('')+'<p class="basic-hint">실제 기기 권한은 바뀌지 않아요.</p>');}
 function setSamplePermission(kind,value){menuPrefs.permissions[kind]=value;saveMenuPrefs();closeBasicDialog();renderAppPermissions();}
 function toggleFacePermission(){menuPrefs.permissions.face=!menuPrefs.permissions.face;saveMenuPrefs();renderAppPermissions();}
@@ -1052,7 +1153,7 @@ var enhancedGo=go;go=function(n){if(document.querySelector('.screen.on')?.id==='
 notificationDialog=function(){go('notification-settings');};
 document.querySelector('[aria-label="내 프로필"]').onclick=function(){go('menu');};
 // Return from custom keyboard handling before any handler behind the top-most dialog.
-document.addEventListener('keydown',function(e){if(!$('basicDialog').hidden){if(e.key==='Escape'){e.stopImmediatePropagation();closeBasicDialog();}return;}if(!$('albumBundleDialog').hidden&&$('albumBundleDialog').style.zIndex==='48'&&e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeAlbumOverlay('albumBundleDialog');return;}if(document.querySelector('.screen.on')?.id==='s-face-register'&&e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();returnFromFaceFlow();}},true);
+document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden&&e.target.closest('#photoCommentsPanel')===null)return;if(!$('basicDialog').hidden){if(e.key==='Escape'){e.stopImmediatePropagation();closeBasicDialog();}return;}if(!$('albumBundleDialog').hidden&&$('albumBundleDialog').style.zIndex==='48'&&e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();closeAlbumOverlay('albumBundleDialog');return;}if(document.querySelector('.screen.on')?.id==='s-face-register'&&e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();returnFromFaceFlow();}},true);
 renderMenuPage();
 
 // Keep only action controls and tabs sticky. Album details and download scroll away.
@@ -1071,18 +1172,18 @@ function albumMembersSettings(){var names=homeParticipants(cur);basicDialog('참
 var refinedAddPhotos=addPhotosLater;addPhotosLater=function(){refinedAddPhotos();if(cur.shareOptions){opts.forEach((o,i)=>o[2]=cur.shareOptions[i]);setMode(false);renderOpts();}};
 var pendingInvitation=null;
 function invitationOwner(){return inviteReturn?inviteReturn.album:null;}
-function freshInvitation(days){var bytes=new Uint8Array(5);crypto.getRandomValues(bytes);return {code:Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('').toUpperCase(),expiresAt:Date.now()+days*86400000};}
-function currentInvitation(){var owner=invitationOwner();if(owner){if(!owner.invitation){owner.invitation=freshInvitation(7);saveLocalAlbums();}return owner.invitation;}if(!pendingInvitation)pendingInvitation=freshInvitation(7);return pendingInvitation;}
+function freshInvitation(days){var bytes=new Uint8Array(5);crypto.getRandomValues(bytes);return {code:Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('').toUpperCase(),validForDays:days,expiresAt:Date.now()+days*86400000};}
+function currentInvitation(){var owner=invitationOwner();if(owner){if(!owner.invitation){owner.invitation=freshInvitation(3);saveLocalAlbums();}else if(!owner.invitation.validForDays){owner.invitation.expiresAt=Math.min(owner.invitation.expiresAt,Date.now()+3*86400000);owner.invitation.validForDays=3;saveLocalAlbums();}return owner.invitation;}if(!pendingInvitation)pendingInvitation=freshInvitation(3);return pendingInvitation;}
 function invitationURL(inv){return 'https://example.com/invite/'+inv.code;}
 function renderInvitation(){var inv=currentInvitation(),expired=Date.now()>=inv.expiresAt,sc=$('s-share');var link=sc.querySelector('.linkrow');if(!link)link=Array.from(sc.querySelectorAll('div')).find(e=>e.children.length<4&&e.textContent.includes('phou.app/a/mt-2026'));var copy=Array.from(sc.querySelectorAll('button')).find(b=>b.textContent.trim()==='복사');if(copy){copy.disabled=expired;var parent=copy.parentNode;Array.from(parent.childNodes).forEach(n=>{if(n.nodeType===3&&n.textContent.includes('phou.app'))n.textContent=invitationURL(inv);});var label=parent.querySelector('span');if(label)label.textContent=invitationURL(inv);}
  $('qr').innerHTML='';$('qr').setAttribute('aria-label',expired?'만료된 초대 QR':'앨범 초대 QR 코드');if(expired){$('qr').innerHTML='<span class="invite-expired">초대 만료</span>';}else{new QRCode($('qr'),{text:invitationURL(inv),width:152,height:152,correctLevel:QRCode.CorrectLevel.M});}
- sc.querySelector('.okchip').innerHTML=invitationOwner()?'친구와 함께하는 앨범':'✓ 앨범을 만들었어요';var exp=sc.querySelector('.exp');exp.innerHTML='<span class="'+(expired?'invite-expired':'')+'">'+(expired?'초대 링크가 만료됐어요':new Date(inv.expiresAt).toLocaleDateString('ko-KR')+'까지 유효')+'</span><button onclick="editInvitationExpiry()">기간 변경</button><button onclick="reissueInvitation()">새 초대 링크 만들기</button>';
+ sc.querySelector('.okchip').innerHTML=invitationOwner()?'친구와 함께하는 앨범':'✓ 앨범을 만들었어요';var exp=sc.querySelector('.exp');exp.innerHTML='<span class="'+(expired?'invite-expired':'')+'">'+(expired?'초대 링크가 만료됐어요':'링크는 '+(inv.validForDays||3)+'일 동안 유효해요.')+'</span><button onclick="editInvitationExpiry()">기간 변경</button><button onclick="reissueInvitation()">새 초대 링크 만들기</button>';
  var qrParent=$('qr').parentNode;qrParent.querySelector('.invite-qr-info').innerHTML='<div style="font-size:15px;font-weight:600;line-height:1.5">'+(expired?'새 초대 링크를<br>만들어 주세요':'친구에게 QR을<br>보여주세요')+'</div><div class="small" style="margin-top:7px">초대 코드 '+inv.code+'</div>';var title=qrParent.querySelector('b');if(title)title.textContent='친구에게 초대 코드를 알려주세요';var texts=qrParent.querySelectorAll('p');texts.forEach(e=>{if(e.textContent.includes('QR'))e.textContent='친구에게 초대 코드를 알려주세요';});
 }
 function saveInvitation(inv){var owner=invitationOwner();if(owner){owner.invitation=inv;saveLocalAlbums();}else pendingInvitation=inv;renderInvitation();}
-function reissueInvitation(){basicDialog('새 초대 링크 만들기','<p class="basic-hint">이전 링크와 코드는 즉시 만료돼요. 기존 참여자와 사진은 그대로 유지돼요.</p><button class="basic-action" onclick="saveInvitation(freshInvitation(7));closeBasicDialog();toast(\'새 초대 링크를 만들었어요\')">7일간 유효한 링크 만들기</button>');}
-function editInvitationExpiry(){var inv=currentInvitation();if(Date.now()>=inv.expiresAt){reissueInvitation();return;}basicDialog('초대 링크 유효기간','<label>만료 일시<input id="inviteExpiry" type="datetime-local" value="'+new Date(inv.expiresAt-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)+'"></label><p class="basic-hint">사진 수집 종료일과 별도로 정해요.</p><button class="basic-action" onclick="saveInvitationExpiry()">변경 저장</button>');}
-function saveInvitationExpiry(){var expires=new Date($('inviteExpiry').value).getTime();if(!Number.isFinite(expires)||expires<=Date.now()){toast('현재보다 이후 시간을 골라주세요');return;}saveInvitation({...currentInvitation(),expiresAt:expires});closeBasicDialog();}
+function reissueInvitation(){basicDialog('새 초대 링크 만들기','<p class="basic-hint">이전 링크와 코드는 즉시 만료돼요. 기존 참여자와 사진은 그대로 유지돼요.</p><button class="basic-action" onclick="saveInvitation(freshInvitation(3));closeBasicDialog();toast(\'새 초대 링크를 만들었어요\')">3일간 유효한 링크 만들기</button>');}
+function editInvitationExpiry(){var inv=currentInvitation();if(Date.now()>=inv.expiresAt){reissueInvitation();return;}basicDialog('초대 링크 유효기간','<label>만료 일시<input id="inviteExpiry" type="datetime-local" value="'+new Date(inv.expiresAt-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)+'"></label><p class="basic-hint">사진을 불러올 종료 시점과 별도로 정해요.</p><button class="basic-action" onclick="saveInvitationExpiry()">변경 저장</button>');}
+function saveInvitationExpiry(){var expires=new Date($('inviteExpiry').value).getTime();if(!Number.isFinite(expires)||expires<=Date.now()){toast('현재보다 이후 시간을 골라주세요');return;}saveInvitation({...currentInvitation(),expiresAt:expires,validForDays:Math.max(1,Math.ceil((expires-Date.now())/86400000))});closeBasicDialog();}
 copyLink=function(){var inv=currentInvitation();if(Date.now()>=inv.expiresAt){toast('만료된 링크예요. 새 링크를 만들어 주세요');return;}navigator.clipboard?.writeText(invitationURL(inv)).then(()=>toast('시연용 초대 링크를 복사했어요')).catch(()=>toast('복사할 수 없어요. 초대 코드를 확인해 주세요'));};
 var invitationGo=go;go=function(n){if(n==='create')pendingInvitation=null;invitationGo(n);if(n==='share')renderInvitation();};
 var invitationFinish=finish;finish=function(){var fresh=!inviteReturn,inv=pendingInvitation;invitationFinish();if(fresh&&cur&&inv){cur.invitation=inv;saveLocalAlbums();pendingInvitation=null;}};
@@ -1161,16 +1262,6 @@ function submitFriendInvitations(){if(!friendInviteSelection.size){if(friendInvi
 friendInviteScreen.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();closeInviteFriends();}});
 
 
-// The 10-photo threshold is a UT trigger, not measured file storage.
-var capacityUploadKey=albumStorageKey+'-capacity-uploads',capacityUploaded=0;
-try{var storedCapacity=Number(localStorage.getItem(capacityUploadKey)||0);if(Number.isFinite(storedCapacity)&&storedCapacity>0)capacityUploaded=storedCapacity;}catch(e){}
-function refreshCapacityNotice(){var notice=$('capacityNotice');if(!notice){notice=document.createElement('aside');notice.id='capacityNotice';notice.className='capacity-notice';notice.setAttribute('role','status');notice.innerHTML='<strong>개인 저장 공간이 얼마 남지 않았어요</strong><p>인당 사용할 수 있는 용량을 거의 다 사용했어요. 불필요한 사진을 정리해 주세요.</p>';$('s-album').querySelector('.hdr').appendChild(notice);}notice.hidden=capacityUploaded<10;}
-function recordCapacityUpload(count){if(!Number.isFinite(count)||count<=0)return;var previous=capacityUploaded;capacityUploaded+=count;try{localStorage.setItem(capacityUploadKey,String(capacityUploaded));}catch(e){}refreshCapacityNotice();if(previous<10&&capacityUploaded>=10){basicDialog('개인 저장 공간이 얼마 남지 않았어요','<p class="basic-hint">인당 사용할 수 있는 용량을 거의 다 사용했어요. 계속 사진을 올리려면 불필요한 사진을 정리해 주세요.</p><button class="basic-action" onclick="closeBasicDialog()">확인</button>');}}
-var capacityRenderAlbum=renderAlbum;renderAlbum=function(){capacityRenderAlbum();refreshCapacityNotice();};
-var capacitySubmit=submitPhotoBatch;submitPhotoBatch=function(){var target=photoAddTarget,n=target?countSel():0,before=target?(Number.isFinite(target.total)?target.total:parseInt(target.count,10)||0):0;capacitySubmit();if(target&&n>0&&target.total===before+n)recordCapacityUpload(n);};$('sharebtn').onclick=submitPhotoBatch;
-var capacityFinish=finish;finish=function(){var before=new Set(albums);capacityFinish();if(cur&&!before.has(cur)&&albums.includes(cur))recordCapacityUpload(cur.total||0);};
-
-
 // Native gallery selection for manual mode; no automatic sample selection.
 var manualImportActive=false,manualAppend=false,manualGalleryInput=document.createElement('input');manualGalleryInput.type='file';manualGalleryInput.accept='image/*,.heic,.heif';manualGalleryInput.multiple=true;manualGalleryInput.hidden=true;manualGalleryInput.id='manualGalleryInput';manualGalleryInput.setAttribute('aria-label','갤러리에서 사진 선택');document.body.appendChild(manualGalleryInput);
 function openManualGallery(append){manualAppend=!!append;manualGalleryInput.click();}
@@ -1191,7 +1282,7 @@ var galleryDrawViewer=drawPhotoViewer;drawPhotoViewer=function(){galleryDrawView
 
 
 var customCriteriaApplied=false,criteriaDraft=[];
-function refreshCriteriaSummary(){var tags=$('ai-tags');tags.style.setProperty('display','flex','important');var labels=['나만 나온 사진 제외','흐릿한 사진','비슷한 사진은 1장만','스크린샷 제외','영상 제외'],active=customCriteriaApplied?opts.map(o=>o[2]):[true,true,true,true,false],order=[1,2,3,0,4];tags.innerHTML=order.filter(i=>active[i]).map(i=>'<i>'+labels[i]+'</i>').join('')||'<i>모든 사진 불러오기</i>';$('editSharingCriteria').textContent='기준 직접 설정하기 >';}
+function refreshCriteriaSummary(){var tags=$('ai-tags');tags.style.setProperty('display','flex','important');var labels=['나만 나온 사진 제외','흐릿한 사진','비슷한 사진은 대표 사진만','스크린샷 제외','동영상 제외'],active=customCriteriaApplied?opts.map(o=>o[2]):[true,true,true,true,false],order=[1,2,3,0,4];tags.innerHTML=order.filter(i=>active[i]).map(i=>'<i>'+labels[i]+'</i>').join('')||'<i>모든 사진 불러오기</i>';$('editSharingCriteria').textContent='기준 직접 설정하기 >';}
 var inlineCriteriaRenderOpts=renderOpts;renderOpts=function(){inlineCriteriaRenderOpts();refreshCriteriaSummary();};
 var inlineCriteriaSetMode=setMode;setMode=function(value){inlineCriteriaSetMode(value);refreshCriteriaSummary();};
 var inlineCriteriaLater=chooseLater;chooseLater=function(){inlineCriteriaLater();refreshCriteriaSummary();};
@@ -1199,17 +1290,6 @@ function openSharingCriteria(){setMode(true);criteriaDraft=customCriteriaApplied
 function applySharingCriteria(){opts.forEach((o,i)=>o[2]=criteriaDraft[i]);customCriteriaApplied=true;closeBasicDialog();setMode(true);}
 var inlineCriteriaGo=go;go=function(name){inlineCriteriaGo(name);if(name==='options')refreshCriteriaSummary();};
 
-
-// Native apps need photo-library deletion permission; this HTML records a UT choice only.
-var originalPromptKey=albumStorageKey+'-keep-originals-without-asking',skipOriginalPrompt=false,pendingOriginalUpload=null;
-try{skipOriginalPrompt=localStorage.getItem(originalPromptKey)==='true';}catch(e){}
-function saveOriginalPromptPreference(){try{localStorage.setItem(originalPromptKey,String(skipOriginalPrompt));}catch(e){}}
-var originalDecisionSubmit=submitPhotoBatch;
-submitPhotoBatch=function(){if(countSel()<=0)return;if(skipOriginalPrompt){window.lastOriginalPhotoDecision={choice:'keep',remembered:true,count:countSel(),actualDeletion:false};originalDecisionSubmit();return;}if(pendingOriginalUpload)return;pendingOriginalUpload=originalDecisionSubmit;basicDialog('원본 사진 삭제 확인','');$('dialogContent').classList.add('original-photo-dialog');$('dialogContent').innerHTML='<header class="original-dialog-heading"><h2>지금 업로드한 사진을 내 갤러리에서 삭제하시겠습니까?</h2><button type="button" class="original-close" aria-label="업로드 취소하고 사진 확인으로 돌아가기" onclick="closeBasicDialog()">'+albumIcon('close',20)+'</button></header><p class="basic-hint">삭제하면 휴대폰 갤러리 앱에 있는 원본 사진도 삭제돼요.</p><div class="original-choice-actions"><button type="button" class="basic-action original-keep" onclick="chooseOriginalPhotoAction(false)">삭제 안 함</button><button type="button" class="basic-action original-delete" onclick="chooseOriginalPhotoAction(true)">삭제하기</button></div>';$('basicDialog').setAttribute('aria-label','원본 사진 삭제 확인');$('dialogContent').querySelector('.original-keep').focus();};$('sharebtn').onclick=submitPhotoBatch;
-function chooseOriginalPhotoAction(remove){var upload=pendingOriginalUpload;if(!upload)return;window.lastOriginalPhotoDecision={choice:remove?'delete-requested':'keep',remembered:false,count:countSel(),actualDeletion:false};pendingOriginalUpload=null;closeBasicDialog();upload();}
-var originalPromptClose=closeBasicDialog;closeBasicDialog=function(){pendingOriginalUpload=null;$('dialogContent').classList.remove('original-photo-dialog');$('basicDialog').setAttribute('aria-label','설정');originalPromptClose();};
-var originalPromptUploadSettings=renderUploadSettings;renderUploadSettings=function(){originalPromptUploadSettings();var section=document.createElement('section');section.className='original-prompt-settings';section.innerHTML='<h2>갤러리 원본 사진</h2><div class="menu-card">'+toggleRow('업로드할 때 원본 삭제 여부 묻기',skipOriginalPrompt?'질문을 건너뛰고 갤러리의 원본 사진을 유지해요.':'사진을 올릴 때마다 원본 삭제 여부를 확인해요.',!skipOriginalPrompt,'toggleOriginalPhotoPrompt()')+'</div><p class="settings-caption">이 HTML 시안은 실제 갤러리 사진을 삭제하지 않아요.</p>';$('uploadSettingsBody').appendChild(section);};settingsScreens['upload-settings']=renderUploadSettings;
-function toggleOriginalPhotoPrompt(){skipOriginalPrompt=!skipOriginalPrompt;saveOriginalPromptPreference();renderUploadSettings();}
 
 // Review-only draft: sample photo person 0 is the current user.
 function albumPeopleEntries(){var n=Math.max(1,Math.min(4,parseInt(cur.people,10)||1)),others=homeParticipants(cur).filter(name=>name!==profileState.name);return [{id:0,name:'나'}].concat(Array.from({length:n-1},(_,i)=>({id:i+1,name:others[i]||'참여자 '+(i+2)})));}
@@ -1221,7 +1301,7 @@ var readonlyPasswordInvitation=renderInvitation;
 renderInvitation=function(){readonlyPasswordInvitation();['invitePrototypeNote','inviteLifecycleNote'].forEach(id=>$(id)?.remove());};
 function editAlbumInfo(){
  var enabled=!!cur.entryPasswordEnabled,code=/^[0-9]{4}$/.test(cur.entryPassword||'')?cur.entryPassword:'0000';
- basicDialog('앨범 정보·비밀번호 수정','<div class="album-info-form"><label>앨범 이름<input id="editAlbumName" maxlength="40" value="'+esc(cur.name)+'"></label><label>사진 수집 시작<input id="editAlbumStart" type="datetime-local" value="'+esc(cur.eventStart||'2026-10-03T09:00')+'"></label><label>사진 수집 종료<input id="editAlbumEnd" type="datetime-local" value="'+esc(cur.eventEnd||'2026-10-05T23:59')+'"></label><p class="album-settings-note">이 기간에 찍은 사진을 자동으로 모아요. 기간이 끝나도 앨범과 기존 사진은 유지돼요. 초대 링크의 유효기간은 별도로 설정해요.</p><div class="album-password-setting"><div class="album-password-row"><span class="album-password-copy"><b>비밀번호 설정하기</b><small>비밀번호를 입력해야 공유앨범에 들어올 수 있어요.</small></span><button type="button" class="sw'+(enabled?' on':'')+'" id="editAlbumPasswordToggle" role="switch" aria-label="입장 비밀번호 사용" aria-checked="'+enabled+'" aria-controls="editAlbumPasswordFields" onclick="toggleAlbumPassword()"><span></span></button></div><div id="editAlbumPasswordFields" '+(enabled?'':'hidden')+'><label for="editAlbumPassword">입장 비밀번호<input type="text" id="editAlbumPassword" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" value="'+code+'" aria-describedby="editAlbumPasswordError" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,4);validateAlbumPassword(false)"></label><p id="editAlbumPasswordError" class="album-password-error" aria-live="polite"></p></div></div><button class="basic-action" onclick="saveAlbumInfo()">저장</button></div>');
+ basicDialog('앨범 정보·비밀번호 수정','<div class="album-info-form"><label>앨범 이름<input id="editAlbumName" maxlength="40" value="'+esc(cur.name)+'"></label><label>사진 불러오기 시작<input id="editAlbumStart" type="datetime-local" value="'+esc(cur.eventStart||'2026-10-03T09:00')+'"></label><label>사진 불러오기 종료<input id="editAlbumEnd" type="datetime-local" value="'+esc(cur.eventEnd||'2026-10-05T23:59')+'"></label><p class="album-settings-note">이 기간에 찍은 사진을 자동으로 모아요. 기간이 끝나도 앨범과 기존 사진은 유지돼요. 초대 링크의 유효기간은 별도로 설정해요.</p><div class="album-password-setting"><div class="album-password-row"><span class="album-password-copy"><b>비밀번호 설정하기</b><small>비밀번호를 입력해야 공유앨범에 들어올 수 있어요.</small></span><button type="button" class="sw'+(enabled?' on':'')+'" id="editAlbumPasswordToggle" role="switch" aria-label="입장 비밀번호 사용" aria-checked="'+enabled+'" aria-controls="editAlbumPasswordFields" onclick="toggleAlbumPassword()"><span></span></button></div><div id="editAlbumPasswordFields" '+(enabled?'':'hidden')+'><label for="editAlbumPassword">입장 비밀번호<input type="text" id="editAlbumPassword" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" value="'+code+'" aria-describedby="editAlbumPasswordError" oninput="this.value=this.value.replace(/[^0-9]/g,\'\').slice(0,4);validateAlbumPassword(false)"></label><p id="editAlbumPasswordError" class="album-password-error" aria-live="polite"></p></div></div><button class="basic-action" onclick="saveAlbumInfo()">저장</button></div>');
 }
 function toggleAlbumPassword(){var button=$('editAlbumPasswordToggle'),enabled=button.getAttribute('aria-checked')!=='true';button.classList.toggle('on',enabled);button.setAttribute('aria-checked',String(enabled));$('editAlbumPasswordFields').hidden=!enabled;validateAlbumPassword(false);}
 function validateAlbumPassword(focus){var enabled=$('editAlbumPasswordToggle').getAttribute('aria-checked')==='true',valid=!enabled||/^[0-9]{4}$/.test($('editAlbumPassword').value);$('editAlbumPassword').setAttribute('aria-invalid',String(!valid));$('editAlbumPasswordError').textContent=valid?'':'숫자 4자리를 입력해 주세요.';if(!valid&&focus)$('editAlbumPassword').focus();return valid;}
@@ -1239,6 +1319,168 @@ function editAlbumSharing(){
 function toggleAlbumShareChoice(button){var enabled=button.getAttribute('aria-checked')!=='true';button.classList.toggle('on',enabled);button.setAttribute('aria-checked',String(enabled));}
 function saveAlbumSharing(){cur.shareOptions=Array.from(document.querySelectorAll('.album-share-choice'),e=>e.getAttribute('aria-checked')==='true');saveLocalAlbums();closeBasicDialog();toast('공유 기준을 저장했어요');}
 
+
+/* Review draft: layout changes and browser-local comments. No remote services. */
+function localDateTime(value){var d=new Date(value||Date.now());return new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,16);}
+function collectionPeriodFields(prefix,start,end){
+ return '<div class="period-card"><div class="period-row"><label for="'+prefix+'Start">시작</label><input aria-label="시작 날짜와 시간" id="'+prefix+'Start" type="datetime-local" value="'+esc(start||localDateTime())+'"></div>'+
+ '<div class="period-row period-end-row" data-has-end="'+!!end+'"><label for="'+prefix+'EndMode">종료</label><select aria-label="종료 시점" id="'+prefix+'EndMode" onchange="togglePeriodEnd(\''+prefix+'\')"><option value="none" '+(!end?'selected':'')+'>종료일 없음</option><option value="date" '+(end?'selected':'')+'>종료일 설정</option></select><label id="'+prefix+'EndField" for="'+prefix+'End"><input aria-label="종료 날짜와 시간" id="'+prefix+'End" type="datetime-local" value="'+esc(end||'')+'" onclick="if($(\''+prefix+'EndMode\').value===\'none\')openCollectionEndCalendar(\''+prefix+'\')"><span class="period-no-end" id="'+prefix+'EndNone" '+(end?'hidden':'')+'>종료일 없음</span></label></div></div>'+
+ '<p class="basic-hint">이 기간에 촬영한 사진을 자동으로 불러와요.</p>';
+}
+function togglePeriodEnd(prefix){var on=$(prefix+'EndMode').value==='date';$(prefix+'EndField').hidden=false;$(prefix+'EndNone').hidden=on;$(prefix+'EndMode').closest('.period-row').dataset.hasEnd=String(on);$(prefix+'End').disabled=false;if(!on)$(prefix+'End').value='';if(on&&!$(prefix+'End').value)$(prefix+'End').value=localDateTime(new Date($(prefix+'Start').value).getTime()+86400000);if(prefix==='event')updName();}
+function openCollectionEndCalendar(prefix){$(prefix+'EndMode').value='date';togglePeriodEnd(prefix);var input=$(prefix+'End');input.focus();if(typeof input.showPicker==='function'){try{input.showPicker();}catch(e){}}}
+function readCollectionPeriod(prefix){var start=$(prefix+'Start').value,end=$(prefix+'EndMode').value==='date'?$(prefix+'End').value:null;return {start,end,valid:!!start&&Number.isFinite(Date.parse(start))&&($(prefix+'EndMode').value!=='date'||!!end&&(prefix==='batch'?Date.parse(end)>=Date.parse(start):Date.parse(end)>Date.parse(start)))};}
+function collectionLabel(start,end){return (start||'').replace('T',' ').replaceAll('-','.')+' – '+(end?end.replace('T',' ').replaceAll('-','.'):'종료일 없음');}
+var oldPeriodGroup=$('eventStart').closest('.stack.g8');
+oldPeriodGroup.innerHTML='<span class="label">사진을 불러올 기간</span><div class="basic-box collection-period-form">'+collectionPeriodFields('event',localDateTime(),null)+'</div>';
+document.querySelector('#s-create h1').textContent='공유앨범 만들기';
+document.querySelector('label[for="fname"]').textContent='앨범 이름';
+$('s-create').setAttribute('aria-label','공유앨범 만들기');
+document.querySelector('#s-create .box.row.between .small').textContent='이 기간에 촬영한 사진을 자동으로 불러와요.';
+updName=function(){var p=readCollectionPeriod('event');$('flen').textContent=$('fname').value.length+'/20';$('next1').disabled=!$('fname').value.trim()||!p.valid||!validateEntryPassword();$('dateError').textContent=p.valid?'':'종료 시점을 시작보다 이후로 설정해 주세요.';};
+['fname','eventStart','eventEnd','eventEndMode','entryPassword'].forEach(id=>$(id).addEventListener('input',updName));
+$('eventEndMode').addEventListener('change',updName);
+periodLabel=function(){var p=readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
+eventDate=periodLabel;
+compactAlbumDate=function(a){if(!a.eventStart)return a.date;return a.eventStart.slice(0,10).replaceAll('-','.')+' – '+(a.eventEnd?a.eventEnd.slice(0,10).replaceAll('-','.'):'종료일 없음');};
+editPhotoPeriod=function(){periodReturnScreen=document.querySelector('.screen.on').id.replace('s-','');var p=readCollectionPeriod('event');basicDialog('사진을 불러올 기간','<div class="collection-period-form">'+collectionPeriodFields('batch',p.start,p.end)+'</div><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');};
+updateBatchPeriod=function(){var p=readCollectionPeriod('batch');if(!p.valid){toast('종료 시점을 시작보다 이후로 설정해 주세요');return;}$('eventStart').value=p.start;$('eventEndMode').value=p.end?'date':'none';$('eventEnd').value=p.end||'';togglePeriodEnd('event');refreshPeriodLabels();closeBasicDialog();if(periodReturnScreen==='import')go('import');};
+function syncCollectionPeriod(album){if(!album?.eventStart)return;$('eventStart').value=album.eventStart;$('eventEndMode').value=album.eventEnd?'date':'none';$('eventEnd').value=album.eventEnd||'';togglePeriodEnd('event');refreshPeriodLabels();}
+var layoutGo=go;
+go=function(name){var fresh=name==='create'&&document.querySelector('.screen.on')?.id==='s-home';if(fresh){inviteReturn=null;directFriendReturn=null;$('eventStart').value=localDateTime();$('eventEndMode').value='none';$('eventEnd').value='';togglePeriodEnd('event');}layoutGo(name);if(name==='create')updName();if(name==='album'){syncCollectionPeriod(cur);if(cur?.eventStart)cur.date=collectionLabel(cur.eventStart,cur.eventEnd);}if(name==='options'||name==='import'){if(photoAddTarget)syncCollectionPeriod(photoAddTarget);refreshPeriodLabels();}};
+var layoutFinish=finish;
+finish=function(){var creating=!inviteReturn,p=readCollectionPeriod('event');layoutFinish();if(creating&&cur){cur.eventStart=p.start;cur.eventEnd=p.end;cur.date=collectionLabel(p.start,p.end);albumState().model=null;saveLocalAlbums();renderHome();renderAlbum();}};
+var layoutEditInfo=editAlbumInfo;
+editAlbumInfo=function(){layoutEditInfo();var form=$('dialogContent').querySelector('.album-info-form'),first=$('editAlbumStart').closest('label'),last=$('editAlbumEnd').closest('label'),area=document.createElement('div');area.className='collection-period-form';area.innerHTML='<b>사진을 불러올 기간</b>'+collectionPeriodFields('editAlbum',cur.eventStart,cur.eventEnd);first.replaceWith(area);last.remove();form.querySelector('.album-settings-note').textContent='종료 시점은 사진을 불러오는 기준이에요. 앨범과 기존 사진은 유지돼요. 초대 링크 유효기간은 별도로 설정해요.';};
+saveAlbumInfo=function(){var name=$('editAlbumName').value.trim(),p=readCollectionPeriod('editAlbum');if(!name||!p.valid){toast('앨범 이름과 올바른 기간을 입력해 주세요');return;}if(!validateAlbumPassword(true))return;cur.name=name;cur.eventStart=p.start;cur.eventEnd=p.end;cur.date=collectionLabel(p.start,p.end);cur.entryPasswordEnabled=$('editAlbumPasswordToggle').getAttribute('aria-checked')==='true';cur.entryPassword=cur.entryPasswordEnabled?$('editAlbumPassword').value:null;albumState().model=null;syncCollectionPeriod(cur);saveLocalAlbums();renderHome();renderAlbum();closeBasicDialog();toast('앨범 정보를 저장했어요');};
+
+// Remove home navigation while preserving access through the existing profile/menu button.
+$('s-home').querySelector('nav.tab')?.remove();
+var layoutMenu=renderMenuPage;
+renderMenuPage=function(){layoutMenu();var button=Array.from($('menuPageContent').querySelectorAll('.setting-row')).find(b=>b.getAttribute('onclick')==="go('storage')");button?.remove();Array.from($('menuPageContent').querySelectorAll('h2')).find(h=>h.textContent==='사진과 저장 공간')?.replaceChildren(document.createTextNode('사진'));};
+delete settingsScreens.storage;
+$('s-storage')?.remove();
+
+function ownPhoto(photo){if(Array.isArray(cur.ownPhotoIds))return cur.ownPhotoIds.includes(photo.id);return photo.number<=(cur.uploadedCount??(cur.isNew?albumPhotoModel().total:32));}
+function uploaderNames(){return [profileState.name,'참여자 1','참여자 2','참여자 3'];}
+function uploaderName(photo){return ownPhoto(photo)?profileState.name:'참여자 '+((photo.number-1)%3+1);}
+photoOwner=function(photo){return ownPhoto(photo)?'내가 올림':uploaderName(photo)+'님이 올림';};
+var layoutSubmit=submitPhotoBatch;
+submitPhotoBatch=function(){var target=photoAddTarget,n=countSel(),start=target?(Number.isFinite(target.total)?target.total:parseInt(target.count,10)||0):0;if(target&&!target.ownPhotoIds){cur=target;target.ownPhotoIds=albumPhotoModel().photos.filter(ownPhoto).map(p=>p.id);}layoutSubmit();if(target&&target.total===start+n){target.ownPhotoIds=Array.from(new Set([...(target.ownPhotoIds||[]),...Array.from({length:n},(_,i)=>'p'+(start+i))]));saveLocalAlbums();renderAlbum();}};
+$('sharebtn').onclick=submitPhotoBatch;
+
+// Keep search and filters in the same album, above its photo results.
+var filterArea=document.createElement('section');filterArea.id='albumFilterArea';filterArea.innerHTML='<div id="photoCategoryFilters" class="photo-filter-controls" role="group" aria-label="사진 필터"></div><div id="uploaderPeople" hidden></div>';
+$('albBody').before(filterArea);
+var integratedViews=['all','me','people','places','time','face','scenery','browse','liked'];
+function resetPhotoFilters(){var st=albumState();st.owner='all';st.query='';st.uploaderPicking=false;st.range=[0,23];st.selected.clear();albumView('all');}
+function photoFiltersChanged(){albumState().selected.clear();renderAlbum();}
+function choosePhotoFilter(view){var st=albumState();st.uploaderPicking=view==='uploader';if(view==='uploader'&&(!st.owner||st.owner==='all'))st.owner='me';if(view==='all'||view==='liked'){st.owner='all';}if(view==='mine'){st.owner='me';}albumView(view==='uploader'||view==='mine'?'all':view);}
+function choosePhotoUploader(index){var names=uploaderNames(),value=index<0?'all':names[index];albumState().owner=value===profileState.name?'me':value;photoFiltersChanged();}
+function updatePhotoFilters(){
+ var st=albumState();st.query='';var visible=integratedViews.includes(st.view);filterArea.hidden=!visible;if(!visible)return;
+ var current=st.owner||'all',activeView=st.uploaderPicking?'uploader':st.view==='all'&&current==='me'?'mine':st.view;
+ $('photoCategoryFilters').innerHTML=[['all','전체'],['liked','좋아요한 사진'],['people','사람'],['places','장소'],['time','시간'],['scenery','음식 · 풍경'],['uploader','올린 사람']].map(([v,title])=>'<button type="button" class="chip'+(activeView===v?' sel':'')+'" aria-pressed="'+(activeView===v)+'" data-photo-filter="'+v+'" onclick="choosePhotoFilter(\''+v+'\')">'+title+'</button>').join('');
+ var panel=$('uploaderPeople');panel.hidden=!st.uploaderPicking;
+ if(st.uploaderPicking){var names=uploaderNames(),counts=albumPhotoModel().photos;panel.innerHTML='<div class="album-view-heading"><h2>올린 사람</h2></div><div class="album-people-strip" aria-label="올린 사람 선택">'+names.map((name,i)=>{var value=name===profileState.name?'me':name,selected=current===value;return '<button type="button" class="album-person-btn '+(selected?'active':'')+'" data-uploader-index="'+i+'" aria-pressed="'+selected+'" onclick="choosePhotoUploader('+i+')"><span class="member-initial">'+esc(name===profileState.name?'나':name.replace('참여자 ',''))+'</span><b>'+esc(name===profileState.name?'나':name)+'</b><small>'+counts.filter(p=>uploaderName(p)===name).length+'장</small></button>';}).join('')+'</div>';}
+}
+var layoutItems=albumCurrentItems;
+albumCurrentItems=function(){var st=albumState(),items=layoutItems();if(!integratedViews.includes(st.view))return items;if(st.view==='liked')items=filterAlbumItemMembers(items,p=>isPhotoLiked(p.id));var owner=st.owner||'all',query=(st.query||'').trim().toLocaleLowerCase();return filterAlbumItemMembers(items,function(p){var matchOwner=owner==='all'||(owner==='me'?ownPhoto(p):uploaderName(p)===owner),hay=['사진 '+p.number,p.number,uploaderName(p),photoOwner(p)].join(' ').toLocaleLowerCase();return matchOwner&&(!query||hay.includes(query));});};
+var layoutAlbumView=albumView;
+albumView=function(view){layoutAlbumView(view==='browse'?'all':view);};
+var layoutRenderAlbum=renderAlbum;
+renderAlbum=function(){layoutRenderAlbum();if(!cur)return;var st=albumState(),main=['ai','best'].includes(st.view)?'ai':'all';$('albChips').innerHTML=[['all','전체'],['ai','베스트컷']].map(([v,t])=>'<button role="tab" aria-selected="'+(main===v)+'" onclick="albumView(\''+v+'\')">'+t+'</button>').join('');updatePhotoFilters();Array.from($('avs').children).slice(3).forEach(el=>el.remove());if(!$('addAlbumFriend')){var b=document.createElement('button');b.id='addAlbumFriend';b.className='iconbtn';b.setAttribute('aria-label','친구 추가');b.title='친구 추가';b.innerHTML=albumIcon('plus',20);b.onclick=openAlbumFriends;$('avs').appendChild(b);}updateAlbumDownloadButton();};
+openAlbum=function(i){cur=albums[i];albumOrigin='home';var st=albumState();st.view='all';st.selected.clear();st.selecting=false;albTab='all';go('album');$('s-album').querySelector('.scroll').scrollTop=0;};
+albumBack=function(){if(!$('photoViewer').hidden){closePhotoViewer();return;}if(!$('albumBundleDialog').hidden){closeAlbumOverlay('albumBundleDialog');return;}if(!$('albumDownloadDialog').hidden){closeAlbumOverlay('albumDownloadDialog');return;}var st=albumState();if(st.selecting){toggleAlbumSelection();return;}if(st.view!=='all'&&st.view!=='ai'&&st.view!=='best'||st.owner&&st.owner!=='all'||st.query||st.uploaderPicking){resetPhotoFilters();return;}go(albumOrigin||'home');};
+var directFriendReturn=null;
+function openAlbumFriends(){directFriendReturn={album:cur,tab:albumState().view};inviteReturn={album:cur,tab:albTab};if(currentInvitation().expiresAt<=Date.now()){toast('초대 링크가 만료됐어요. 공유 화면에서 새 링크를 만들어 주세요');return;}$('s-album').classList.remove('on');openInviteFriends();}
+var layoutCloseFriends=closeInviteFriends;
+closeInviteFriends=function(){if(!directFriendReturn){layoutCloseFriends();return;}var target=directFriendReturn;directFriendReturn=null;friendInviteScreen.classList.remove('on');cur=target.album;albumState().view=target.tab;go('album');};
+
+// Download scopes and counts refer to the actual eligible photos; own uploads are excluded.
+function downloadableItems(items){return filterAlbumItemMembers(items,p=>!ownPhoto(p));}
+updateAlbumDownloadButton=function(){if(!cur)return;var visible=albumCurrentItems(),items=downloadableItems(visible),best=['ai','best'].includes(albumState().view),count=albumRawScope(visible).length;$('albumFullDownload').hidden=false;$('albumBottomActions').classList.remove('browse-home');$('albumFullDownload').innerHTML=albumIcon('download',19)+' '+(best?'베스트컷 다운로드':'전체 다운로드')+' · '+count+'장';$('albumFullDownload').disabled=!count;};
+var albumDownloadSource=[],albumDownloadExcludeOwn=true;
+requestAlbumDownload=function(full){
+ var st=albumState(),source=albumCurrentItems();
+ albumDownloadSource=(full?source:source.filter(item=>st.selected.has(item.id))).slice();
+ if(!albumDownloadSource.length){toast('저장할 사진이 없어요');return;}
+ albumDownloadExcludeOwn=downloadableItems(albumDownloadSource).length>0;
+ albumDownloadChoice='representatives';
+ $('albumDownloadContent').innerHTML='<div class="album-dialog-toolbar"><div><h2>사진 저장하기</h2><p>비슷한 사진을 어떻게 저장할까요?</p></div><button aria-label="닫기" onclick="closeAlbumOverlay(\'albumDownloadDialog\')">'+albumIcon('close')+'</button></div><label class="download-option"><input type="radio" name="album-download" value="representatives" checked onchange="chooseAlbumDownload(this.value)"><span><b id="representativeDownloadLabel"></b><small>비슷한 사진 묶음에서는 현재 대표 사진 1장만 저장해요.</small></span></label><label class="download-option"><input type="radio" name="album-download" value="all" onchange="chooseAlbumDownload(this.value)"><span><b id="allDownloadLabel"></b><small>비슷한 사진을 포함해 모두 저장해요.</small></span></label><label class="download-exclude-own"><input id="excludeOwnDownloads" type="checkbox" '+(albumDownloadExcludeOwn?'checked':'')+' onchange="albumDownloadExcludeOwn=this.checked;updateDownloadCounts()"><span>내가 올린 사진은 빼고 저장해요</span></label><button class="album-dialog-action" id="confirmAlbumDownload" onclick="confirmAlbumDownload()"></button>';
+ updateDownloadCounts();focusAlbumOverlay('albumDownloadDialog');
+};
+function updateDownloadCounts(){
+ albumDownloadScope=albumDownloadExcludeOwn?downloadableItems(albumDownloadSource):albumDownloadSource;
+ var raw=albumRawScope(albumDownloadScope).length,reps=albumDownloadScope.length,body=$('albumDownloadContent');
+ body.dataset.rawCount=raw;body.dataset.representativeCount=reps;
+ $('representativeDownloadLabel').textContent='대표 사진만 저장 · '+reps+'장';
+ $('allDownloadLabel').textContent='모든 사진 저장 · '+raw+'장';
+ var n=albumDownloadChoice==='all'?raw:reps;
+ $('confirmAlbumDownload').textContent=n+'장 저장하기';$('confirmAlbumDownload').disabled=!n;
+}
+chooseAlbumDownload=function(value){albumDownloadChoice=value;updateDownloadCounts();};
+confirmAlbumDownload=function(){
+ updateDownloadCounts();var photos=albumDownloadChoice==='all'?albumRawScope(albumDownloadScope):albumDownloadScope.map(representative);if(!photos.length)return;
+ window.lastAlbumDownload={count:photos.length,photoIds:photos.map(p=>p.id),mode:albumDownloadChoice,excludeOwn:albumDownloadExcludeOwn,album:cur.name};
+ closeAlbumOverlay('albumDownloadDialog');toast(photos.length+'장 저장을 요청했어요 · 시연용');
+};
+
+var layoutSelectionUpdate=updateUnifiedSelection;
+updateUnifiedSelection=function(){layoutSelectionUpdate();if(!cur||!albumState().selecting)return;var selected=albumCurrentItems().filter(item=>albumState().selected.has(item.id)),n=downloadableItems(selected).length||selected.length;$('albSave').disabled=!n;$('albSave').textContent=n?'선택한 사진 다운로드 · '+n+'장':'저장할 사진을 선택해 주세요';};
+
+// Browser-local comments are stored on each album using stable photo IDs.
+function photoComments(photo){return cur.photoComments?.[photo.id]||[];}
+function commentIcon(){return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-2 2v-9.5A8.5 8.5 0 0 1 10.5 4H13a8 8 0 0 1 8 7.5Z"/></svg>';}
+var commentsPanel=document.createElement('section');commentsPanel.id='photoCommentsPanel';commentsPanel.hidden=true;commentsPanel.setAttribute('role','dialog');commentsPanel.setAttribute('aria-modal','true');commentsPanel.setAttribute('aria-label','사진 댓글');commentsPanel.innerHTML='<header class="comments-heading"><h2 id="commentsHeading">댓글 0</h2><button type="button" class="iconbtn" aria-label="댓글 닫기" onclick="closePhotoComments()">'+albumIcon('close')+'</button></header><div id="photoCommentsList" aria-live="polite"></div><form id="photoCommentForm"><label class="sr-only" for="photoCommentInput">댓글 입력</label><textarea id="photoCommentInput" rows="2" maxlength="500" placeholder="댓글을 입력해 주세요"></textarea><button class="main" id="postPhotoComment" type="submit" disabled>등록</button></form><p class="small" id="commentError" role="alert"></p>';
+$('photoViewer').appendChild(commentsPanel);
+var commentDrafts=new WeakMap(),commentsOpener=null;
+function commentDraftMap(){if(!commentDrafts.has(cur))commentDrafts.set(cur,{});return commentDrafts.get(cur);}
+function renderPhotoComments(){var photo=photoViewerItems[photoViewerIndex],comments=photoComments(photo);$('commentsHeading').textContent='댓글 '+comments.length;$('photoCommentsList').innerHTML=comments.length?comments.map(c=>'<article class="photo-comment"><b>'+esc(c.author)+'</b><p>'+esc(c.text)+'</p><time datetime="'+new Date(c.at).toISOString()+'">'+new Date(c.at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})+'</time></article>').join(''):'<p class="basic-hint">아직 댓글이 없어요. 첫 댓글을 남겨 보세요.</p>';$('photoCommentInput').value=commentDraftMap()[photo.id]||'';$('postPhotoComment').disabled=!$('photoCommentInput').value.trim();}
+function openPhotoComments(){commentsOpener=$('viewerCommentsButton');commentsPanel.hidden=false;$('photoViewerContent').inert=true;renderPhotoComments();$('photoCommentInput').focus();}
+function closePhotoComments(){commentsPanel.hidden=true;$('photoViewerContent').inert=false;var opener=commentsOpener?.isConnected?commentsOpener:$('viewerCommentsButton');opener?.focus({preventScroll:true});}
+$('photoCommentInput').addEventListener('input',function(){var p=photoViewerItems[photoViewerIndex];commentDraftMap()[p.id]=this.value;$('postPhotoComment').disabled=!this.value.trim();$('commentError').textContent='';});
+$('photoCommentForm').addEventListener('submit',function(e){e.preventDefault();var p=photoViewerItems[photoViewerIndex],text=$('photoCommentInput').value.trim();if(!text||text.length>500)return;var old=cur.photoComments?.[p.id]||[],comment={author:profileState.name,text,at:Date.now()};cur.photoComments=cur.photoComments||{};cur.photoComments[p.id]=old.concat(comment);try{localStorage.setItem(albumStorageKey,JSON.stringify(albums));}catch(error){cur.photoComments[p.id]=old;$('commentError').textContent='댓글을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.';return;}commentDraftMap()[p.id]='';renderPhotoComments();drawPhotoViewer();$('photoCommentsList').scrollTop=$('photoCommentsList').scrollHeight;$('photoCommentInput').focus();});
+commentsPanel.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closePhotoComments();}if(e.key==='Tab'){var nodes=Array.from(commentsPanel.querySelectorAll('button:not(:disabled),textarea')),first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}},true);
+document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden&&e.target.closest('#photoCommentsPanel')===null)return;if(commentsPanel.hidden)return;if(['Escape','ArrowLeft','ArrowRight'].includes(e.key)){e.stopImmediatePropagation();if(e.key==='Escape'){e.preventDefault();closePhotoComments();}}},true);
+var layoutDrawViewer=drawPhotoViewer;
+drawPhotoViewer=function(){layoutDrawViewer();var p=photoViewerItems[photoViewerIndex];if(!p)return;var actions=$('photoViewerContent').querySelector('.detail-actions'),button=document.createElement('button');button.id='viewerCommentsButton';button.type='button';button.onclick=openPhotoComments;button.innerHTML=commentIcon()+'<span>댓글 '+photoComments(p).length+'</span>';actions.insertBefore(button,actions.children[2]);var info=actions.querySelector('[onclick="viewerPhotoInfo()"]');if(info){info.classList.add('detail-info-small');info.setAttribute('aria-label','사진 정보');$('photoViewerContent').querySelector('.detail-top').appendChild(info);}var like=$('photoViewerContent').querySelector('.detail-like span');if(like)like.textContent='좋아요 '+photoLikeCount(p);};
+var layoutCloseViewer=closePhotoViewer;
+closePhotoViewer=function(){closePhotoComments();layoutCloseViewer();};
+var layoutPhotoTile=albumPhotoTile;
+albumPhotoTile=function(item){var html=layoutPhotoTile(item),p=representative(item),count=photoLikeCount(p);if(!count)return html;return html.replace('</button>','<span class="photo-like-count" aria-label="좋아요 '+count+'개">♡ '+count+'</span></button>');};
+function fitPhotoComments(){if(window.visualViewport&&window.innerWidth<=430){commentsPanel.style.bottom=Math.max(0,window.innerHeight-visualViewport.height-visualViewport.offsetTop)+'px';commentsPanel.style.setProperty('--comment-viewport',visualViewport.height+'px');}else{commentsPanel.style.bottom='0px';commentsPanel.style.removeProperty('--comment-viewport');}}
+window.addEventListener('resize',fitPhotoComments);
+window.visualViewport?.addEventListener('resize',fitPhotoComments);
+window.visualViewport?.addEventListener('scroll',fitPhotoComments);
+fitPhotoComments();
+var menuReturnPage='home',menuReturnTop=0;
+var menuBackGo=go;
+go=function(name){var active=document.querySelector('.screen.on'),from=active?.id.replace('s-','');if(name==='menu'&&from&&from!=='menu'&&!settingsScreens[from]&&from!=='face-register'){menuReturnPage=from;menuReturnTop=active.querySelector('.scroll')?.scrollTop||0;}menuBackGo(name);};
+function backFromMenu(){go(menuReturnPage);var sc=$('s-'+menuReturnPage)?.querySelector('.scroll');if(sc)sc.scrollTop=menuReturnTop;}
+var menuWithoutNavigation=renderMenuPage;
+renderMenuPage=function(){menuWithoutNavigation();$('s-menu').querySelectorAll('nav.tab').forEach(nav=>nav.remove());var back=document.createElement('button');back.type='button';back.className='iconbtn';back.id='menuBackButton';back.setAttribute('aria-label','메뉴에서 뒤로가기');back.innerHTML=BACK;back.onclick=backFromMenu;var header=document.createElement('header');header.className='menu-page-header';header.appendChild(back);header.appendChild($('menuPageContent').querySelector('h1'));$('menuPageContent').prepend(header);document.querySelectorAll('nav.tab').forEach(nav=>nav.remove());};
+renderMenuPage();updName();
+
+/* Alternative: the album's meeting period and a single import range are independent. */
+var uploadPeriodDraft=null;
+function defaultUploadPeriod(start){var end=localDateTime();return {start:start&&start<end?start:end,end:end};}
+var meetingFields=collectionPeriodFields;
+collectionPeriodFields=function(prefix,start,end){var html=meetingFields(prefix,start,prefix==='batch'?(end||localDateTime()):end);if(prefix==='batch')return html.replace(/<option value="none"[^>]*>종료일 없음<\/option>/,'').replace('이 기간에 촬영한 사진을 자동으로 불러와요.','설정한 기간 동안 찍힌 사진을 불러와요');return html.replace('<p class="basic-hint">이 기간에 촬영한 사진을 자동으로 불러와요.</p>','');};
+var createPeriodCard=$('eventStart').closest('.stack.g8');createPeriodCard.querySelector('.label').textContent='모임 기간';
+createPeriodCard.querySelector('.basic-hint')?.remove();
+periodLabel=function(){var p=uploadPeriodDraft||readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
+eventDate=function(){var p=readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
+var meetingAddPhotos=addPhotosLater;
+addPhotosLater=function(){uploadPeriodDraft=defaultUploadPeriod(cur.eventStart);meetingAddPhotos();};
+editPhotoPeriod=function(){periodReturnScreen=document.querySelector('.screen.on').id.replace('s-','');var p=uploadPeriodDraft||readCollectionPeriod('event');basicDialog('사진을 불러올 기간','<div class="collection-period-form">'+collectionPeriodFields('batch',p.start,p.end)+'</div><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');};
+updateBatchPeriod=function(){var p=readCollectionPeriod('batch');if(!p.valid){toast('종료 시점을 시작보다 이후로 설정해 주세요');return;}uploadPeriodDraft={start:p.start,end:p.end};refreshPeriodLabels();closeBasicDialog();if(periodReturnScreen==='import')go('import');};
+var meetingEditAlbumInfo=editAlbumInfo;
+editAlbumInfo=function(){meetingEditAlbumInfo();var form=$('dialogContent').querySelector('.album-info-form');form.querySelector('.collection-period-form>b').textContent='모임 기간';form.querySelector('.collection-period-form .basic-hint')?.remove();form.querySelector('.album-settings-note')?.remove();};
+var meetingRenderAlbum=renderAlbum;
+renderAlbum=function(){meetingRenderAlbum();if(cur)$('albSub').textContent='모임 기간 '+compactAlbumDate(cur)+' · 사진 '+albumPhotoModel().total+'장';};
+var meetingGo=go;
+go=function(name){var from=document.querySelector('.screen.on')?.id;if(name==='create'&&from==='s-home')uploadPeriodDraft=null;if(name==='options'&&from==='s-create'){var p=readCollectionPeriod('event');uploadPeriodDraft=defaultUploadPeriod(p.start);}meetingGo(name);if(name==='options'||name==='import'){refreshPeriodLabels();var hdr=$('s-'+name).querySelector('.hdr'),period=hdr.querySelector('.photo-period-value')?.parentNode;if(period&&!period.querySelector('.import-period-context')){var hint=document.createElement('p');hint.className='small import-period-context';hint.textContent='설정한 기간 동안 찍힌 사진을 불러와요';hint.style.lineHeight='1.6';period.appendChild(hint);}}};
 
 renderHome();renderOpts();renderPhotos();renderQR();
 var scs=document.querySelectorAll('.scroll');for(var j=0;j<scs.length;j++){(function(el){el.addEventListener('scroll',function(){var h=el.querySelector('.hdr');if(h)h.className='hdr'+(el.scrollTop>4?' lift':'');});})(scs[j]);}

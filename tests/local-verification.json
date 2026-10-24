@@ -1,0 +1,18 @@
+{
+  "url": "http://127.0.0.1:8123/ut-1/app/",
+  "checks": [
+    "First visit opens empty home; no bottom navigation; create shows meeting period",
+    "Matching date rows; photo import ends at current time; requested copy is shown",
+    "Criteria toggles and two-step import work; shortened import leaves meeting dates intact",
+    "Meeting dates/password persist; QR order and three-day reissue; next import defaults to now",
+    "Two album tabs; horizontally scrolling filters; removed search/reset/result count stay absent",
+    "Four uploader categories are distinct and counts match the active download button",
+    "People/place/time/scenery filters and eight best cuts work with current wording",
+    "Save checkbox updates option/submit counts and IDs, including own-only zero handling",
+    "Viewer actions, photo-only mode, likes filter/cancel and comment persistence work",
+    "Avatar friend invite returns correctly; native manual upload has no deletion/capacity prompt",
+    "Menu header back and settings return work; no nav/storage/original-deletion settings",
+    "Desktop create/options flow; no JavaScript page errors"
+  ],
+  "javascript_errors": []
+}
