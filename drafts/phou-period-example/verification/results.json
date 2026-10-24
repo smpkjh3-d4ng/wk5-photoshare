@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "Album creation stores meeting dates",
+    "Album info says meeting period",
+    "Upload defaults to meeting dates",
+    "Upload range independently editable",
+    "Import retains selected upload range",
+    "Completed upload preserves meeting dates",
+    "Reload preserves meeting dates",
+    "Next upload defaults to meeting dates"
+  ],
+  "javascript_errors": []
+}

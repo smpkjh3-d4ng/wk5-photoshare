@@ -547,7 +547,7 @@ nav.tab{display:none!important}
 <div class="scroll stack g24" style="padding-bottom:150px">
 <div class="hdr">
 <button class="iconbtn" aria-label="뒤로 가기" onclick="go('create')">BACK</button>
-<div><h1>어떤 사진을 공유할까요?</h1><p class="sub">자동으로 불러올 때 제외할 사진을 골라요</p></div>
+<div><h1>어떤 사진을 공유할까요?</h1></div>
 </div>
 
 <div class="stack g12" role="radiogroup" aria-label="사진을 빼는 방식">
@@ -576,7 +576,7 @@ nav.tab{display:none!important}
 </div>
 <h2 style="margin-top:28px">기간 내 사진을 모으고 있어요</h2>
 <p class="sub">11.12 오후 2:00 – 11.13 오전 11:00</p>
-<ul class="steps" id="steps"><li>기간 내 사진 찾기</li><li>흐릿한 사진·스크린샷 빼기</li><li>비슷한 사진을 묶고 있어요</li></ul>
+<ul class="steps" id="steps"><li>기간 내 사진 찾기</li><li>흐릿한 사진·스크린샷 빼기</li></ul>
 </div>
 <div id="imp-result" style="display:none">
 <div class="scroll stack g16" style="padding-bottom:170px">
@@ -770,7 +770,7 @@ function startImport(){
  var t0=null,D=2600,C=477.5,lis=$('steps').getElementsByTagName('li'),run=++loadRun;
  function step(ts){if(run!==loadRun)return;if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/D),e=1-Math.pow(1-p,3);
   $('ringbar').setAttribute('stroke-dashoffset',C*(1-e));$('ringnum').textContent=Math.round(86*e);
-  for(var i=0;i<lis.length;i++){lis[i].className=p>=(i+1)/3?'done':(p>=i/3?'on':'');}
+  for(var i=0;i<lis.length;i++){lis[i].className=p>=(i+1)/lis.length?'done':(p>=i/lis.length?'on':'');}
   if(p<1)requestAnimationFrame(step);else timer=setTimeout(function(){showImp('result');},450);}
  requestAnimationFrame(step);
 }
@@ -1329,7 +1329,7 @@ function collectionPeriodFields(prefix,start,end){
 }
 function togglePeriodEnd(prefix){var on=$(prefix+'EndMode').value==='date';$(prefix+'EndField').hidden=false;$(prefix+'EndNone').hidden=on;$(prefix+'EndMode').closest('.period-row').dataset.hasEnd=String(on);$(prefix+'End').disabled=false;if(!on)$(prefix+'End').value='';if(on&&!$(prefix+'End').value)$(prefix+'End').value=localDateTime(new Date($(prefix+'Start').value).getTime()+86400000);if(prefix==='event')updName();}
 function openCollectionEndCalendar(prefix){$(prefix+'EndMode').value='date';togglePeriodEnd(prefix);var input=$(prefix+'End');input.focus();if(typeof input.showPicker==='function'){try{input.showPicker();}catch(e){}}}
-function readCollectionPeriod(prefix){var start=$(prefix+'Start').value,end=$(prefix+'EndMode').value==='date'?$(prefix+'End').value:null;return {start,end,valid:!!start&&Number.isFinite(Date.parse(start))&&($(prefix+'EndMode').value!=='date'||!!end&&Date.parse(end)>Date.parse(start))};}
+function readCollectionPeriod(prefix){var start=$(prefix+'Start').value,end=$(prefix+'EndMode').value==='date'?$(prefix+'End').value:null;return {start,end,valid:!!start&&Number.isFinite(Date.parse(start))&&($(prefix+'EndMode').value!=='date'||!!end&&(prefix==='batch'?Date.parse(end)>=Date.parse(start):Date.parse(end)>Date.parse(start)))};}
 function collectionLabel(start,end){return (start||'').replace('T',' ').replaceAll('-','.')+' – '+(end?end.replace('T',' ').replaceAll('-','.'):'종료일 없음');}
 var oldPeriodGroup=$('eventStart').closest('.stack.g8');
 oldPeriodGroup.innerHTML='<span class="label">사진을 불러올 기간</span><div class="basic-box collection-period-form">'+collectionPeriodFields('event',localDateTime(),null)+'</div>';
@@ -1464,22 +1464,23 @@ renderMenuPage();updName();
 
 /* Alternative: the album's meeting period and a single import range are independent. */
 var uploadPeriodDraft=null;
+function defaultUploadPeriod(start){var end=localDateTime();return {start:start&&start<end?start:end,end:end};}
 var meetingFields=collectionPeriodFields;
-collectionPeriodFields=function(prefix,start,end){var html=meetingFields(prefix,start,end);return prefix==='event'||prefix==='editAlbum'?html.replace('<p class="basic-hint">이 기간에 촬영한 사진을 자동으로 불러와요.</p>',''):html;};
+collectionPeriodFields=function(prefix,start,end){var html=meetingFields(prefix,start,prefix==='batch'?(end||localDateTime()):end);if(prefix==='batch')return html.replace(/<option value="none"[^>]*>종료일 없음<\/option>/,'').replace('이 기간에 촬영한 사진을 자동으로 불러와요.','설정한 기간 동안 찍힌 사진을 불러와요');return html.replace('<p class="basic-hint">이 기간에 촬영한 사진을 자동으로 불러와요.</p>','');};
 var createPeriodCard=$('eventStart').closest('.stack.g8');createPeriodCard.querySelector('.label').textContent='모임 기간';
 createPeriodCard.querySelector('.basic-hint')?.remove();
 periodLabel=function(){var p=uploadPeriodDraft||readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
 eventDate=function(){var p=readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
 var meetingAddPhotos=addPhotosLater;
-addPhotosLater=function(){uploadPeriodDraft={start:cur.eventStart||localDateTime(),end:cur.eventEnd||null};meetingAddPhotos();};
-editPhotoPeriod=function(){periodReturnScreen=document.querySelector('.screen.on').id.replace('s-','');var p=uploadPeriodDraft||readCollectionPeriod('event');basicDialog('사진을 불러올 기간','<div class="collection-period-form">'+meetingFields('batch',p.start,p.end)+'</div><p class="basic-hint">이번에 추가할 사진의 범위예요. 앨범의 모임 기간은 바뀌지 않아요.</p><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');};
+addPhotosLater=function(){uploadPeriodDraft=defaultUploadPeriod(cur.eventStart);meetingAddPhotos();};
+editPhotoPeriod=function(){periodReturnScreen=document.querySelector('.screen.on').id.replace('s-','');var p=uploadPeriodDraft||readCollectionPeriod('event');basicDialog('사진을 불러올 기간','<div class="collection-period-form">'+collectionPeriodFields('batch',p.start,p.end)+'</div><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');};
 updateBatchPeriod=function(){var p=readCollectionPeriod('batch');if(!p.valid){toast('종료 시점을 시작보다 이후로 설정해 주세요');return;}uploadPeriodDraft={start:p.start,end:p.end};refreshPeriodLabels();closeBasicDialog();if(periodReturnScreen==='import')go('import');};
 var meetingEditAlbumInfo=editAlbumInfo;
-editAlbumInfo=function(){meetingEditAlbumInfo();var form=$('dialogContent').querySelector('.album-info-form');form.querySelector('.collection-period-form>b').textContent='모임 기간';form.querySelector('.collection-period-form .basic-hint')?.remove();form.querySelector('.album-settings-note').textContent='이 앨범에서 함께한 모임의 기간이에요. 사진을 추가할 때 불러올 범위는 따로 조정할 수 있어요.';};
+editAlbumInfo=function(){meetingEditAlbumInfo();var form=$('dialogContent').querySelector('.album-info-form');form.querySelector('.collection-period-form>b').textContent='모임 기간';form.querySelector('.collection-period-form .basic-hint')?.remove();form.querySelector('.album-settings-note')?.remove();};
 var meetingRenderAlbum=renderAlbum;
 renderAlbum=function(){meetingRenderAlbum();if(cur)$('albSub').textContent='모임 기간 '+compactAlbumDate(cur)+' · 사진 '+albumPhotoModel().total+'장';};
 var meetingGo=go;
-go=function(name){var from=document.querySelector('.screen.on')?.id;if(name==='create'&&from==='s-home')uploadPeriodDraft=null;if(name==='options'&&from==='s-create'){var p=readCollectionPeriod('event');uploadPeriodDraft={start:p.start,end:p.end};}meetingGo(name);if(name==='options'||name==='import'){refreshPeriodLabels();var hdr=$('s-'+name).querySelector('.hdr'),period=hdr.querySelector('.photo-period-value')?.parentNode;if(period&&!period.querySelector('.import-period-context')){var hint=document.createElement('p');hint.className='small import-period-context';hint.textContent='모임 기간을 기본으로 불러와요. 이번에 추가할 범위만 바꿀 수 있어요.';hint.style.lineHeight='1.6';period.appendChild(hint);}}};
+go=function(name){var from=document.querySelector('.screen.on')?.id;if(name==='create'&&from==='s-home')uploadPeriodDraft=null;if(name==='options'&&from==='s-create'){var p=readCollectionPeriod('event');uploadPeriodDraft=defaultUploadPeriod(p.start);}meetingGo(name);if(name==='options'||name==='import'){refreshPeriodLabels();var hdr=$('s-'+name).querySelector('.hdr'),period=hdr.querySelector('.photo-period-value')?.parentNode;if(period&&!period.querySelector('.import-period-context')){var hint=document.createElement('p');hint.className='small import-period-context';hint.textContent='설정한 기간 동안 찍힌 사진을 불러와요';hint.style.lineHeight='1.6';period.appendChild(hint);}}};
 
 renderHome();renderOpts();renderPhotos();renderQR();
 var scs=document.querySelectorAll('.scroll');for(var j=0;j<scs.length;j++){(function(el){el.addEventListener('scroll',function(){var h=el.querySelector('.hdr');if(h)h.className='hdr'+(el.scrollTop>4?' lift':'');});})(scs[j]);}
