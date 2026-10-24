@@ -499,20 +499,20 @@ nav.tab{display:none!important}
 </nav>
 </section>
 
-<!-- 2. 폴더 만들기 -->
-<section class="screen" id="s-create" aria-label="이벤트 폴더 만들기">
+<!-- 2. 공유앨범 만들기 -->
+<section class="screen" id="s-create" aria-label="공유앨범 만들기">
 <div class="scroll stack g24">
 <div class="hdr">
 <button class="iconbtn" aria-label="뒤로 가기" onclick="go('home')">BACK</button>
-<div><h1>이벤트 폴더 만들기</h1><p class="sub">함께 찍은 순간을 한 곳에 모아요</p></div>
+<div><h1>공유앨범 만들기</h1><p class="sub">함께 찍은 순간을 한 곳에 모아요</p></div>
 </div>
 <div class="stack g8">
-<label class="label" for="fname">폴더 이름</label>
+<label class="label" for="fname">앨범 이름</label>
 <input class="field" id="fname" maxlength="20" placeholder="예) 동아리 MT, 제주도 여행">
 <span class="small" id="flen" style="align-self:flex-end">0/20</span>
 </div>
 <div class="stack g8">
-<span class="label">이벤트 기간</span>
+<span class="label">모임 기간</span>
 <div class="box" style="overflow:hidden">
 <div class="row between" style="height:56px;padding:0 20px"><span class="small" style="font-size:14px">시작</span><input id="eventStart" type="datetime-local" value="2026-11-12T14:00" aria-label="시작 날짜와 시간"></div>
 <div style="height:1px;background:#E6E7EA;margin:0 20px"></div>
@@ -524,8 +524,8 @@ nav.tab{display:none!important}
 <input class="field" id="place" placeholder="예) 제주도, 홍대">
 </div>
 <div class="box row between" style="padding:18px 20px">
-<div style="margin-right:16px"><div class="label">기간 내 사진 자동 불러오기</div><div class="small" style="margin-top:4px;line-height:1.5">이벤트 기간에 촬영한 사진을 자동으로 불러와요</div></div>
-<button class="sw on" role="switch" aria-checked="true" aria-label="기간 내 사진 자동 불러오기" onclick="flip(this)"><span></span></button>
+<div style="margin-right:16px"><div class="label">사진 자동 불러오기</div><div class="small" style="margin-top:4px;line-height:1.5">모임 기간에 촬영한 사진을 자동으로 불러와요</div></div>
+<button class="sw on" role="switch" aria-checked="true" aria-label="사진 자동 불러오기" onclick="flip(this)"><span></span></button>
 </div>
 <section class="stack g12" aria-label="입장 비밀번호 설정">
 <div class="box row between" style="gap:16px;padding:18px 20px">
@@ -568,7 +568,7 @@ nav.tab{display:none!important}
 </section>
 
 <!-- 4. 사진 불러오기 -->
-<section class="screen" id="s-import" aria-label="이벤트 기간 사진 불러오기">
+<section class="screen" id="s-import" aria-label="기간 내 사진 불러오기">
 <div id="imp-loading" class="center" role="status">
 <div class="ring">
 <svg width="168" height="168" viewBox="0 0 168 168" aria-hidden="true"><circle cx="84" cy="84" r="76" fill="none" stroke="#F2F3F5" stroke-width="8"/><circle id="ringbar" cx="84" cy="84" r="76" fill="none" stroke="#111111" stroke-width="8" stroke-linecap="round" stroke-dasharray="477.5" stroke-dashoffset="477.5" transform="rotate(-90 84 84)"/></svg>
@@ -595,7 +595,7 @@ nav.tab{display:none!important}
 <div class="center" style="top:120px">
 <div class="bigic"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M9.5 14.5h5"/></svg></div>
 <h2>아직 이 시간대에 찍은 사진이 없어요</h2>
-<p class="sub" style="margin-bottom:24px">이벤트가 시작되면 찍은 사진이 여기에 모여요</p>
+<p class="sub" style="margin-bottom:24px">사진을 불러올 기간을 바꿔 다시 확인해 보세요.</p>
 <button class="main" style="width:auto;height:52px;padding:0 28px;font-size:15px">직접 추가하기</button>
 <button class="link" onclick="go('create')" style="margin-top:8px">기간 다시 설정하기</button>
 </div>
@@ -735,7 +735,7 @@ function renderHome(){
 }
 function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 
-/* 폴더 만들기 */
+/* 공유앨범 만들기 */
 function updName(){var v=$('fname').value;$('flen').textContent=v.length+'/20';$('next1').disabled=!v.trim();}
 $('fname').addEventListener('input',updName);
 function flip(b){var on=b.className.indexOf('on')<0;b.className='sw'+(on?' on':'');b.setAttribute('aria-checked',on);}
@@ -961,7 +961,7 @@ var batchRenderPhotos=renderPhotos;renderPhotos=function(){batchRenderPhotos();i
 $('sharebtn').onclick=submitPhotoBatch;
 $('s-import').querySelector('.bottom .textbtn').onclick=function(){if(photoAddTarget)cancelPhotoAdd();else{deferPhotos=true;go('share');}};
 $('s-options').querySelector('.hdr .iconbtn').onclick=function(){if(photoAddTarget)cancelPhotoAdd();else go('create');};
-var batchGo=go;go=function(n){if(photoAddTarget&&n==='create'){basicDialog('사진을 찾을 기간','<label>시작<input id="batchStart" type="datetime-local" value="'+$('eventStart').value+'"></label><label>종료<input id="batchEnd" type="datetime-local" value="'+$('eventEnd').value+'"></label><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');return;}batchGo(n);if(n==='options'){var adding=!!photoAddTarget;$('mode-later').querySelector('b').textContent=adding?'사진은 나중에 추가하기':'앨범 먼저 만들기';$('mode-later').querySelector('.txt > span').textContent=adding?'지금 추가하지 않고 앨범으로 돌아가요.':'사진 없이 앨범과 초대 링크를 만들어요. 사진은 앨범에서 나중에 추가할 수 있어요.';}if(n==='home')photoAddTarget=null;};
+var batchGo=go;go=function(n){if(photoAddTarget&&n==='create'){basicDialog('사진을 불러올 기간','<label>시작<input id="batchStart" type="datetime-local" value="'+$('eventStart').value+'"></label><label>종료<input id="batchEnd" type="datetime-local" value="'+$('eventEnd').value+'"></label><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');return;}batchGo(n);if(n==='options'){var adding=!!photoAddTarget;$('mode-later').querySelector('b').textContent=adding?'사진은 나중에 추가하기':'앨범 먼저 만들기';$('mode-later').querySelector('.txt > span').textContent=adding?'지금 추가하지 않고 앨범으로 돌아가요.':'사진 없이 앨범과 초대 링크를 만들어요. 사진은 앨범에서 나중에 추가할 수 있어요.';}if(n==='home')photoAddTarget=null;};
 function updateBatchPeriod(){var a=$('batchStart').value,b=$('batchEnd').value;if(!a||!b||b<=a){toast('종료는 시작 이후로 설정해주세요');return;}$('eventStart').value=a;$('eventEnd').value=b;closeBasicDialog();go('import');}
 var batchRenderAlbum=renderAlbum;renderAlbum=function(){batchRenderAlbum();if(cur&&!(cur.isNew&&!(cur.total||0))){var button=Array.from($('albBody').querySelectorAll('button')).find(b=>b.textContent==='사진 추가하기');if(!button){button=document.createElement('button');button.className='basic-action dialog-close';button.textContent='사진 추가하기';button.onclick=addPhotosLater;$('albBody').prepend(button);}}};
 
@@ -997,7 +997,7 @@ function renderHomeCards(){var list=albums.map((a,i)=>({a,i})).filter(item=>home
 function searchAlbums(value){homeQuery=value;renderHomeCards();}
 function resetAlbumSearch(){homeQuery='';filter='all';$('albumSearch').value='';renderHomeCards();$('albumSearch').focus();}
 function setHomeFilter(value){filter=value;renderHomeCards();}
-renderHome=function(){if(!$('homeContent'))return;albums.forEach(function(a){if(!a.memberNames)a.memberNames=homeParticipants(a);});saveLocalAlbums();if(!albums.length){$('homeContent').innerHTML='<div class="welcome-copy"><h1>반가워요!<br>첫 앨범을 만들어 볼까요?</h1><p>함께한 순간을 한 앨범에 모아보세요.</p></div><button class="make-album" onclick="go(\'create\')"><span><strong>새 앨범 만들기</strong><small>이벤트 이름과 기간을 정하고<br>친구들과 사진을 공유해요.</small></span><span class="create-mark" aria-hidden="true">+</span></button><section class="onboarding-block"><h2>이렇게 사진을 모아요</h2><div class="home-steps"><div class="home-step"><span class="step-num">1</span><div><b>이벤트 이름과 기간 정하기</b><p>여행, MT처럼 사진을 모을 시간을 정해요.</p></div></div><div class="home-step"><span class="step-num">2</span><div><b>링크나 QR로 친구 초대하기</b><p>앨범의 초대 링크를 친구에게 보내요.</p></div></div><div class="home-step"><span class="step-num">3</span><div><b>공유할 사진 확인하기</b><p>정해둔 기간의 사진을 확인하고 추가해요.</p></div></div></div></section><section class="onboarding-block"><h2>내 앨범</h2><div class="home-empty"><span aria-hidden="true">▧</span><div><b>아직 만들거나 참여한 앨범이 없어요</b><p>만들거나 초대받은 앨범을 여기서 볼 수 있어요.</p></div></div></section>';return;}
+renderHome=function(){if(!$('homeContent'))return;albums.forEach(function(a){if(!a.memberNames)a.memberNames=homeParticipants(a);});saveLocalAlbums();if(!albums.length){$('homeContent').innerHTML='<div class="welcome-copy"><h1>반가워요!<br>첫 앨범을 만들어 볼까요?</h1><p>함께한 순간을 한 앨범에 모아보세요.</p></div><button class="make-album" onclick="go(\'create\')"><span><strong>새 앨범 만들기</strong><small>모임의 앨범을 만들고<br>친구들과 사진을 공유해요.</small></span><span class="create-mark" aria-hidden="true">+</span></button><section class="onboarding-block"><h2>이렇게 사진을 모아요</h2><div class="home-steps"><div class="home-step"><span class="step-num">1</span><div><b>모임의 앨범 만들기</b><p>앨범 이름을 정하고, 모임 기간은 선택해요.</p></div></div><div class="home-step"><span class="step-num">2</span><div><b>링크나 QR로 친구 초대하기</b><p>앨범의 초대 링크를 친구에게 보내요.</p></div></div><div class="home-step"><span class="step-num">3</span><div><b>사진을 불러올 기간 정하기</b><p>설정한 기간 동안 찍힌 사진을 불러와요.</p></div></div></div></section><section class="onboarding-block"><h2>내 앨범</h2><div class="home-empty"><span aria-hidden="true">▧</span><div><b>아직 만들거나 참여한 앨범이 없어요</b><p>만들거나 초대받은 앨범을 여기서 볼 수 있어요.</p></div></div></section>';return;}
 $('homeContent').innerHTML='<button class="compact-create" onclick="go(\'create\')"><span><b>새 앨범 만들기</b><small>새로운 모임의 사진을 함께 모아보세요.</small></span><span class="create-mark" aria-hidden="true">+</span></button><div class="home-section-head"><h1>내 앨범</h1><span class="small" id="gcount"></span></div><div class="album-search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="albumSearch" type="search" placeholder="앨범 이름, 참여자로 검색" aria-label="앨범 이름 또는 참여자 검색" autocomplete="off" oninput="searchAlbums(this.value)"><button id="clearAlbumQuery" aria-label="검색어 지우기" onclick="resetAlbumSearch()" hidden>×</button></div><div class="home-filter-row" aria-label="앨범 분류"><button data-filter="all" onclick="setHomeFilter(\'all\')">전체</button><button data-filter="live" onclick="setHomeFilter(\'live\')">진행 중</button><button data-filter="past" onclick="setHomeFilter(\'past\')">지난 앨범</button></div><div id="cards" aria-live="polite"></div>';$('albumSearch').value=homeQuery;renderHomeCards();};
 var albumGridIcon='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>';
 var albumNav='<button data-page="home" class="cur">'+albumGridIcon+'<span>앨범</span></button><button data-page="create" class="plus" aria-label="새 앨범 만들기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></button><button data-page="menu"><span>메뉴</span></button>';
@@ -1097,9 +1097,9 @@ function settingRow(title,desc,action,icon,trailing){return '<button class="sett
 function toggleRow(title,desc,on,action,label){return '<div class="setting-row"><span class="row-copy"><b>'+title+'</b>'+(desc?'<small>'+desc+'</small>':'')+'</span>'+prefSwitch(on,action,label||title)+'</div>';}
 function allTrash(){return albums.flatMap((a,ai)=>(a.trash||[]).map(item=>({...item,album:a,albumIndex:ai})));}
 function sampleStorage(){var photos=albums.reduce((n,a)=>n+(parseInt(a.count,10)||0),0);return {used:photos*3/1024,total:15};}
-function renderMenuPage(){var c=sampleStorage(),friends=sharedFriends(),events=Object.values(menuPrefs.events).filter(Boolean).length;$('menuPageContent').innerHTML='<h1>메뉴</h1><section class="menu-section"><h2>내 정보</h2><div class="menu-card"><div class="menu-profile"><span class="avatar-letter">'+esc(profileState.name.slice(0,1))+'</span><div><b>'+esc(profileState.name)+'</b><small>'+esc(profileState.email)+'</small></div><button onclick="accountDialog()">프로필 수정</button></div></div></section><section class="menu-section"><div class="menu-card">'+settingRow('친구 목록','앨범을 함께 쓴 사람이 모여요.',"go('friends')",'people',friends.length+'명')+settingRow('내 얼굴 등록',profileState.face?'얼굴 등록됨 · 내가 나온 사진 모아보기':'얼굴을 등록하고 내 사진을 찾아보세요.',"faceDialog()",'person')+'</div></section><section class="menu-section"><h2>설정</h2><div class="menu-card">'+settingRow('업로드 설정','Wi-Fi 업로드 · 공유 기본 옵션',"go('upload-settings')",'upload')+settingRow('알림 설정','',"go('notification-settings')",'bell',events+'개 켜짐')+settingRow('이 앱이 사용하는 권한','사진 접근 · 알림 · 얼굴 등록',"go('app-permissions')",'shield')+settingRow('저장 화질','',"qualityDialog()",'download',esc(profileState.quality))+'</div></section><section class="menu-section"><h2>사진과 저장 공간</h2><div class="menu-card">'+settingRow('전체 사진','모든 앨범의 사진 모아보기',"go('library')",'stack')+settingRow('내가 올린 사진','내가 공유한 사진 모아보기',"go('myphotos')",'person')+settingRow('휴지통','삭제한 사진은 30일 동안 보관해요.',"go('trash')",'trash',allTrash().length+'장')+settingRow('드라이브 용량',c.total+'GB 중 '+c.used.toFixed(2)+'GB 사용 <div class="storage-track"><span style="width:'+Math.min(100,c.used/c.total*100)+'%"></span></div>',"go('storage')",'cloud')+'</div></section><section class="menu-section"><h2>도움말과 약관</h2><div class="menu-card">'+settingRow('고객센터','',"openHelpPage('help')",'help')+settingRow('개인정보 처리 안내','',"openHelpPage('privacy')",'document')+settingRow('서비스 이용 안내','',"openHelpPage('terms')",'document')+'</div></section><p class="menu-version">버전 0.1.0 · 프로토타입</p>';}
+function renderMenuPage(){var c=sampleStorage(),friends=sharedFriends(),events=Object.values(menuPrefs.events).filter(Boolean).length;$('menuPageContent').innerHTML='<h1>메뉴</h1><section class="menu-section"><h2>내 정보</h2><div class="menu-card"><div class="menu-profile"><span class="avatar-letter">'+esc(profileState.name.slice(0,1))+'</span><div><b>'+esc(profileState.name)+'</b><small>'+esc(profileState.email)+'</small></div><button onclick="accountDialog()">프로필 수정</button></div></div></section><section class="menu-section"><div class="menu-card">'+settingRow('친구 목록','앨범을 함께 쓴 사람이 모여요.',"go('friends')",'people',friends.length+'명')+settingRow('내 얼굴 등록',profileState.face?'얼굴 등록됨 · 내가 나온 사진 모아보기':'얼굴을 등록하고 내 사진을 찾아보세요.',"faceDialog()",'person')+'</div></section><section class="menu-section"><h2>설정</h2><div class="menu-card">'+settingRow('업로드 설정','Wi-Fi 업로드 · 사진 공유 기준',"go('upload-settings')",'upload')+settingRow('알림 설정','',"go('notification-settings')",'bell',events+'개 켜짐')+settingRow('이 앱이 사용하는 권한','사진 접근 · 알림 · 얼굴 등록',"go('app-permissions')",'shield')+settingRow('저장 화질','',"qualityDialog()",'download',esc(profileState.quality))+'</div></section><section class="menu-section"><h2>사진과 저장 공간</h2><div class="menu-card">'+settingRow('전체 사진','모든 앨범의 사진 모아보기',"go('library')",'stack')+settingRow('내가 올린 사진','내가 공유한 사진 모아보기',"go('myphotos')",'person')+settingRow('휴지통','삭제한 사진은 30일 동안 보관해요.',"go('trash')",'trash',allTrash().length+'장')+settingRow('드라이브 용량',c.total+'GB 중 '+c.used.toFixed(2)+'GB 사용 <div class="storage-track"><span style="width:'+Math.min(100,c.used/c.total*100)+'%"></span></div>',"go('storage')",'cloud')+'</div></section><section class="menu-section"><h2>도움말과 약관</h2><div class="menu-card">'+settingRow('고객센터','',"openHelpPage('help')",'help')+settingRow('개인정보 처리 안내','',"openHelpPage('privacy')",'document')+settingRow('서비스 이용 안내','',"openHelpPage('terms')",'document')+'</div></section><p class="menu-version">버전 0.1.0 · 프로토타입</p>';}
 function toggleDiscoverable(){menuPrefs.discoverable=!menuPrefs.discoverable;saveMenuPrefs();renderMenuPage();}
-function renderUploadSettings(){var labels=['나만 나온 사진 제외','흐릿한 사진 제외','비슷한 사진은 대표 사진만','스크린샷 제외','동영상 제외'],h='<div class="menu-card">'+toggleRow('Wi-Fi에서만 업로드','Wi-Fi에 연결됐을 때 사진을 올려요.',menuPrefs.wifiOnly,'toggleUploadWifi()')+'</div><h2>새 앨범의 공유 기본 옵션</h2><p class="settings-caption">새 앨범을 만들 때 적용할 기준이에요. 앨범마다 바꿀 수 있어요.</p><div class="menu-card">';labels.forEach((label,i)=>{h+=toggleRow(label,i===0?'나 혼자 나온 사진을 공유 후보에서 제외해요.':i===2?'비슷한 사진 중 대표만 공유 후보로 골라요.':'',menuPrefs.sharing[i],'toggleUploadDefault('+i+')');});$('uploadSettingsBody').innerHTML=h+'</div><p class="settings-caption">사진 불러오기와 업로드는 테스트용 시연이에요.</p>';}
+function renderUploadSettings(){var labels=['나만 나온 사진 제외','흐릿한 사진 제외','비슷한 사진은 대표 사진만','스크린샷 제외','동영상 제외'],h='<div class="menu-card">'+toggleRow('Wi-Fi에서만 업로드','Wi-Fi에 연결됐을 때 사진을 올려요.',menuPrefs.wifiOnly,'toggleUploadWifi()')+'</div><h2>새 앨범의 사진 공유 기준</h2><p class="settings-caption">새 앨범을 만들 때 적용할 기준이에요. 앨범마다 바꿀 수 있어요.</p><div class="menu-card">';labels.forEach((label,i)=>{h+=toggleRow(label,i===0?'나 혼자 나온 사진을 공유 후보에서 제외해요.':i===2?'비슷한 사진 중 대표만 공유 후보로 골라요.':'',menuPrefs.sharing[i],'toggleUploadDefault('+i+')');});$('uploadSettingsBody').innerHTML=h+'</div><p class="settings-caption">사진 불러오기와 업로드는 테스트용 시연이에요.</p>';}
 function toggleUploadWifi(){menuPrefs.wifiOnly=!menuPrefs.wifiOnly;saveMenuPrefs();renderUploadSettings();}
 function toggleUploadDefault(i){menuPrefs.sharing[i]=!menuPrefs.sharing[i];menuPrefs.customSharing=true;saveMenuPrefs();renderUploadSettings();}
 function renderNotificationSettings(){var defs=[['collection','사진 불러오기 시작·종료','앨범의 사진 불러오기가 시작되거나 끝나면 알려줘요.'],['friend','친구가 사진을 올렸을 때',''],['ai','AI 추천이 끝났을 때','추천 사진을 확인할 수 있게 알려줘요.']];$('notificationSettingsBody').innerHTML=(!menuPrefs.permissions.notifications?'<p class="settings-caption">알림 권한이 꺼져 있어요. 앱 권한에서 상태를 변경할 수 있어요.</p>':'')+'<div class="menu-card">'+defs.map(d=>toggleRow(d[1],d[2],menuPrefs.events[d[0]],"toggleNotificationEvent('"+d[0]+"')")).join('')+'</div><p class="settings-caption">실제 기기 알림은 보내지 않는 테스트 화면이에요.</p>';}
@@ -1336,7 +1336,7 @@ oldPeriodGroup.innerHTML='<span class="label">사진을 불러올 기간</span><
 document.querySelector('#s-create h1').textContent='공유앨범 만들기';
 document.querySelector('label[for="fname"]').textContent='앨범 이름';
 $('s-create').setAttribute('aria-label','공유앨범 만들기');
-document.querySelector('#s-create .box.row.between .small').textContent='이 기간에 촬영한 사진을 자동으로 불러와요.';
+document.querySelector('#s-create .box.row.between .small').textContent='사진을 추가할 때 불러올 기간을 설정해요.';
 updName=function(){var p=readCollectionPeriod('event');$('flen').textContent=$('fname').value.length+'/20';$('next1').disabled=!$('fname').value.trim()||!p.valid||!validateEntryPassword();$('dateError').textContent=p.valid?'':'종료 시점을 시작보다 이후로 설정해 주세요.';};
 ['fname','eventStart','eventEnd','eventEndMode','entryPassword'].forEach(id=>$(id).addEventListener('input',updName));
 $('eventEndMode').addEventListener('change',updName);
@@ -1467,7 +1467,7 @@ var uploadPeriodDraft=null;
 function defaultUploadPeriod(start){var end=localDateTime();return {start:start&&start<end?start:end,end:end};}
 var meetingFields=collectionPeriodFields;
 collectionPeriodFields=function(prefix,start,end){var html=meetingFields(prefix,start,prefix==='batch'?(end||localDateTime()):end);if(prefix==='batch')return html.replace(/<option value="none"[^>]*>종료일 없음<\/option>/,'').replace('이 기간에 촬영한 사진을 자동으로 불러와요.','설정한 기간 동안 찍힌 사진을 불러와요');return html.replace('<p class="basic-hint">이 기간에 촬영한 사진을 자동으로 불러와요.</p>','');};
-var createPeriodCard=$('eventStart').closest('.stack.g8');createPeriodCard.querySelector('.label').textContent='모임 기간';
+var createPeriodCard=$('eventStart').closest('.stack.g8');createPeriodCard.querySelector('.label').textContent='모임 기간 (선택)';
 createPeriodCard.querySelector('.basic-hint')?.remove();
 periodLabel=function(){var p=uploadPeriodDraft||readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
 eventDate=function(){var p=readCollectionPeriod('event');return collectionLabel(p.start,p.end);};
@@ -1476,7 +1476,7 @@ addPhotosLater=function(){uploadPeriodDraft=defaultUploadPeriod(cur.eventStart);
 editPhotoPeriod=function(){periodReturnScreen=document.querySelector('.screen.on').id.replace('s-','');var p=uploadPeriodDraft||readCollectionPeriod('event');basicDialog('사진을 불러올 기간','<div class="collection-period-form">'+collectionPeriodFields('batch',p.start,p.end)+'</div><button class="basic-action" onclick="updateBatchPeriod()">기간 적용</button>');};
 updateBatchPeriod=function(){var p=readCollectionPeriod('batch');if(!p.valid){toast('종료 시점을 시작보다 이후로 설정해 주세요');return;}uploadPeriodDraft={start:p.start,end:p.end};refreshPeriodLabels();closeBasicDialog();if(periodReturnScreen==='import')go('import');};
 var meetingEditAlbumInfo=editAlbumInfo;
-editAlbumInfo=function(){meetingEditAlbumInfo();var form=$('dialogContent').querySelector('.album-info-form');form.querySelector('.collection-period-form>b').textContent='모임 기간';form.querySelector('.collection-period-form .basic-hint')?.remove();form.querySelector('.album-settings-note')?.remove();};
+editAlbumInfo=function(){meetingEditAlbumInfo();var form=$('dialogContent').querySelector('.album-info-form');form.querySelector('.collection-period-form>b').textContent='모임 기간 (선택)';form.querySelector('.collection-period-form .basic-hint')?.remove();form.querySelector('.album-settings-note')?.remove();};
 var meetingRenderAlbum=renderAlbum;
 renderAlbum=function(){meetingRenderAlbum();if(cur)$('albSub').textContent='모임 기간 '+compactAlbumDate(cur)+' · 사진 '+albumPhotoModel().total+'장';};
 var meetingGo=go;

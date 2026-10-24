@@ -68,7 +68,7 @@ with sync_playwright() as p:
 
         page.get_by_role('button', name='앨범 메뉴', exact=True).click()
         page.get_by_role('button', name='앨범 정보·비밀번호 수정', exact=False).click()
-        expect(page.locator('#dialogContent .collection-period-form>b')).to_have_text('모임 기간')
+        expect(page.locator('#dialogContent .collection-period-form>b')).to_have_text('모임 기간 (선택)')
         expect(page.locator('#dialogContent .album-settings-note')).to_have_count(0)
         page.locator('#editAlbumPasswordToggle').click()
         page.locator('#editAlbumPassword').fill('0423')
