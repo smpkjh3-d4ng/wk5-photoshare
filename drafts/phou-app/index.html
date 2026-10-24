@@ -230,7 +230,6 @@ nav.tab .plus{width:52px;height:52px;border-radius:999px;background:#111111;colo
 .photo-filter-controls [aria-pressed=true]{background:#111;color:#fff}
 .photo-filter-controls select{min-width:0;max-width:150px;height:40px;padding:0 8px;border:1px solid #e1e3e7;border-radius:var(--ds-radius-control,10px);font:inherit;font-size:13px;background:#fff}
 #photoCategoryFilters{margin-top:12px}
-#activePhotoFilter:empty{display:none}
 #s-album .album-members .member-copy{flex:1;min-width:0}
 #addAlbumFriend{flex:none}
 .detail-actions{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -248,6 +247,13 @@ nav.tab .plus{width:52px;height:52px;border-radius:999px;background:#111111;colo
 #commentError:empty{display:none}
 #photoViewer:has(#photoCommentsPanel:not([hidden])) .viewer-panel{pointer-events:none}
 
+
+#photoCategoryFilters{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:8px;padding:4px 0 10px;margin-top:12px}
+#photoCategoryFilters::-webkit-scrollbar{display:none}
+#photoCategoryFilters .chip{flex:0 0 auto;white-space:nowrap}
+#uploaderPeople[hidden]{display:none!important}
+#uploaderPeople .album-people-strip{overflow-x:auto;flex-wrap:nowrap}
+#uploaderPeople .album-person-btn{flex-shrink:0}
 </style>
 <style>
 .phone{border-radius:18px;box-shadow:0 8px 28px #00000012}.card,.ph,.best,.qrbox,.samplemap,.personpick,.cat,.sheet,.browsepeople button{border-radius:10px!important}.btn,.chip,.pill,.tab,.iconbtn,.glass,.count,.field,input,.opt,.findcard{border-radius:8px!important}.card{box-shadow:none!important}.glass{background:#fff!important;color:#222!important;border:1px solid #dedfe3;backdrop-filter:none!important}.glass span{color:#73777d!important}.portraitvariant img{transform:none!important;filter:none!important;object-position:center!important}.av img,.personpick img{border-radius:6px!important}.sw{border-radius:18px!important}.sw::after{border-radius:50%!important}nav.tab{left:0;right:0;bottom:0;height:74px;border-radius:0!important;box-shadow:none;border-top:1px solid #ddd;background:#fff}nav.tab .plus{border-radius:8px}.hdr{padding-top:28px}.basic-content{padding:28px 20px 110px}.basic-content h1{font-size:24px;margin-bottom:24px}.basic-section{margin-top:28px}.basic-section h2{margin-bottom:12px}.basic-box{border:1px solid #dddfe4;border-radius:10px;background:#fff;overflow:hidden}.basic-row{width:100%;min-height:52px;padding:14px 16px;border:0;border-bottom:1px solid #e6e7eb;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;font:inherit;cursor:pointer}.basic-row:last-child{border-bottom:0}.basic-row small{color:#777}.profile-block{display:flex;gap:16px;align-items:center;padding:20px}.avatar-letter{width:52px;height:52px;display:grid;place-items:center;background:#eef0f3;border-radius:8px;font-size:24px;font-weight:700}.basic-hint{font-size:13px;color:#777;line-height:1.6;margin:10px 0}.global-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.global-photo{position:relative;padding:0;border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#eee;aspect-ratio:1;cursor:pointer}.global-photo img{width:100%;height:100%;object-fit:cover}.global-photo.chosen{outline:2px solid #222;outline-offset:-2px}.global-photo.chosen:after{content:'✓';position:absolute;right:5px;top:5px;background:#222;color:white;border-radius:50%;width:22px;height:22px}.basic-action{width:100%;padding:15px;border:0;background:#222;color:white;font:inherit;border-radius:8px;margin-top:20px;cursor:pointer}.basic-action:disabled{background:#c9ccd1}.basic-dialog{position:absolute;inset:0;background:#0006;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px}.basic-dialog[hidden]{display:none}.dialog-content{background:white;border-radius:12px;padding:22px;width:100%;max-height:85%;overflow:auto}.dialog-content h2{margin-bottom:15px}.dialog-content input{width:100%;padding:12px;border:1px solid #ccc;margin:8px 0;font:inherit}.dialog-close{background:#f0f1f3;color:#222}.global-count{margin:12px 0;color:#666;font-size:14px}
@@ -405,7 +411,67 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 #s-share #inviteEntryPassword{margin:0;font-size:14px;font-weight:600;line-height:1.5}
 
 </style>
-</head>
+<style>
+/* Reference layout: date rows, avatar invite action and QR sharing. */
+.collection-period-form{padding:0!important;background:transparent!important;border:0!important;gap:12px}
+.period-card{background:#f2f3f5;border-radius:var(--ds-radius-card,16px);padding:0 20px}
+.period-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:62px}
+.period-row+.period-row{border-top:1px solid #e1e3e7}
+.period-row>label:first-child{display:block;color:#6e6e73;flex:none;font-size:14px}
+.period-row input{max-width:none!important;height:48px!important;padding:0!important;border:0!important;background:transparent!important;text-align:right;font-size:13px!important;min-width:0;color:#111}
+.period-row>input{flex:1;width:0}
+.period-row input::-webkit-calendar-picker-indicator{width:14px;margin-left:2px}
+.period-row>label[id$=EndField]{display:block;flex:1;min-width:0;margin:0}
+.period-row>label[id$=EndField] input{width:100%}
+.period-end-row>select{position:absolute;left:0;top:0;width:48px;height:100%;opacity:0;cursor:pointer;z-index:1}
+.period-end-row[data-has-end=false]>select{width:100%}
+.period-end-row>span{font-size:14px;color:#111;pointer-events:none}
+.period-end-row:focus-within{outline:1px solid #999;outline-offset:2px;border-radius:4px}
+.period-row [hidden]{display:none!important}
+#s-album #avs{display:flex;align-items:center;flex:none}
+#s-album #avs #addAlbumFriend{border-radius:50%!important;width:30px!important;height:30px!important;min-width:30px;margin-left:-7px;border:2px solid #fff;background:#eff0f2;padding:0!important;z-index:1}
+#s-album #avs #addAlbumFriend svg{width:19px;height:19px}
+#s-share .hdr .row{flex-wrap:wrap;gap:12px}
+#s-share .hdr .row>div{order:2;width:100%}
+#s-share .hdr .row>.iconbtn{order:1;margin-left:auto}
+#s-share .ticket{border:1px solid #e1e3e7;border-radius:var(--ds-radius-card,16px)}
+#s-share .inviteinfo{padding:16px 16px 0}
+#s-share .tbody{padding:12px 16px 16px;gap:12px}
+#s-share .exp{display:flex;flex-wrap:wrap;justify-content:center;gap:8px!important;width:100%}
+#s-share .exp>span{flex-basis:100%;text-align:center}
+#s-share .exp button{border:1px solid #e1e3e7;min-height:40px;background:#fff;text-decoration:none;padding:8px 12px!important}
+#s-share .share-inline-options .tile{height:auto!important;aspect-ratio:1;border-radius:var(--ds-radius-control,10px)!important;gap:5px}
+#s-share .share-inline-options h2{margin-bottom:4px}
+</style><style>
+.period-end-row[data-has-end=false]>select{width:48px}
+.period-row .end-date-button{position:relative;z-index:2;display:flex;align-items:center;justify-content:flex-end;gap:8px;height:48px;padding:0;border:0;background:transparent;font:inherit;font-size:14px;color:#111;cursor:pointer}
+.period-row .end-date-button[hidden]{display:none!important}
+.period-row .end-date-button svg{flex:none;margin-left:2px}
+</style><style>
+#photoViewer .detail-actions{grid-template-columns:repeat(4,minmax(0,1fr))}
+#photoViewer .detail-top{gap:8px}
+#photoViewer .detail-top .detail-info-small{width:32px;height:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;font-size:10px;color:#ccc;flex:none;padding:0}
+#photoViewer .detail-info-small svg{width:15px;height:15px}
+</style><style>
+.menu-page-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+#s-menu .menu-page-header h1{margin:0!important}
+nav.tab{display:none!important}
+</style><style>
+.period-row>label[id$=EndField]{position:relative;display:flex;align-items:center;height:48px}
+.period-no-end{position:absolute;right:22px;top:0;height:48px;display:flex;align-items:center;font-size:13px;color:#111;pointer-events:none;white-space:nowrap}
+.period-end-row[data-has-end=false] input::-webkit-datetime-edit{visibility:hidden}
+.period-end-row[data-has-end=false] input{color:transparent!important}
+.period-end-row input::-webkit-calendar-picker-indicator{opacity:1}
+</style><style>
+#albumDownloadContent .download-exclude-own{display:flex;align-items:center;gap:10px;font-size:13px;line-height:1.6;margin:20px 0;cursor:pointer}
+#albumDownloadContent .download-exclude-own input{width:18px;height:18px;flex:none;margin:0;accent-color:#111}
+#albumDownloadContent .download-option:has(input:checked){border-color:#111;background:#f6f7f8}
+#confirmAlbumDownload:disabled{background:#c7c7cc;cursor:default}
+</style><style>
+#foundSub:empty{display:none!important}
+#uploaderPeople .album-people-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;overflow:visible}
+#uploaderPeople .album-person-btn{min-width:0;width:100%;padding:13px 5px}
+</style></head>
 <body>
 
 <div class="state">사진 불러오기 상태
@@ -508,9 +574,9 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid 
 <svg width="168" height="168" viewBox="0 0 168 168" aria-hidden="true"><circle cx="84" cy="84" r="76" fill="none" stroke="#F2F3F5" stroke-width="8"/><circle id="ringbar" cx="84" cy="84" r="76" fill="none" stroke="#111111" stroke-width="8" stroke-linecap="round" stroke-dasharray="477.5" stroke-dashoffset="477.5" transform="rotate(-90 84 84)"/></svg>
 <div class="ringtxt"><b id="ringnum">0</b><span>장 찾았어요</span></div>
 </div>
-<h2 style="margin-top:28px">이벤트 기간 사진을 모으고 있어요</h2>
+<h2 style="margin-top:28px">기간 내 사진을 모으고 있어요</h2>
 <p class="sub">11.12 오후 2:00 – 11.13 오전 11:00</p>
-<ul class="steps" id="steps"><li>기간 안에 찍은 사진 찾기</li><li>흐릿한 사진·스크린샷 빼기</li><li>비슷한 사진 묶기</li></ul>
+<ul class="steps" id="steps"><li>기간 안에 찍은 사진 찾기</li><li>흐릿한 사진·스크린샷 빼기</li><li>비슷한 사진을 묶고 있어요</li></ul>
 </div>
 <div id="imp-result" style="display:none">
 <div class="scroll stack g16" style="padding-bottom:170px">
@@ -952,19 +1018,19 @@ function albumPhotoTile(item){var st=albumState(),p=representative(item),isGroup
 function albumDateHeading(at){var d=new Date(at);return(d.getMonth()+1)+'월 '+d.getDate()+'일 '+(d.getHours()<12?'오전':'오후');}
 function albumTilesHtml(items,groupDates){var selecting=albumState().selecting,cls='album-photo-grid'+(selecting?' is-selecting':'');if(!items.length)return '<div class="album-empty-state"><h2>이 조건에 맞는 사진이 없어요</h2><p>다른 범위나 분류를 선택해 보세요.</p></div>';if(!groupDates)return '<div class="'+cls+'">'+items.map(albumPhotoTile).join('')+'</div>';var sections=[];items.forEach(item=>{var key=albumDateHeading(representative(item).at),section=sections.find(s=>s.key===key);if(!section){section={key,items:[]};sections.push(section);}section.items.push(item);});return sections.map(s=>'<h3 class="album-group-date">'+s.key+' <small>· '+s.items.reduce((n,item)=>n+item.members.length,0)+'장</small></h3><div class="'+cls+'">'+s.items.map(albumPhotoTile).join('')+'</div>').join('');}
 function albumViewHeading(title){var st=albumState();return '<div class="album-view-heading"><h2>'+title+'</h2><div class="album-select-controls">'+(st.selecting?'<button class="album-text-btn" onclick="selectVisibleAlbumPhotos()">'+(albumGalleryItems.length&&albumGalleryItems.every(i=>st.selected.has(i.id))?'선택 해제':'전체 선택')+'</button>':'')+'<button class="album-text-btn" id="albumSelectionToggle" onclick="toggleAlbumSelection()">'+(st.selecting?'취소':'선택')+'</button></div></div>';}
-function albumBrowseLinks(){return '<section class="album-browse-links"><div class="album-view-heading"><h2>사진 찾아보기</h2></div><p class="album-hint">사람·장소·시간을 기준으로 찾아요.</p><div class="browse-links-grid">'+[['people','사람별','people','함께 나온 사람으로 찾기'],['places','장소별','place','촬영한 장소로 찾기'],['time','시간대별','time','촬영 시간 범위로 찾기'],['scenery','음식 · 풍경','landscape','사람 없는 사진 모아 보기']].map(a=>'<button onclick="albumView(\''+a[0]+'\')">'+albumIcon(a[2],23)+'<span>'+a[1]+'</span><small>'+a[3]+'</small></button>').join('')+'</div></section>';}
+function albumBrowseLinks(){return '<section class="album-browse-links"><div class="album-view-heading"><h2>사진 찾아보기</h2></div><p class="album-hint">사람·장소·시간을 기준으로 찾아요.</p><div class="browse-links-grid">'+[['people','사람별','people','함께 나온 사람으로 찾기'],['places','장소별','place','촬영한 장소로 찾기'],['time','시간대별','time','촬영 시간 범위로 찾기'],['scenery','음식 · 풍경','landscape','']].map(a=>'<button onclick="albumView(\''+a[0]+'\')">'+albumIcon(a[2],23)+'<span>'+a[1]+'</span><small>'+a[3]+'</small></button>').join('')+'</div></section>';}
 function openAlbumFaceFromBrowse(){albumView('face');albumState().faceBack='browse';}
 function faceRegistrationEmpty(){return '<div class="album-empty-state"><h2>내 얼굴을 먼저 등록해 주세요</h2><p>얼굴을 등록하면 다른 사람이 올린 사진에서도<br>내가 나온 사진을 모아 볼 수 있어요.</p><button onclick="faceDialog()">얼굴 등록하기</button></div>';}
 function renderUnifiedAlbumBody(){var st=albumState(),m=albumPhotoModel();albumGalleryItems=albumCurrentItems();var items=albumGalleryItems,h='';if(!m.total){h='<div class="album-empty-state"><h2>아직 사진이 없어요</h2><p>사진을 추가하고 친구들과 함께 모아보세요.</p><button onclick="addPhotosLater()">사진 추가하기</button></div>';}
 else if(st.view==='face'&&(!profileState.face||!menuPrefs.permissions.face))h=faceRegistrationEmpty();
-else if(st.view==='ai'||st.view==='best'){h=albumViewHeading('베스트컷')+'<p class="album-hint">좋아요가 가장 많은 사진을 먼저, 선명도와 밝기 등을 기준으로 고른 사진을 함께 보여줘요.</p><div class="ai-recommendations">'+items.map((item,i)=>'<div>'+albumTilesHtml([item],false)+'<p class="recommendation-note">'+(i===0?'좋아요가 가장 많은 사진 · '+photoLikeCount(representative(item))+'개':['흔들림이 적은 사진 추천','인물 표현 기준 추천','밝기와 구도 기준 추천','선명도·밝기 기준 추천'][(i-1)%4])+'</p></div>').join('')+'</div><p class="album-small-note">추천과 분류는 사용성 테스트용 샘플이에요.</p>';}
+else if(st.view==='ai'||st.view==='best'){h=albumViewHeading('베스트컷')+'<p class="album-hint">좋아요가 많은 사진, 선명도와 밝기 등을 기준으로 고른 사진을 보여줘요.</p><div class="ai-recommendations">'+items.map((item,i)=>'<div>'+albumTilesHtml([item],false)+'<p class="recommendation-note">'+(i===0?'좋아요가 가장 많은 사진 · '+photoLikeCount(representative(item))+'개':['흔들림이 적은 사진 추천','인물 표현 기준 추천','밝기와 구도 기준 추천','선명도·밝기 기준 추천'][(i-1)%4])+'</p></div>').join('')+'</div><p class="album-small-note">추천과 분류는 사용성 테스트용 샘플이에요.</p>';}
 else if(st.view==='browse'){h=albumBrowseLinks();}
-else if(st.view==='scenery'){var category=st.sceneryCategory||'food',categories=[['food','음식'],['landscape','풍경'],['other','기타']];h=albumViewHeading('음식 · 풍경')+'<p class="album-hint">사람 없는 사진 모아 보기</p><div class="album-category-controls" role="group" aria-label="사진 분류 선택">'+categories.map(c=>'<button class="album-text-btn" type="button" aria-pressed="'+(category===c[0])+'" data-scene-category="'+c[0]+'" onclick="chooseSceneryCategory(\''+c[0]+'\')">'+c[1]+'</button>').join('')+'</div><p class="album-hint">'+categories.find(c=>c[0]===category)[1]+' 사진 · '+items.length+'장</p>'+albumTilesHtml(items,false)+'<p class="album-small-note">사용성 확인을 위한 샘플 분류예요.</p>';}
-else if(st.view==='time'){h='<div class="album-view-heading"><h2>시간대별 사진</h2></div><p class="album-hint">양쪽 손잡이로 시간을 조절하면 해당 사진만 보여요.</p>'+albumTimeChartHtml()+albumViewHeading('선택한 시간의 사진 <span class="time-photo-count" id="timePhotoCount">'+albumRawScope(items).length+'장</span>')+'<div id="albumTimePhotos">'+albumTilesHtml(items,false)+'</div>';}
-else if(st.view==='people'){var persons=albumPeopleEntries();h='<div class="album-view-heading"><h2>사람별 사진</h2></div><p class="album-hint">사람을 선택하면 함께 나온 사진을 볼 수 있어요.</p><div class="album-people-strip">'+persons.map(person=>'<button class="album-person-btn '+(st.person===person.id?'active':'')+'" aria-pressed="'+(st.person===person.id)+'" onclick="chooseAlbumPerson('+person.id+')"><span class="member-initial">'+esc(person.id===0?'나':person.name.slice(0,1))+'</span><b>'+esc(person.name)+'</b><small>'+m.photos.filter(p=>p.person===person.id).length+'장</small></button>').join('')+'</div>'+albumViewHeading(st.person===0?'내가 나온 사진':esc((persons.find(p=>p.id===st.person)||persons[0]).name)+'님이 나온 사진')+albumTilesHtml(items,true);}
+else if(st.view==='scenery'){var category=st.sceneryCategory||'food',categories=[['food','음식'],['landscape','풍경'],['other','기타']];h=albumViewHeading('음식 · 풍경')+'<div class="album-category-controls" role="group" aria-label="사진 분류 선택">'+categories.map(c=>'<button class="album-text-btn" type="button" aria-pressed="'+(category===c[0])+'" data-scene-category="'+c[0]+'" onclick="chooseSceneryCategory(\''+c[0]+'\')">'+c[1]+'</button>').join('')+'</div><p class="album-hint">'+categories.find(c=>c[0]===category)[1]+' 사진 · '+items.length+'장</p>'+albumTilesHtml(items,false)+'<p class="album-small-note">사용성 확인을 위한 샘플 분류예요.</p>';}
+else if(st.view==='time'){h='<div class="album-view-heading"><h2>시간대별 사진</h2></div>'+albumTimeChartHtml()+albumViewHeading('선택한 시간의 사진 <span class="time-photo-count" id="timePhotoCount">'+albumRawScope(items).length+'장</span>')+'<div id="albumTimePhotos">'+albumTilesHtml(items,false)+'</div>';}
+else if(st.view==='people'){var persons=albumPeopleEntries();h='<div class="album-view-heading"><h2>사람별 사진</h2></div><div class="album-people-strip">'+persons.map(person=>'<button class="album-person-btn '+(st.person===person.id?'active':'')+'" aria-pressed="'+(st.person===person.id)+'" onclick="chooseAlbumPerson('+person.id+')"><span class="member-initial">'+esc(person.id===0?'나':person.name.slice(0,1))+'</span><b>'+esc(person.name)+'</b><small>'+m.photos.filter(p=>p.person===person.id).length+'장</small></button>').join('')+'</div>'+albumViewHeading(st.person===0?'내가 나온 사진':esc((persons.find(p=>p.id===st.person)||persons[0]).name)+'님이 나온 사진')+albumTilesHtml(items,true);}
 
-else if(st.view==='places'){h='<div class="album-view-heading"><h2>장소별 사진</h2></div><p class="album-hint">촬영 장소를 눌러 사진을 찾아보세요.</p><div class="album-mini-map"><svg viewBox="0 0 350 180" aria-hidden="true"><path d="M0 140Q90 90 170 150T350 130V180H0Z" fill="#e2e4e7"/><path d="M20 0L160 180M0 70L350 30M110 180L300 0" stroke="white" stroke-width="10" fill="none"/></svg>'+['해변','숙소','전망대'].map((name,i)=>{var n=m.photos.filter(p=>p.place===i).length,size=Math.max(36,Math.round(Math.sqrt(n/Math.max(1,...[0,1,2].map(k=>m.photos.filter(p=>p.place===k).length)))*106));return '<button class="album-place-marker '+(st.place===i?'active':'')+'" style="width:'+size+'px;height:'+size+'px;left:'+([25,64,77][i])+'%;top:'+([55,28,65][i])+'%" onclick="chooseAlbumPlace('+i+')">'+name+'<br>'+n+'장</button>';}).join('')+'</div>'+albumViewHeading(['해변','숙소','전망대'][st.place])+albumTilesHtml(items,true);}
-else h=albumViewHeading(st.view==='face'?'내가 나온 사진':st.view==='me'?'내가 올린 사진':'전체 사진')+(st.view==='all'?'<p class="album-hint">비슷한 사진은 대표 1장으로 모았어요. 묶음을 눌러 대표를 바꿀 수 있어요.</p>':'')+albumTilesHtml(items,true);
+else if(st.view==='places'){h='<div class="album-view-heading"><h2>장소별 사진</h2></div><div class="album-mini-map"><svg viewBox="0 0 350 180" aria-hidden="true"><path d="M0 140Q90 90 170 150T350 130V180H0Z" fill="#e2e4e7"/><path d="M20 0L160 180M0 70L350 30M110 180L300 0" stroke="white" stroke-width="10" fill="none"/></svg>'+['해변','숙소','전망대'].map((name,i)=>{var n=m.photos.filter(p=>p.place===i).length,size=Math.max(36,Math.round(Math.sqrt(n/Math.max(1,...[0,1,2].map(k=>m.photos.filter(p=>p.place===k).length)))*106));return '<button class="album-place-marker '+(st.place===i?'active':'')+'" style="width:'+size+'px;height:'+size+'px;left:'+([25,64,77][i])+'%;top:'+([55,28,65][i])+'%" onclick="chooseAlbumPlace('+i+')">'+name+'<br>'+n+'장</button>';}).join('')+'</div>'+albumViewHeading(['해변','숙소','전망대'][st.place])+albumTilesHtml(items,true);}
+else h=albumViewHeading(st.view==='face'?'내가 나온 사진':st.view==='me'?'내가 올린 사진':'전체 사진')+(st.view==='all'?'':'')+albumTilesHtml(items,true);
 $('albBody').innerHTML=h;var faceLink=$('albBody').querySelector('.browse-links-grid button[data-view="face"]');if(faceLink)faceLink.onclick=openAlbumFaceFromBrowse;updateUnifiedSelection();}
 renderAlbum=function(){if(!cur)return;var st=albumState(),sc=$('s-album').querySelector('.scroll'),top=sc.scrollTop,m=albumPhotoModel();albTab=st.view;$('albTitle').textContent=cur.name;$('albSub').textContent=compactAlbumDate(cur)+' · 사진 '+m.total+'장';var names=homeParticipants(cur),mem=parseInt(cur.people,10)||1;$('avs').className='member-initials';$('avs').innerHTML=names.slice(0,4).map(name=>'<span class="member-initial">'+esc(name.slice(0,1))+'</span>').join('');$('memText').textContent=mem+'명이 함께하고 있어요';$('memSub').textContent='앨범에 추가한 사진을 함께 볼 수 있어요';updateAlbumDownloadButton();var main=['browse','people','places','time','face','scenery'].includes(st.view)?'browse':['ai','best'].includes(st.view)?'ai':'all';$('albChips').innerHTML=[['ai','베스트컷'],['all','전체'],['browse','사진 찾아보기']].map(a=>'<button role="tab" aria-selected="'+(main===a[0])+'" onclick="albumView(\''+a[0]+'\')">'+a[1]+'</button>').join('');renderUnifiedAlbumBody();sc.scrollTop=top;};
 function updateUnifiedSelection(){if(!cur)return;var st=albumState(),n=st.selected.size;var selectAll=$('albBody').querySelector('.album-select-controls button');if(st.selecting&&selectAll)selectAll.textContent=albumGalleryItems.length&&albumGalleryItems.every(item=>st.selected.has(item.id))?'선택 해제':'전체 선택';$('albumSelectionBar').hidden=!st.selecting;$('albumAddFab').hidden=st.selecting;$('albSave').disabled=!n;$('albSave').textContent=n?'선택한 '+n+'장 저장하기':'사진을 선택해 주세요';$('s-album').querySelector('.scroll').style.paddingBottom=st.selecting?'116px':'96px';document.querySelectorAll('#albBody [data-album-item]').forEach(el=>{var checked=st.selected.has(el.dataset.albumItem);el.classList.toggle('is-selected',checked);el.querySelector('.photo-select-mark').textContent=checked?'✓':'';if(st.selecting)el.setAttribute('aria-pressed',checked);else el.removeAttribute('aria-pressed');});}
@@ -1014,7 +1080,7 @@ document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('
 // Exclusion reasons belong inside the excluded-photos disclosure, not above shared candidates.
 function importPhotoTile(item,index,excluded){return '<button class="ph'+(item.selected?'':' off')+(excluded&&item.selected?' restored-photo':'')+'" aria-label="사진 '+(index+1)+(excluded?', '+item.reason:'')+'" aria-pressed="'+item.selected+'" onclick="toggleImportCandidate('+index+')"><img class="scene" src="'+item.src+'" alt="사진 '+(index+1)+' 자리 표시"><span class="ck">'+CHECK+'</span>'+(excluded?'<span class="importreason">'+(item.selected?'다시 선택됨':esc(item.reason))+'</span>':'')+'</button>';}
 function toggleImportCandidate(index){importItems[index].selected=!importItems[index].selected;renderPhotos();}
-renderPhotos=function(){if(!importItems.length)return;var included=[],excluded=[],reasons={};importItems.forEach(function(item,i){if(item.reason){excluded.push([item,i]);reasons[item.reason]=(reasons[item.reason]||0)+1;}else included.push([item,i]);});$('photos').innerHTML=included.map(pair=>importPhotoTile(pair[0],pair[1],false)).join('');var n=countSel();$('sel').textContent=n;$('qcount').textContent=n;$('sharebtn').textContent=photoAddTarget?(n?'선택한 '+n+'장 앨범에 추가하기':'사진을 1장 이상 골라주세요'):'사진 '+n+'장으로 앨범 만들기';$('sharebtn').disabled=!n;$('foundTitle').textContent='사진 '+importItems.length+'장을 찾았어요';$('foundSub').textContent='공유할 사진을 확인해 주세요. 선택은 언제든 바꿀 수 있어요.';$('excludedSection').hidden=!excluded.length;var restored=excluded.filter(pair=>pair[0].selected).length;$('excludedSummary').textContent='제외된 사진 '+excluded.length+'장'+(restored?' · '+restored+'장 다시 선택':'');$('excludedToggle').setAttribute('aria-expanded',String(showExcluded));$('excludedDetails').hidden=!showExcluded;$('excludeTags').innerHTML=showExcluded?Object.keys(reasons).map(reason=>'<span class="tag">'+esc(reason)+' '+reasons[reason]+'장</span>').join(''):'';$('excludedPhotos').innerHTML=showExcluded?excluded.map(pair=>importPhotoTile(pair[0],pair[1],true)).join(''):'';};
+renderPhotos=function(){if(!importItems.length)return;var included=[],excluded=[],reasons={};importItems.forEach(function(item,i){if(item.reason){excluded.push([item,i]);reasons[item.reason]=(reasons[item.reason]||0)+1;}else included.push([item,i]);});$('photos').innerHTML=included.map(pair=>importPhotoTile(pair[0],pair[1],false)).join('');var n=countSel();$('sel').textContent=n;$('qcount').textContent=n;$('sharebtn').textContent=photoAddTarget?(n?'선택한 '+n+'장 앨범에 추가하기':'사진을 1장 이상 골라주세요'):'사진 '+n+'장으로 앨범 만들기';$('sharebtn').disabled=!n;$('foundTitle').textContent='사진 '+importItems.length+'장을 찾았어요';$('foundSub').textContent='';$('excludedSection').hidden=!excluded.length;var restored=excluded.filter(pair=>pair[0].selected).length;$('excludedSummary').textContent='제외된 사진 '+excluded.length+'장'+(restored?' · '+restored+'장 다시 선택':'');$('excludedToggle').setAttribute('aria-expanded',String(showExcluded));$('excludedDetails').hidden=!showExcluded;$('excludeTags').innerHTML=showExcluded?Object.keys(reasons).map(reason=>'<span class="tag">'+esc(reason)+' '+reasons[reason]+'장</span>').join(''):'';$('excludedPhotos').innerHTML=showExcluded?excluded.map(pair=>importPhotoTile(pair[0],pair[1],true)).join(''):'';};
 toggleExcluded=function(){showExcluded=!showExcluded;renderPhotos();};
 var spacedMode=setMode;setMode=function(v){spacedMode(v);$('ai-tags').style.setProperty('display',v?'flex':'none','important');};
 var spacedChooseLater=chooseLater;chooseLater=function(){spacedChooseLater();$('ai-tags').style.setProperty('display','none','important');};
@@ -1256,12 +1322,12 @@ function saveAlbumSharing(){cur.shareOptions=Array.from(document.querySelectorAl
 /* Review draft: layout changes and browser-local comments. No remote services. */
 function localDateTime(value){var d=new Date(value||Date.now());return new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,16);}
 function collectionPeriodFields(prefix,start,end){
- return '<label for="'+prefix+'Start">'+(prefix==='event'?'시작 · 지금부터':'시작')+'<input id="'+prefix+'Start" type="datetime-local" value="'+esc(start||localDateTime())+'"></label>'+
- '<label for="'+prefix+'EndMode">종료 시점<select id="'+prefix+'EndMode" onchange="togglePeriodEnd(\''+prefix+'\')"><option value="none" '+(!end?'selected':'')+'>종료일 없음</option><option value="date" '+(end?'selected':'')+'>종료일 설정</option></select></label>'+
- '<label id="'+prefix+'EndField" for="'+prefix+'End" '+(!end?'hidden':'')+'>사진을 불러올 마지막 날짜와 시간<input id="'+prefix+'End" type="datetime-local" value="'+esc(end||'')+'" '+(!end?'disabled':'')+'></label>'+
+ return '<div class="period-card"><div class="period-row"><label for="'+prefix+'Start">시작</label><input aria-label="시작 날짜와 시간" id="'+prefix+'Start" type="datetime-local" value="'+esc(start||localDateTime())+'"></div>'+
+ '<div class="period-row period-end-row" data-has-end="'+!!end+'"><label for="'+prefix+'EndMode">종료</label><select aria-label="종료 시점" id="'+prefix+'EndMode" onchange="togglePeriodEnd(\''+prefix+'\')"><option value="none" '+(!end?'selected':'')+'>종료일 없음</option><option value="date" '+(end?'selected':'')+'>종료일 설정</option></select><label id="'+prefix+'EndField" for="'+prefix+'End"><input aria-label="종료 날짜와 시간" id="'+prefix+'End" type="datetime-local" value="'+esc(end||'')+'" onclick="if($(\''+prefix+'EndMode\').value===\'none\')openCollectionEndCalendar(\''+prefix+'\')"><span class="period-no-end" id="'+prefix+'EndNone" '+(end?'hidden':'')+'>종료일 없음</span></label></div></div>'+
  '<p class="basic-hint">이 기간에 촬영한 사진을 자동으로 불러와요.</p>';
 }
-function togglePeriodEnd(prefix){var on=$(prefix+'EndMode').value==='date';$(prefix+'EndField').hidden=!on;$(prefix+'End').disabled=!on;if(on&&!$(prefix+'End').value)$(prefix+'End').value=localDateTime(new Date($(prefix+'Start').value).getTime()+86400000);if(prefix==='event')updName();}
+function togglePeriodEnd(prefix){var on=$(prefix+'EndMode').value==='date';$(prefix+'EndField').hidden=false;$(prefix+'EndNone').hidden=on;$(prefix+'EndMode').closest('.period-row').dataset.hasEnd=String(on);$(prefix+'End').disabled=false;if(!on)$(prefix+'End').value='';if(on&&!$(prefix+'End').value)$(prefix+'End').value=localDateTime(new Date($(prefix+'Start').value).getTime()+86400000);if(prefix==='event')updName();}
+function openCollectionEndCalendar(prefix){$(prefix+'EndMode').value='date';togglePeriodEnd(prefix);var input=$(prefix+'End');input.focus();if(typeof input.showPicker==='function'){try{input.showPicker();}catch(e){}}}
 function readCollectionPeriod(prefix){var start=$(prefix+'Start').value,end=$(prefix+'EndMode').value==='date'?$(prefix+'End').value:null;return {start,end,valid:!!start&&Number.isFinite(Date.parse(start))&&($(prefix+'EndMode').value!=='date'||!!end&&Date.parse(end)>Date.parse(start))};}
 function collectionLabel(start,end){return (start||'').replace('T',' ').replaceAll('-','.')+' – '+(end?end.replace('T',' ').replaceAll('-','.'):'종료일 없음');}
 var oldPeriodGroup=$('eventStart').closest('.stack.g8');
@@ -1295,34 +1361,36 @@ delete settingsScreens.storage;
 $('s-storage')?.remove();
 
 function ownPhoto(photo){if(Array.isArray(cur.ownPhotoIds))return cur.ownPhotoIds.includes(photo.id);return photo.number<=(cur.uploadedCount??(cur.isNew?albumPhotoModel().total:32));}
-function uploaderName(photo){return photo.uploaderName||(ownPhoto(photo)?profileState.name:(homeParticipants(cur).find(n=>n!==profileState.name)||'참여자'));}
+function uploaderNames(){return [profileState.name,'참여자 1','참여자 2','참여자 3'];}
+function uploaderName(photo){return ownPhoto(photo)?profileState.name:'참여자 '+((photo.number-1)%3+1);}
 photoOwner=function(photo){return ownPhoto(photo)?'내가 올림':uploaderName(photo)+'님이 올림';};
 var layoutSubmit=submitPhotoBatch;
 submitPhotoBatch=function(){var target=photoAddTarget,n=countSel(),start=target?(Number.isFinite(target.total)?target.total:parseInt(target.count,10)||0):0;if(target&&!target.ownPhotoIds){cur=target;target.ownPhotoIds=albumPhotoModel().photos.filter(ownPhoto).map(p=>p.id);}layoutSubmit();if(target&&target.total===start+n){target.ownPhotoIds=Array.from(new Set([...(target.ownPhotoIds||[]),...Array.from({length:n},(_,i)=>'p'+(start+i))]));saveLocalAlbums();renderAlbum();}};
 $('sharebtn').onclick=submitPhotoBatch;
 
 // Keep search and filters in the same album, above its photo results.
-var filterArea=document.createElement('section');filterArea.id='albumFilterArea';filterArea.innerHTML='<form class="album-search" id="photoSearchForm"><input id="photoSearch" type="search" aria-label="사진 검색" placeholder="사진 번호, 올린 사람 검색" autocomplete="off"><button type="button" id="clearPhotoSearch" aria-label="검색어 지우기" hidden>×</button></form><div class="photo-filter-controls"><button class="chip" id="onlyMyPhotos" aria-pressed="false">내가 올린 사진만</button><label class="sr-only" for="photoUploader">올린 사람</label><select id="photoUploader" aria-label="올린 사람"></select><button class="chip" id="openPhotoFilters" aria-expanded="false" aria-controls="photoCategoryFilters">필터</button><button class="link" id="clearPhotoFilters" hidden>초기화</button></div><div id="photoCategoryFilters" class="photo-filter-controls" hidden></div><p class="small" id="activePhotoFilter" aria-live="polite"></p>';
+var filterArea=document.createElement('section');filterArea.id='albumFilterArea';filterArea.innerHTML='<div id="photoCategoryFilters" class="photo-filter-controls" role="group" aria-label="사진 필터"></div><div id="uploaderPeople" hidden></div>';
 $('albBody').before(filterArea);
 var integratedViews=['all','me','people','places','time','face','scenery','browse'];
-function resetPhotoFilters(){var st=albumState();st.owner='all';st.query='';st.filtersOpen=false;st.range=[0,23];st.selected.clear();albumView('all');}
+function resetPhotoFilters(){var st=albumState();st.owner='all';st.query='';st.uploaderPicking=false;st.range=[0,23];st.selected.clear();albumView('all');}
 function photoFiltersChanged(){albumState().selected.clear();renderAlbum();}
-$('photoSearchForm').addEventListener('submit',e=>e.preventDefault());
-$('photoSearch').addEventListener('input',function(){albumState().query=this.value;photoFiltersChanged();});
-$('clearPhotoSearch').onclick=function(){albumState().query='';photoFiltersChanged();$('photoSearch').focus();};
-$('onlyMyPhotos').onclick=function(){var st=albumState();st.owner=st.owner==='me'?'all':'me';photoFiltersChanged();};
-$('photoUploader').onchange=function(){albumState().owner=this.value;photoFiltersChanged();};
-$('openPhotoFilters').onclick=function(){albumState().filtersOpen=!albumState().filtersOpen;renderAlbum();};
-$('clearPhotoFilters').onclick=resetPhotoFilters;
-function updatePhotoFilters(){var st=albumState(),visible=integratedViews.includes(st.view);filterArea.hidden=!visible;if(!visible)return;var current=st.owner||'all';$('onlyMyPhotos').setAttribute('aria-pressed',String(current==='me'));var names=Array.from(new Set(albumPhotoModel().photos.map(uploaderName)));$('photoUploader').innerHTML='<option value="all">올린 사람 · 전체</option><option value="me">나</option>'+names.filter(n=>n!==profileState.name).map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');$('photoUploader').value=current;$('photoSearch').value=st.query||'';$('clearPhotoSearch').hidden=!st.query;$('openPhotoFilters').setAttribute('aria-expanded',String(!!st.filtersOpen));$('photoCategoryFilters').hidden=!st.filtersOpen;$('photoCategoryFilters').innerHTML=[['all','전체'],['people','사람'],['places','장소'],['time','시간'],['scenery','음식 · 풍경'],['face','내가 나온 사진']].map(([v,title])=>'<button class="chip'+(st.view===v?' sel':'')+'" aria-pressed="'+(st.view===v)+'" onclick="albumView(\''+v+'\')">'+title+'</button>').join('');var active=st.view!=='all'||current!=='all'||!!st.query;$('clearPhotoFilters').hidden=!active;$('activePhotoFilter').textContent=active?'검색·필터 결과 · '+albumRawScope(albumCurrentItems()).length+'장':'';}
+function choosePhotoFilter(view){var st=albumState();st.uploaderPicking=view==='uploader';if(view==='uploader'&&(!st.owner||st.owner==='all'))st.owner='me';if(view==='all'){st.owner='all';}if(view==='mine'){st.owner='me';}albumView(view==='uploader'||view==='mine'?'all':view);}
+function choosePhotoUploader(index){var names=uploaderNames(),value=index<0?'all':names[index];albumState().owner=value===profileState.name?'me':value;photoFiltersChanged();}
+function updatePhotoFilters(){
+ var st=albumState();st.query='';var visible=integratedViews.includes(st.view);filterArea.hidden=!visible;if(!visible)return;
+ var current=st.owner||'all',activeView=st.uploaderPicking?'uploader':st.view==='all'&&current==='me'?'mine':st.view;
+ $('photoCategoryFilters').innerHTML=[['all','전체'],['people','사람'],['places','장소'],['time','시간'],['scenery','음식 · 풍경'],['uploader','올린 사람']].map(([v,title])=>'<button type="button" class="chip'+(activeView===v?' sel':'')+'" aria-pressed="'+(activeView===v)+'" data-photo-filter="'+v+'" onclick="choosePhotoFilter(\''+v+'\')">'+title+'</button>').join('');
+ var panel=$('uploaderPeople');panel.hidden=!st.uploaderPicking;
+ if(st.uploaderPicking){var names=uploaderNames(),counts=albumPhotoModel().photos;panel.innerHTML='<div class="album-view-heading"><h2>올린 사람</h2></div><div class="album-people-strip" aria-label="올린 사람 선택">'+names.map((name,i)=>{var value=name===profileState.name?'me':name,selected=current===value;return '<button type="button" class="album-person-btn '+(selected?'active':'')+'" data-uploader-index="'+i+'" aria-pressed="'+selected+'" onclick="choosePhotoUploader('+i+')"><span class="member-initial">'+esc(name===profileState.name?'나':name.replace('참여자 ',''))+'</span><b>'+esc(name===profileState.name?'나':name)+'</b><small>'+counts.filter(p=>uploaderName(p)===name).length+'장</small></button>';}).join('')+'</div>';}
+}
 var layoutItems=albumCurrentItems;
 albumCurrentItems=function(){var st=albumState(),items=layoutItems();if(!integratedViews.includes(st.view))return items;var owner=st.owner||'all',query=(st.query||'').trim().toLocaleLowerCase();return filterAlbumItemMembers(items,function(p){var matchOwner=owner==='all'||(owner==='me'?ownPhoto(p):uploaderName(p)===owner),hay=['사진 '+p.number,p.number,uploaderName(p),photoOwner(p)].join(' ').toLocaleLowerCase();return matchOwner&&(!query||hay.includes(query));});};
 var layoutAlbumView=albumView;
 albumView=function(view){layoutAlbumView(view==='browse'?'all':view);};
 var layoutRenderAlbum=renderAlbum;
-renderAlbum=function(){layoutRenderAlbum();if(!cur)return;var st=albumState(),main=['ai','best'].includes(st.view)?'ai':'all';$('albChips').innerHTML=[['all','전체'],['ai','베스트컷']].map(([v,t])=>'<button role="tab" aria-selected="'+(main===v)+'" onclick="albumView(\''+v+'\')">'+t+'</button>').join('');updatePhotoFilters();if(!$('addAlbumFriend')){var b=document.createElement('button');b.id='addAlbumFriend';b.className='iconbtn';b.setAttribute('aria-label','친구 추가');b.title='친구 추가';b.innerHTML=albumIcon('plus',20);b.onclick=openAlbumFriends;$('s-album').querySelector('.album-members').appendChild(b);}updateAlbumDownloadButton();};
+renderAlbum=function(){layoutRenderAlbum();if(!cur)return;var st=albumState(),main=['ai','best'].includes(st.view)?'ai':'all';$('albChips').innerHTML=[['all','전체'],['ai','베스트컷']].map(([v,t])=>'<button role="tab" aria-selected="'+(main===v)+'" onclick="albumView(\''+v+'\')">'+t+'</button>').join('');updatePhotoFilters();Array.from($('avs').children).slice(3).forEach(el=>el.remove());if(!$('addAlbumFriend')){var b=document.createElement('button');b.id='addAlbumFriend';b.className='iconbtn';b.setAttribute('aria-label','친구 추가');b.title='친구 추가';b.innerHTML=albumIcon('plus',20);b.onclick=openAlbumFriends;$('avs').appendChild(b);}updateAlbumDownloadButton();};
 openAlbum=function(i){cur=albums[i];albumOrigin='home';var st=albumState();st.view='all';st.selected.clear();st.selecting=false;albTab='all';go('album');$('s-album').querySelector('.scroll').scrollTop=0;};
-albumBack=function(){if(!$('photoViewer').hidden){closePhotoViewer();return;}if(!$('albumBundleDialog').hidden){closeAlbumOverlay('albumBundleDialog');return;}if(!$('albumDownloadDialog').hidden){closeAlbumOverlay('albumDownloadDialog');return;}var st=albumState();if(st.selecting){toggleAlbumSelection();return;}if(st.view!=='all'&&st.view!=='ai'&&st.view!=='best'||st.owner&&st.owner!=='all'||st.query){resetPhotoFilters();return;}go(albumOrigin||'home');};
+albumBack=function(){if(!$('photoViewer').hidden){closePhotoViewer();return;}if(!$('albumBundleDialog').hidden){closeAlbumOverlay('albumBundleDialog');return;}if(!$('albumDownloadDialog').hidden){closeAlbumOverlay('albumDownloadDialog');return;}var st=albumState();if(st.selecting){toggleAlbumSelection();return;}if(st.view!=='all'&&st.view!=='ai'&&st.view!=='best'||st.owner&&st.owner!=='all'||st.query||st.uploaderPicking){resetPhotoFilters();return;}go(albumOrigin||'home');};
 var directFriendReturn=null;
 function openAlbumFriends(){directFriendReturn={album:cur,tab:albumState().view};inviteReturn={album:cur,tab:albTab};if(currentInvitation().expiresAt<=Date.now()){toast('초대 링크가 만료됐어요. 공유 화면에서 새 링크를 만들어 주세요');return;}$('s-album').classList.remove('on');openInviteFriends();}
 var layoutCloseFriends=closeInviteFriends;
@@ -1330,12 +1398,35 @@ closeInviteFriends=function(){if(!directFriendReturn){layoutCloseFriends();retur
 
 // Download scopes and counts refer to the actual eligible photos; own uploads are excluded.
 function downloadableItems(items){return filterAlbumItemMembers(items,p=>!ownPhoto(p));}
-updateAlbumDownloadButton=function(){if(!cur)return;var items=downloadableItems(albumCurrentItems()),best=['ai','best'].includes(albumState().view),count=items.length;$('albumFullDownload').hidden=false;$('albumBottomActions').classList.remove('browse-home');$('albumFullDownload').innerHTML=albumIcon('download',19)+' '+(best?'베스트컷 다운로드':'전체 다운로드')+' · '+count+'장';$('albumFullDownload').disabled=!count;};
-requestAlbumDownload=function(full){var st=albumState(),source=albumCurrentItems();albumDownloadScope=downloadableItems(full?source:source.filter(item=>st.selected.has(item.id)));if(!albumDownloadScope.length){toast('내가 올린 사진을 제외하면 저장할 사진이 없어요');return;}var raw=albumRawScope(albumDownloadScope),reps=albumDownloadScope.length,duplicates=raw.length>reps;albumDownloadChoice='representatives';var body=$('albumDownloadContent');body.dataset.rawCount=raw.length;body.dataset.representativeCount=reps;body.innerHTML='<div class="album-dialog-toolbar"><h2>사진 저장하기</h2><button aria-label="닫기" onclick="closeAlbumOverlay(\'albumDownloadDialog\')">'+albumIcon('close')+'</button></div><p class="album-hint">내가 올린 사진은 제외하고 저장돼요.</p>'+(duplicates?'<label class="download-option"><input type="radio" name="album-download" value="representatives" checked onchange="chooseAlbumDownload(this.value)"><span><b>대표 사진만 저장 · '+reps+'장</b></span></label><label class="download-option"><input type="radio" name="album-download" value="all" onchange="chooseAlbumDownload(this.value)"><span><b>모든 사진 저장 · '+raw.length+'장</b></span></label>':'')+'<button class="album-dialog-action" id="confirmAlbumDownload" onclick="confirmAlbumDownload()">'+reps+'장 저장하기</button>';focusAlbumOverlay('albumDownloadDialog');};
-confirmAlbumDownload=function(){var photos=albumDownloadChoice==='all'?albumRawScope(albumDownloadScope):albumDownloadScope.map(representative);window.lastAlbumDownload={count:photos.length,photoIds:photos.map(p=>p.id),mode:albumDownloadChoice,album:cur.name};closeAlbumOverlay('albumDownloadDialog');toast(photos.length+'장 저장을 요청했어요 · 시연용');};
+updateAlbumDownloadButton=function(){if(!cur)return;var visible=albumCurrentItems(),items=downloadableItems(visible),best=['ai','best'].includes(albumState().view),count=albumRawScope(visible).length;$('albumFullDownload').hidden=false;$('albumBottomActions').classList.remove('browse-home');$('albumFullDownload').innerHTML=albumIcon('download',19)+' '+(best?'베스트컷 다운로드':'전체 다운로드')+' · '+count+'장';$('albumFullDownload').disabled=!count;};
+var albumDownloadSource=[],albumDownloadExcludeOwn=true;
+requestAlbumDownload=function(full){
+ var st=albumState(),source=albumCurrentItems();
+ albumDownloadSource=(full?source:source.filter(item=>st.selected.has(item.id))).slice();
+ if(!albumDownloadSource.length){toast('저장할 사진이 없어요');return;}
+ albumDownloadExcludeOwn=downloadableItems(albumDownloadSource).length>0;
+ albumDownloadChoice='representatives';
+ $('albumDownloadContent').innerHTML='<div class="album-dialog-toolbar"><div><h2>사진 저장하기</h2><p>비슷한 사진을 어떻게 저장할까요?</p></div><button aria-label="닫기" onclick="closeAlbumOverlay(\'albumDownloadDialog\')">'+albumIcon('close')+'</button></div><label class="download-option"><input type="radio" name="album-download" value="representatives" checked onchange="chooseAlbumDownload(this.value)"><span><b id="representativeDownloadLabel"></b><small>비슷한 사진 묶음에서는 현재 대표 사진 1장만 저장해요.</small></span></label><label class="download-option"><input type="radio" name="album-download" value="all" onchange="chooseAlbumDownload(this.value)"><span><b id="allDownloadLabel"></b><small>비슷한 사진을 포함해 모두 저장해요.</small></span></label><label class="download-exclude-own"><input id="excludeOwnDownloads" type="checkbox" '+(albumDownloadExcludeOwn?'checked':'')+' onchange="albumDownloadExcludeOwn=this.checked;updateDownloadCounts()"><span>내가 올린 사진은 빼고 저장해요</span></label><button class="album-dialog-action" id="confirmAlbumDownload" onclick="confirmAlbumDownload()"></button>';
+ updateDownloadCounts();focusAlbumOverlay('albumDownloadDialog');
+};
+function updateDownloadCounts(){
+ albumDownloadScope=albumDownloadExcludeOwn?downloadableItems(albumDownloadSource):albumDownloadSource;
+ var raw=albumRawScope(albumDownloadScope).length,reps=albumDownloadScope.length,body=$('albumDownloadContent');
+ body.dataset.rawCount=raw;body.dataset.representativeCount=reps;
+ $('representativeDownloadLabel').textContent='대표 사진만 저장 · '+reps+'장';
+ $('allDownloadLabel').textContent='모든 사진 저장 · '+raw+'장';
+ var n=albumDownloadChoice==='all'?raw:reps;
+ $('confirmAlbumDownload').textContent=n+'장 저장하기';$('confirmAlbumDownload').disabled=!n;
+}
+chooseAlbumDownload=function(value){albumDownloadChoice=value;updateDownloadCounts();};
+confirmAlbumDownload=function(){
+ updateDownloadCounts();var photos=albumDownloadChoice==='all'?albumRawScope(albumDownloadScope):albumDownloadScope.map(representative);if(!photos.length)return;
+ window.lastAlbumDownload={count:photos.length,photoIds:photos.map(p=>p.id),mode:albumDownloadChoice,excludeOwn:albumDownloadExcludeOwn,album:cur.name};
+ closeAlbumOverlay('albumDownloadDialog');toast(photos.length+'장 저장을 요청했어요 · 시연용');
+};
 
 var layoutSelectionUpdate=updateUnifiedSelection;
-updateUnifiedSelection=function(){layoutSelectionUpdate();if(!cur||!albumState().selecting)return;var n=downloadableItems(albumCurrentItems().filter(item=>albumState().selected.has(item.id))).length;$('albSave').disabled=!n;$('albSave').textContent=n?'선택한 사진 다운로드 · '+n+'장':'저장할 사진을 선택해 주세요';};
+updateUnifiedSelection=function(){layoutSelectionUpdate();if(!cur||!albumState().selecting)return;var selected=albumCurrentItems().filter(item=>albumState().selected.has(item.id)),n=downloadableItems(selected).length||selected.length;$('albSave').disabled=!n;$('albSave').textContent=n?'선택한 사진 다운로드 · '+n+'장':'저장할 사진을 선택해 주세요';};
 
 // Browser-local comments are stored on each album using stable photo IDs.
 function photoComments(photo){return cur.photoComments?.[photo.id]||[];}
@@ -1352,7 +1443,7 @@ $('photoCommentForm').addEventListener('submit',function(e){e.preventDefault();v
 commentsPanel.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closePhotoComments();}if(e.key==='Tab'){var nodes=Array.from(commentsPanel.querySelectorAll('button:not(:disabled),textarea')),first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}},true);
 document.addEventListener('keydown',function(e){if($('photoCommentsPanel')&&!$('photoCommentsPanel').hidden&&e.target.closest('#photoCommentsPanel')===null)return;if(commentsPanel.hidden)return;if(['Escape','ArrowLeft','ArrowRight'].includes(e.key)){e.stopImmediatePropagation();if(e.key==='Escape'){e.preventDefault();closePhotoComments();}}},true);
 var layoutDrawViewer=drawPhotoViewer;
-drawPhotoViewer=function(){layoutDrawViewer();var p=photoViewerItems[photoViewerIndex];if(!p)return;var actions=$('photoViewerContent').querySelector('.detail-actions'),button=document.createElement('button');button.id='viewerCommentsButton';button.type='button';button.onclick=openPhotoComments;button.innerHTML=commentIcon()+'<span>댓글 '+photoComments(p).length+'</span>';actions.insertBefore(button,actions.children[2]);var like=$('photoViewerContent').querySelector('.detail-like span');if(like)like.textContent='좋아요 '+photoLikeCount(p);};
+drawPhotoViewer=function(){layoutDrawViewer();var p=photoViewerItems[photoViewerIndex];if(!p)return;var actions=$('photoViewerContent').querySelector('.detail-actions'),button=document.createElement('button');button.id='viewerCommentsButton';button.type='button';button.onclick=openPhotoComments;button.innerHTML=commentIcon()+'<span>댓글 '+photoComments(p).length+'</span>';actions.insertBefore(button,actions.children[2]);var info=actions.querySelector('[onclick="viewerPhotoInfo()"]');if(info){info.classList.add('detail-info-small');info.setAttribute('aria-label','사진 정보');$('photoViewerContent').querySelector('.detail-top').appendChild(info);}var like=$('photoViewerContent').querySelector('.detail-like span');if(like)like.textContent='좋아요 '+photoLikeCount(p);};
 var layoutCloseViewer=closePhotoViewer;
 closePhotoViewer=function(){closePhotoComments();layoutCloseViewer();};
 var layoutPhotoTile=albumPhotoTile;
@@ -1362,6 +1453,12 @@ window.addEventListener('resize',fitPhotoComments);
 window.visualViewport?.addEventListener('resize',fitPhotoComments);
 window.visualViewport?.addEventListener('scroll',fitPhotoComments);
 fitPhotoComments();
+var menuReturnPage='home',menuReturnTop=0;
+var menuBackGo=go;
+go=function(name){var active=document.querySelector('.screen.on'),from=active?.id.replace('s-','');if(name==='menu'&&from&&from!=='menu'&&!settingsScreens[from]&&from!=='face-register'){menuReturnPage=from;menuReturnTop=active.querySelector('.scroll')?.scrollTop||0;}menuBackGo(name);};
+function backFromMenu(){go(menuReturnPage);var sc=$('s-'+menuReturnPage)?.querySelector('.scroll');if(sc)sc.scrollTop=menuReturnTop;}
+var menuWithoutNavigation=renderMenuPage;
+renderMenuPage=function(){menuWithoutNavigation();$('s-menu').querySelectorAll('nav.tab').forEach(nav=>nav.remove());var back=document.createElement('button');back.type='button';back.className='iconbtn';back.id='menuBackButton';back.setAttribute('aria-label','메뉴에서 뒤로가기');back.innerHTML=BACK;back.onclick=backFromMenu;var header=document.createElement('header');header.className='menu-page-header';header.appendChild(back);header.appendChild($('menuPageContent').querySelector('h1'));$('menuPageContent').prepend(header);document.querySelectorAll('nav.tab').forEach(nav=>nav.remove());};
 renderMenuPage();updName();
 
 renderHome();renderOpts();renderPhotos();renderQR();
