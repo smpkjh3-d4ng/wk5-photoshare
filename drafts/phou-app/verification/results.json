@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "Empty home → create album without an end → share → album; invalid end rejected",
+    "Existing album opens with only All and Best-cut tabs; home bottom navigation removed",
+    "Own uploads, uploader, search and reset filter real displayed metadata",
+    "People/place/time/scenery/face stay inside All; back returns to unfiltered album",
+    "Download defaults to representatives and excludes own uploads in its actual scope",
+    "Selection download count matches its eligible representative-photo scope",
+    "Best-cut tab keeps eight entries and names its own download button",
+    "Album friend + opens selection and returns to album; QR/link sharing still opens separately",
+    "Comment input, whitespace rejection, registration, count and safe text rendering",
+    "Likes count/cancel, photo-only mode, per-photo comments, keyboard handling and close",
+    "Comments survive reload and remain isolated between albums",
+    "Existing album info editor saves optional end and consistent period wording",
+    "Native manual selection → 12-photo upload completes without deletion/capacity popup",
+    "Menu remains reachable; storage and original-deletion settings are removed",
+    "Same self-contained HTML responds to create/options clicks in desktop HTTP browser",
+    "No JavaScript page errors in the checked flows"
+  ],
+  "javascript_errors": [],
+  "blocked_checks": [
+    "Direct file:// navigation is blocked by the managed Chromium administrator policy; desktop and mobile HTTP paths were verified."
+  ]
+}
