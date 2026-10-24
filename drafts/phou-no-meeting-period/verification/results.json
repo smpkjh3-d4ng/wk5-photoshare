@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "No meeting period wording/settings in create/info",
+    "Album creation needs only name",
+    "Import range starts today and ends now",
+    "Import range remains editable",
+    "QR has no meeting date and retains invite expiry",
+    "Album heading/list have no meeting dates",
+    "Name/password save without meeting dates",
+    "No meeting dates in stored album metadata",
+    "Reload and additional imports work",
+    "Photo viewer/comment controls work"
+  ],
+  "javascript_errors": []
+}
